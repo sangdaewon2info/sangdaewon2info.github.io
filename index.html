@@ -60,13 +60,22 @@ h1{font-size:1.8em; line-height:1.32; margin:0 0 10px; letter-spacing:-.015em}
 .dday{display:inline-block; white-space:nowrap; background:var(--stop); color:#fff;
   border-radius:8px; padding:2px 14px; margin-left:8px}
 
-/* ── 관문 진행 막대 ── */
-.bars{display:flex; gap:5px; margin:14px 0 10px}
-.bars i{flex:1; height:26px; border-radius:5px; display:block; border:1.5px solid rgba(0,0,0,.14)}
-.bars i.go{background:var(--go)} .bars i.wait{background:var(--waitbg)} .bars i.stop{background:var(--stop)}
-.barkey{display:flex; gap:18px; flex-wrap:wrap; font-size:.88em; color:var(--muted); margin:0}
+/* ── 관문 7단계 ── */
+.steps{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:16px 0 14px}
+@media(min-width:620px){.steps{grid-template-columns:repeat(7,1fr)}}
+.steps a{display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+  gap:3px; text-decoration:none; color:var(--fg); padding:10px 4px 11px;
+  border-radius:10px; border:2px solid var(--line); background:var(--soft); min-height:84px}
+.steps a b{font-size:1.15em; line-height:1.2}
+.steps a span{font-size:.68em; line-height:1.3; text-align:center; font-weight:700}
+.steps a.stop{background:var(--stopbg); border-color:var(--stop); color:var(--stop)}
+.steps a.now{background:var(--waitbg); border-color:var(--wait); color:var(--wait)}
+.steps a.wait{background:var(--soft); border-color:var(--line); color:var(--muted)}
+.barkey{display:flex; gap:16px; flex-wrap:wrap; font-size:.86em; color:var(--muted); margin:0 0 12px}
 .barkey span{display:flex; align-items:center; gap:7px}
-.barkey b{width:16px; height:16px; border-radius:4px; display:inline-block; border:1.5px solid rgba(0,0,0,.14)}
+.barkey b{width:17px; height:17px; border-radius:5px; display:inline-block; border:2px solid}
+.stepnote{font-size:.9em; color:var(--muted); margin:0; line-height:1.65}
+.stepnote b{color:var(--fg)}
 
 /* ── 섹션 ── */
 section{margin:0 0 54px; scroll-margin-top:92px}
@@ -257,21 +266,26 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 <!-- ══ 상태판 ══ -->
 <div class="status">
   <div class="blk">
-    <p class="lab">착공까지 남은 관문</p>
-    <p class="v">7개 중 &nbsp;완료 0 · 진행 3 · 막힘 2 · 대기 2</p>
-    <div class="bars">
-      <i class="stop" title="① 시공사 확정 — 막힘"></i>
-      <i class="wait" title="② 사업시행계획 변경인가 — 진행"></i>
-      <i class="wait" title="③ 종후자산 감정평가 — 진행"></i>
-      <i class="wait" title="④ 관리처분계획 변경인가 — 대기"></i>
-      <i class="wait" title="⑤ 감리자 지정 — 대기"></i>
-      <i class="stop" title="⑥ 자금 조달 — 막힘"></i>
-      <i class="wait" title="⑦ 현장 인도·착공신고 — 대기"></i>
+    <p class="lab">착공까지 남은 절차</p>
+    <p class="v">7가지 가운데 <b>2가지가 막혀</b> 있습니다</p>
+    <div class="steps">
+      <a href="#s4" class="stop"><b>①</b><span>시공사<br>확정</span></a>
+      <a href="#s4" class="now"><b>②</b><span>사업시행<br>변경인가</span></a>
+      <a href="#s4" class="now"><b>③</b><span>감정<br>평가</span></a>
+      <a href="#s4" class="wait"><b>④</b><span>관리처분<br>변경인가</span></a>
+      <a href="#s4" class="wait"><b>⑤</b><span>감리자<br>지정</span></a>
+      <a href="#s4" class="stop"><b>⑥</b><span>자금<br>조달</span></a>
+      <a href="#s4" class="wait"><b>⑦</b><span>현장인도<br>착공신고</span></a>
     </div>
     <p class="barkey">
-      <span><b style="background:var(--go)"></b>통과</span>
-      <span><b style="background:var(--waitbg)"></b>진행·대기</span>
-      <span><b style="background:var(--stop)"></b>막힘</span>
+      <span><b style="background:var(--stopbg);border-color:var(--stop)"></b>막힘 2</span>
+      <span><b style="background:var(--waitbg);border-color:var(--wait)"></b>진행 중 2</span>
+      <span><b style="background:var(--soft);border-color:var(--line)"></b>차례 기다림 3</span>
+    </p>
+    <p class="stepnote">
+      막혀 있는 곳은 <b>① 시공사 확정</b>과 <b>⑥ 자금 조달</b> 두 군데입니다.
+      ①이 풀려야 나머지가 차례로 움직입니다. <a href="#s4">일곱 가지가 무엇인지 보기 ▶</a><br>
+      ※ 이미 끝난 일(이주·철거 등)은 빼고, <b>착공까지 남은 것만</b> 셌습니다.
     </p>
   </div>
   <div class="blk">
