@@ -59,6 +59,11 @@ h1{font-size:1.8em; line-height:1.32; margin:0 0 10px; letter-spacing:-.015em}
 .status .blk:last-child{border-bottom:0; padding-bottom:0}
 .dday{display:inline-block; white-space:nowrap; background:var(--stop); color:#fff;
   border-radius:8px; padding:2px 14px; margin-left:8px}
+.dday.past{background:var(--muted)}
+/* 오래된 내용 경고 */
+.stale{display:none; border:4px solid var(--stop); background:var(--stopbg); color:var(--stop);
+  border-radius:14px; padding:20px; margin:0 0 26px; font-weight:800; line-height:1.6}
+.stale span{display:block; font-weight:400; color:var(--fg); margin-top:8px; font-size:.95em}
 
 /* ── 관문 7단계 ── */
 .steps{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:16px 0 14px}
@@ -282,13 +287,15 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
 <header>
   <h1>상대원2구역<br>지금 어디까지 왔나</h1>
-  <p class="asof">2026년 7월 28일 정리 · 조합원이 만든 비공식 정리본</p>
+  <p class="asof"><b id="asof">2026년 7월 28일</b> 정리 · 조합원이 만든 비공식 정리본<span id="ago"></span></p>
 </header>
 
 <div class="tools">
   <button type="button" onclick="document.body.classList.toggle('big')">글씨 크게 / 작게</button>
   <button type="button" onclick="window.print()">인쇄하기</button>
 </div>
+
+<div class="stale" id="stale"></div>
 
 <!-- ══ 상태판 ══ -->
 <div class="status">
@@ -321,7 +328,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   </div>
   <div class="blk">
     <p class="lab">가장 가까운 일정</p>
-    <p class="v">8월 8일 임시총회 <span class="dday">11일 남음</span></p>
+    <p class="v">8월 8일 임시총회 <span class="dday" id="dday">…</span></p>
   </div>
 </div>
 
@@ -880,7 +887,39 @@ var ENTRY_ID = "";
 var OPENCHAT_URL = "https://open.kakao.com/o/sG5si8Fi";
 var CONTACT_MAIL = "";
 
+// ── 날짜 두 개만 고치면 나머지는 자동으로 계산됩니다 ──
+var UPDATED = "2026-07-28";  // 내용을 마지막으로 손본 날
+var MEETING = "2026-08-08";  // 다음 총회 날짜 (없으면 "" 로 비우십시오)
+var STALE_DAYS = 10;         // 이만큼 지나면 "오래된 내용" 경고가 뜹니다
+
 (function(){
+  // ── 날짜 자동 계산 ──
+  function d(s){var p=s.split('-'); return new Date(+p[0], +p[1]-1, +p[2]);}
+  var today = new Date(); today.setHours(0,0,0,0);
+  var DAY = 86400000;
+
+  if (MEETING) {
+    var left = Math.round((d(MEETING) - today) / DAY);
+    var el = document.getElementById('dday');
+    if (el) {
+      if (left > 0)      el.textContent = left + "일 남음";
+      else if (left === 0) el.textContent = "오늘";
+      else { el.textContent = "지났습니다"; el.classList.add('past'); }
+    }
+  }
+
+  var since = Math.round((today - d(UPDATED)) / DAY);
+  var ago = document.getElementById('ago');
+  if (ago) ago.textContent = since <= 0 ? " · 오늘 확인" : " · " + since + "일 전 확인";
+
+  if (since >= STALE_DAYS) {
+    var s = document.getElementById('stale');
+    s.innerHTML = "이 내용은 " + since + "일 전에 정리한 것입니다."
+      + "<span>그 사이에 법원 결정이나 총회 결과가 나왔을 수 있습니다. "
+      + "중요한 일은 반드시 조합 공식 안내(031-747-2730)로 다시 확인하십시오.</span>";
+    s.style.display = 'block';
+  }
+
   // ── 설문 ──
   document.getElementById('poll').addEventListener('submit', function(e){
     e.preventDefault();
