@@ -76,7 +76,8 @@ h1{font-size:1.8em; line-height:1.32; margin:0 0 10px; letter-spacing:-.015em}
 .stepnote{font-size:.9em; color:var(--muted); margin:0; line-height:1.65}
 .stepnote b{color:var(--fg)}
 
-section{margin:0 0 54px; scroll-margin-top:92px}
+/* 확대하면 상단 고정 막대도 함께 커지므로, 앵커 여백을 배율에 연동합니다 */
+section{margin:0 0 54px; scroll-margin-top:calc(92px * var(--scale))}
 h2{font-size:1.5em; line-height:1.4; margin:0 0 6px; padding-top:28px; border-top:4px solid var(--fg)}
 .h2sub{color:var(--muted); font-size:.95em; margin:0 0 22px}
 h3{font-size:1.15em; margin:34px 0 12px; line-height:1.5}
@@ -147,7 +148,7 @@ h3{font-size:1.15em; margin:34px 0 12px; line-height:1.5}
 .paths{background:var(--surface); border:2px solid var(--line); border-radius:14px;
   padding:20px 18px; margin:18px 0 26px}
 .paths .ph{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:0 0 10px;
-  position:sticky; top:78px; background:var(--surface); z-index:10; padding:6px 0}
+  position:sticky; top:calc(78px * var(--scale)); background:var(--surface); z-index:10; padding:6px 0}
 .paths .ph div{font-weight:800; font-size:.9em; text-align:center; padding:9px 6px;
   border-radius:8px; line-height:1.35}
 .paths .ph .hg{background:var(--sideAbar)}
@@ -351,7 +352,9 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 }
 </style>
 </head>
-<body>
+<!-- 기본을 '글씨 크게'로 둡니다. 고령 독자가 대부분이라 확대가 기본값이어야 합니다.
+     작게 보고 싶은 분만 버튼을 누르시면 됩니다. -->
+<body class="big">
 <div class="wrap">
 
 <header>
@@ -361,7 +364,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
 <div class="tools">
   <div class="trow">
-    <button type="button" id="bigBtn">글씨 크게</button>
+    <button type="button" id="bigBtn">글씨 작게</button>
     <button type="button" onclick="window.print()">인쇄</button>
     <button type="button" id="tocBtn" aria-expanded="false">목차 ▾</button>
   </div>
