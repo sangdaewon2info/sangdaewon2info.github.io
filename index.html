@@ -294,6 +294,21 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 .mxh{font-weight:800; font-size:1.15em; margin:0 0 12px; padding:12px 18px;
   background:var(--fg); color:var(--surface); border-radius:10px}
 
+
+/* ── 일정표 ── */
+.sched{border:2px solid var(--line); border-radius:14px; overflow:hidden; background:var(--surface)}
+.sr{border-bottom:2px solid var(--line)}
+.sr:last-child{border-bottom:0}
+.sr.hi{background:var(--accentbg)}
+.sw{font-weight:800; padding:12px 18px 0; font-size:.95em; color:var(--accent)}
+.sb{padding:4px 18px 16px}
+.st{font-weight:800; font-size:1.08em; margin:0 0 6px}
+.sb p{margin:0; line-height:1.65}
+@media(min-width:700px){
+  .sr{display:grid; grid-template-columns:13em 1fr}
+  .sw{padding:16px 18px; border-right:2px solid var(--line)}
+  .sb{padding:16px 18px}
+}
 @media print{
   .tools,.poll,.report,.fixme{display:none!important}
   body{font-size:11pt; --scale:1; background:#fff}
@@ -375,6 +390,9 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   <p class="big">이 내용은 어디서 가져온 것입니까</p>
   <p>조합 공지 단톡방과 정상화모임(착해모) 단톡방, <b>두 곳에 실제로 올라온 글</b>을 그대로 정리한 것입니다. 여기에 법원 결정과 언론 보도로 확인되는 사실을 더했습니다.</p>
   <p>새로 취재하거나 조사한 내용은 없습니다. <b>양측이 각자 한 말을 옮긴 것</b>입니다.</p>
+  <p><b>여기서 꼭 알아두실 것이 있습니다.</b> 조합은 2026년 7월 24일 내용증명에서
+     <b>“카카오톡 단체방은 조합의 공식적인 안내 수단이 아니며, 공식 안내는 조합 다음카페·문자·소식지를 통해 이루어진다”</b>고 밝혔습니다.
+     따라서 단톡방 글은 참고 자료일 뿐이며, <b>공식 확인은 반드시 조합 다음카페나 조합에서 보낸 문서로 하셔야 합니다.</b></p>
   <p class="big">그래서 잘못 읽었을 수 있습니다.</p>
   <p>단톡방 글은 길고 서로 엇갈려서, 만든 사람이 뜻을 잘못 이해했거나 중요한 내용을 빠뜨렸을 수 있습니다. 특히 <b>총회 책자와 계약서 원문은 보지 못한 채</b> 정리했습니다.</p>
   <p><b>틀린 곳을 발견하시면 꼭 알려주십시오.</b> 조합 측이든 비대위 측이든 관계없이 받습니다. 확인되면 고치고, 무엇을 고쳤는지도 함께 적어 둡니다.
@@ -721,10 +739,17 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
   <div class="qrow">비례율 — 지금 얼마인가</div>
   <div class="side"><div class="cap" style="background:var(--soft)">양측 모두 확정 수치 없음</div><div class="body" style="background:var(--surface)">
-    <span class="tag t-claim">공개된 자료 없음</span>
-    <p>2025년경 매수하신 분들은 <b>비례율 약 130%</b>라는 설명을 듣고 계약한 경우가 많습니다. 현재 비례율은 <b>공식적으로 공개된 바가 없습니다.</b></p>
-    <p>조합은 "관리처분계획 변경 절차가 끝나면 실제 비례율을 안내하겠다"는 입장이고(7/24), 비대위 측은 내용증명으로 공개를 요구하고 있습니다(7/20).</p>
-    <p class="note">비례율은 분담금에 직접 영향을 주는 숫자입니다. 이 페이지도 확인되는 대로 반영하겠습니다.</p>
+    <span class="tag t-doc">조합 내용증명 (2026.7.24)</span>
+    <p>조합원이 비례율 공개를 요구하자, 조합은 내용증명으로 다음과 같이 답했습니다.</p>
+    <p>· 최초 관리처분계획인가는 <b>2021년 12월 31일</b>에 받았고, 당시 공사비는 <b>평당 459만원</b>이었다.<br>
+       · <b>지금까지 안내된 비례율은 그 2021년 인가 당시에 산정된 숫자다.</b><br>
+       · 앞으로 관리처분계획 변경인가 때 <b>변경된 공사비·종후자산 감정평가액·일반분양가를 반영해 비례율을 다시 계산</b>한다.<br>
+       · <b>“현재 시점에서는 비례율을 안내해 드릴 단계가 아니므로 확정된 내용을 안내드릴 수 없다.”</b></p>
+    <div class="plain" style="margin-top:14px"><b>쉽게 말하면 —</b>
+      매수하실 때 들으셨을 <b>비례율은 2021년 기준 숫자</b>이고,
+      그때 공사비 459만원이 지금 682~729만원으로 올랐으므로
+      <b>새 비례율은 관리처분계획 변경인가가 끝나야 나옵니다.</b>
+      그 전까지는 내 분담금이 얼마가 될지 아무도 확정해 말할 수 없습니다.</div>
   </div></div>
 
   <p class="fixme"><a href="#s7" data-fix="3. 내 돈은 어떻게 되나">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
@@ -827,7 +852,29 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
         <dt>비대위·DL 측</dt>
         <dd>GS로 가면 <b>설계가 바뀌어 건축심의부터 새로 받아야 하고, 인허가를 처음부터 다시 밟게 되어 최소 2년이 더 걸린다</b>고 주장합니다. DL로 가면 기존 설계 그대로라 이 과정이 없다는 것입니다.</dd>
       </dl>
-      <p class="hint" style="margin-top:12px">※ 조합 측은 이 주장에 대해 「상대원2구역 팩트체크 1. 착공일정 설계특허」라는 자료로 반박한 바 있습니다(2026.3.22). <a href="http://pf.kakao.com/_JAyAX/112799402" target="_blank" rel="noopener">자료 보기</a> — 다만 <b>내용이 이미지로만 되어 있어 이 페이지에 옮기지 못했습니다.</b> 이 자료는 <b>GS건설 공식 카카오톡 채널(‘상대원2구역 자이’)</b>에 올라와 있습니다. 보신 분은 내용을 알려주십시오.</p>
+      <p class="hint" style="margin-top:12px">※ 이 자료는 <b>GS건설 공식 카카오톡 채널(‘상대원2구역 자이’)</b>에 올라와 있습니다(2026.3.22).
+        <a href="http://pf.kakao.com/_JAyAX/112799402" target="_blank" rel="noopener">자료 보기</a></p>
+    </div>
+
+    <div class="altpath">
+      <p class="ah">조합 측은 이렇게 반박했습니다</p>
+      <span class="tag t-claim">조합 측 주장 · 조합원 제보로 확인</span>
+      <p>「상대원2구역 팩트체크 1. 착공일정 설계특허」의 요지입니다.</p>
+      <p>· <b>“착공이 늦어진다는 것은 사실이 아니다.”</b> 2026년 8월 착공으로 확정되어 있고, 제안서에 명시되어 있으며,
+         <b>착공 확약서 제출과 조합이 제시한 계약조건 수용이 모두 완료</b>되었다.<br>
+         · 오히려 <b>DL이앤씨 쪽이 착공 일정을 계속 바꿔 왔고, 도급계약도 마치지 못했다.</b><br>
+         · <b>특허 분쟁도, 사업 지연도 없을 것</b>이며, 2030년 11월 준공을 제시하고 있다.</p>
+
+      <p class="ah" style="margin-top:18px">그런데 조합원들이 여기서 혼란스러워합니다</p>
+      <p>조합 공식 단톡방에서 한 조합원이 <b>“GS로 확정되면 사업시행인가를 다시 받아야 하나요?”</b>라고 묻자
+        조합 이사는 <b>“사업시행인가 다시 받지 않습니다”</b>, 조합장은 <b>“시공사 변경은 인허가(사업시행인가)와 무관합니다”</b>라고 답했습니다.</p>
+      <p>그런데 <b>8월 8일 총회 제10호 안건이 바로 「사업시행계획 변경(안) 수립 및 신청 승인의 건」</b>입니다.</p>
+      <p>조합은 이 둘이 <b>서로 다른 사안</b>이라고 설명합니다. 제10호는 시공사 교체 때문이 아니라
+        <b>2025년 10월 인가 때 붙은 비행안전평가 조건을 이행하기 위한 것</b>이라는 것입니다.</p>
+      <p>비대위 측은 <b>제10호에 찬성하면 GS로 가더라도 올해 착공은 불가능해진다</b>고 주장하며,
+        인가가 나면 행정처분이 되어 <b>나중에 법원이 DL의 손을 들어주더라도 되돌리기 어려워진다</b>고 봅니다.</p>
+      <p class="hint" style="margin-top:12px">※ 조합 단톡방에서는 <b>DL의 특허공법 때문에 설계변경인가를 다시 받아야 하는지</b>에 대해
+        법무법인(김앤장)의 답변이 공유됐다는 언급도 있습니다. <b>그 답변 원문은 확인하지 못했습니다.</b> 갖고 계신 분은 알려주십시오.</p>
     </div>
   </div>
 
@@ -842,8 +889,10 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   </div>
 
   <div class="gate wait">
-    <p class="gh">⑤ 감리자 지정</p><p class="gs">대기 · 어느 쪽이든 공통 — 약 3개월</p>
-    <p>공사를 감독할 감리자를 성남시가 지정합니다. 도급계약서가 있어야 신청할 수 있습니다. 조합 측도 <b>"DL로 가더라도 감리자 선정에만 2~3개월이 걸린다"</b>고 밝힌 바 있습니다(5/18).</p>
+    <p class="gh">⑤ 감리자 지정</p><p class="gs">신청 완료 · 지정 대기</p>
+    <p>공사를 감독할 감리자를 성남시가 지정합니다. 조합 공식 일정표에 따르면
+   <b>2026년 6월 1일 성남시에 감리자 지정 신청을 완료</b>했습니다. 지금은 성남시의 지정을 기다리는 단계입니다.</p>
+ <p>조합 측은 <b>"DL로 가더라도 감리자 선정에만 2~3개월이 걸린다"</b>고 밝힌 바 있습니다(5/18).</p>
   </div>
 
   <div class="gate stop">
@@ -969,6 +1018,89 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
 
   <p class="fixme"><a href="#s7" data-fix="5. 법원이 판단한 것">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
+</section>
+
+
+<!-- ══ 조합 공식 일정 ══ -->
+<section id="sched">
+  <h2>조합이 내놓은 공식 일정표</h2>
+  <p class="h2sub">조합장 직인이 찍힌 문서에 적힌 계획입니다. 계획이지 확정이 아닙니다.</p>
+
+  <div class="sched">
+    <div class="sr"><div class="sw">2026년 5~7월</div><div class="sb">
+      <p class="st">동호수 추첨 및 관리처분계획 변경 준비</p>
+      <p>GS건설 선정(5/30) · <b>감리자 지정 신청 완료(6/1)</b> · 부동산원 동호수 추첨 신청 ·
+         침례교회 이주(6/3) · 공사비 및 도급계약서 체결 · 종후자산평가</p></div></div>
+    <div class="sr hi"><div class="sw">2026년 8~9월</div><div class="sb">
+      <p class="st">착공</p>
+      <p>조합원 동호수 추첨 · 착공계 접수 관계부서 협의 · <b>착공신고</b></p></div></div>
+    <div class="sr"><div class="sw">2026년 10~12월</div><div class="sb">
+      <p class="st">관리처분계획 변경인가</p>
+      <p>관리처분 변경을 위한 임시총회 · 관리처분계획 변경 접수 · 조합원 분양계약(동·호수 계약)</p></div></div>
+    <div class="sr"><div class="sw">2027년 1~4월</div><div class="sb">
+      <p class="st">일반분양</p>
+      <p>모델하우스 오픈 · 일반분양</p></div></div>
+  </div>
+  <p class="bnote">문서에 “상기 일정은 예상계획이며, 업무추진에 따라 변경될 수 있습니다”라고 적혀 있습니다.</p>
+
+  <div class="qrow">이 일정표에서 조합원들이 묻는 것</div>
+  <div class="vs">
+    <div class="side a"><div class="cap">조합 측</div><div class="body">
+      <span class="tag t-doc">조합 공식 일정표</span>
+      <p>8~9월에 착공하고, <b>관리처분계획 변경인가는 그 뒤인 10~12월</b>에 하는 것으로 계획되어 있습니다.</p>
+      <p>착공을 먼저 해서 시간을 벌고, 확정된 공사비와 일반분양가를 반영한 관리처분 변경은 이어서 처리하겠다는 것입니다.</p>
+    </div></div>
+    <div class="side b"><div class="cap">비대위 측</div><div class="body">
+      <span class="tag t-claim">주장</span>
+      <p><b>순서가 뒤바뀌었다</b>고 봅니다. 도시정비법상 조합원에게 집을 배정하는 것은 <b>인가받은 관리처분계획에 따라야 하는데</b>,
+         계획이 확정되기도 전에 동호수 추첨부터 하는 것은 근거가 없다는 주장입니다.</p>
+      <p>관리처분 변경 전에는 <b>내 분담금이 얼마인지 모르는 상태에서 동·호수를 정하게 된다</b>는 점도 지적합니다.</p>
+    </div></div>
+  </div>
+  <p class="fixme"><a href="#s7" data-fix="조합 공식 일정표">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
+</section>
+
+<!-- ══ 총회 비용 ══ -->
+<section id="cost">
+  <h2>총회 한 번에 드는 돈</h2>
+  <p class="h2sub">8월 8일 총회 책자에 실린 비용 예산(안)입니다. 조합원이 부담하는 돈입니다.</p>
+
+  <div class="chart">
+    <p class="ct">2026년도 2차 임시총회 비용 예산(안)</p>
+    <p class="cs">총회 책자 108쪽 · 총계 <b>12억 4,947만원</b></p>
+    <div class="brow"><p class="bl"><span>총회 홍보 인건비 (홍보인원 50인)</span><b>5억 8,500만원</b></p>
+      <div class="bt"><div class="bf gs" style="width:47%"></div></div>
+      <p class="bnote">65일 × 50명 × 하루 18만원</p></div>
+    <div class="brow"><p class="bl"><span>안전요원 1,500명</span><b>2억 7,000만원</b></p>
+      <div class="bt"><div class="bf dl" style="width:22%"></div></div></div>
+    <div class="brow"><p class="bl"><span>서면결의서 제출 회의비 (1,300명 × 7만원)</span><b>9,100만원</b></p>
+      <div class="bt"><div class="bf base" style="width:7%"></div></div></div>
+    <div class="brow"><p class="bl"><span>직접 참석 회의비 (700명 × 10만원)</span><b>7,000만원</b></p>
+      <div class="bt"><div class="bf base" style="width:6%"></div></div>
+      <p class="bnote">서면결의서를 낸 뒤 직접 참석하면 10만원을 지급</p></div>
+    <div class="brow"><p class="bl"><span>총회책자 제작 (2,800부)</span><b>4,200만원</b></p>
+      <div class="bt"><div class="bf base" style="width:3%"></div></div></div>
+    <div class="brow"><p class="bl"><span>총회장 대관료</span><b>1,700만원</b></p>
+      <div class="bt"><div class="bf base" style="width:1.5%"></div></div></div>
+    <p class="bnote" style="margin-top:20px;padding-top:16px;border-top:2px solid var(--line)">
+      그 밖에 우편료·인쇄·속기·영상촬영·현수막·예비비 등이 포함되어 총계 <b>12억 4,947만원</b>입니다.</p>
+  </div>
+
+  <div class="vs">
+    <div class="side a"><div class="cap">조합 측 설명</div><div class="body">
+      <span class="tag t-doc">총회 책자 기재</span>
+      <p>책자에 이렇게 적혀 있습니다 — <b>“그동안 총회 비용 및 상기 총회 비용은 비상대책위원회(착해모)의 반복적인 임시총회 개최 방해로 인해 비용이 지속적으로 발생한 것으로,
+         조합은 이에 따른 손해에 대하여 비대위를 상대로 민사상 손해배상 청구를 추진할 예정입니다.”</b></p>
+      <p>실비 정산을 원칙으로 하며 항목 간 조정이 있을 수 있다고 밝히고 있습니다.</p>
+    </div></div>
+    <div class="side b"><div class="cap">비대위 측 주장</div><div class="body">
+      <span class="tag t-claim">주장</span>
+      <p>제5호 안건은 <b>4월 11일 총회 비용 12억을 조합원이 대신 내라는 것</b>이라고 봅니다.
+         그 총회는 법원에서 효력이 정지됐는데 그 비용을 왜 조합원이 부담하느냐는 것입니다.</p>
+      <p>홍보인원 인건비와 참석 회의비 지급이 <b>사실상 참석을 유도하기 위한 지출</b>이라고 지적합니다.</p>
+    </div></div>
+  </div>
+  <p class="fixme"><a href="#s7" data-fix="총회 비용">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
 </section>
 
 <!-- ══ 6 ══ -->
