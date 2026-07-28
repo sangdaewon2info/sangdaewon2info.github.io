@@ -256,6 +256,44 @@ a.src{display:inline-block; font-weight:700; margin-top:4px}
 footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   color:var(--muted); font-size:.9em}
 
+
+/* ── 한눈에 보기 ── */
+.oneline{border:3px solid var(--fg); border-radius:16px; overflow:hidden; background:var(--surface)}
+.ol{padding:18px 20px; border-bottom:2px solid var(--line)}
+.ol:last-child{border-bottom:0}
+.ol.hi{background:var(--accentbg)}
+.ol .q{margin:0 0 6px; font-size:.95em; color:var(--muted); font-weight:700}
+.ol .a{margin:0; font-size:1.05em; line-height:1.6}
+.ol .a .s{display:block; font-size:.86em; color:var(--muted); font-weight:400; margin-top:5px; line-height:1.6}
+@media(min-width:700px){
+  .ol{display:grid; grid-template-columns:11em 1fr; gap:20px; align-items:baseline}
+  .ol .q{margin:0}
+}
+
+/* ── 진행 상황 타임라인 ── */
+.flow{position:relative; padding-left:34px}
+.flow::before{content:""; position:absolute; left:9px; top:10px; bottom:10px; width:3px; background:var(--line)}
+.fi{position:relative; padding:0 0 26px}
+.fi::before{content:""; position:absolute; left:-32px; top:8px; width:19px; height:19px;
+  border-radius:50%; background:var(--surface); border:4px solid var(--muted)}
+.fi.ct::before{border-color:var(--accent)}
+.fi.soon::before{border-color:var(--wait); background:var(--waitbg)}
+.fd{font-weight:800; font-size:1.02em}
+.ft{margin:3px 0 0; line-height:1.65}
+.fw{display:inline-block; font-size:.75em; font-weight:800; margin-top:8px;
+  padding:2px 11px; border-radius:999px; background:var(--soft); color:var(--muted); border:1.5px solid var(--line)}
+.fi.ct .fw{background:var(--accentbg); color:var(--accent); border-color:var(--accent)}
+.fi.soon .fw{background:var(--waitbg); color:var(--wait); border-color:var(--wait)}
+.fi.now{background:var(--stopbg); border:2px solid var(--stop); border-radius:12px;
+  padding:16px 18px; margin:0 0 26px}
+.fi.now::before{border-color:var(--stop); background:var(--stopbg); width:25px; height:25px; left:-37px; top:18px}
+.fi.now .fw{background:var(--stop); color:#fff; border-color:var(--stop)}
+
+/* ── DL vs GS 네 칸 ── */
+.mx{margin:0 0 30px}
+.mxh{font-weight:800; font-size:1.15em; margin:0 0 12px; padding:12px 18px;
+  background:var(--fg); color:var(--surface); border-radius:10px}
+
 @media print{
   .tools,.poll,.report,.fixme{display:none!important}
   body{font-size:11pt; --scale:1; background:#fff}
@@ -343,9 +381,127 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
      <br><a href="#s7"><b>▶ 고쳐야 할 곳 알려주기</b></a></p>
 </div>
 
+<!-- ══ 한눈에 보기 ══ -->
+<section id="sum">
+  <h2>한눈에 보기</h2>
+  <p class="h2sub">자세한 설명은 아래에 있습니다. 급하시면 이 표만 보셔도 됩니다.</p>
+
+  <div class="oneline">
+    <div class="ol"><p class="q">시공사는 정해졌습니까</p>
+      <p class="a"><b>아직입니다.</b> 5월 30일 총회로 GS건설이 뽑혔지만, 그 총회가 유효한지에 대한 법원 판단이 남았습니다.</p></div>
+
+    <div class="ol"><p class="q">착공은 언제입니까</p>
+      <p class="a">조합 측 <b>2026년 8~9월</b> · 비대위 측 <b>2027년 11월</b><br>
+        <span class="s">양쪽 주장이 15개월 넘게 차이 납니다. <a href="#s2">자세히 ▶</a></span></p></div>
+
+    <div class="ol"><p class="q">공사비는 얼마입니까</p>
+      <p class="a">평당 <b>DL 682만원 · GS 729만원</b><br>
+        <span class="s">2021년 관리처분 기준은 459만원이었습니다. <a href="#s3">자세히 ▶</a></span></p></div>
+
+    <div class="ol"><p class="q">제 분담금은 얼마가 됩니까</p>
+      <p class="a"><b>아직 나온 것이 없습니다.</b><br>
+        <span class="s">비례율도 공개되지 않았습니다. 관리처분 변경 절차가 끝나야 나옵니다.</span></p></div>
+
+    <div class="ol"><p class="q">조합장은 어떻게 되었습니까</p>
+      <p class="a"><b>해임되지 않았고, 불구속 상태로 수사받고 있습니다.</b><br>
+        <span class="s">6월 26일 구속영장이 기각됐습니다. 기각은 무죄가 아니며 수사는 계속됩니다. <a href="#s5">자세히 ▶</a></span></p></div>
+
+    <div class="ol"><p class="q">다음 일정은 무엇입니까</p>
+      <p class="a"><b>8월 8일 임시총회</b><br>
+        <span class="s">그 전에 5월 30일 총회에 대한 법원 결정이 나올 예정입니다.</span></p></div>
+
+    <div class="ol hi"><p class="q">저는 무엇을 하면 됩니까</p>
+      <p class="a"><b>8월 8일 총회에 참석하시거나 서면결의서를 내십시오.</b><br>
+        <span class="s">이주비 대출 이자는 조합이 내고 있으니 <b>직접 내지 마십시오.</b> 문의는 조합 사무실 031-747-2730</span></p></div>
+  </div>
+</section>
+
+<!-- ══ 진행 상황 ══ -->
+<section id="flow">
+  <h2>지금까지의 진행</h2>
+  <p class="h2sub">총회와 법원 판단이 번갈아 이어져 왔습니다.</p>
+
+  <div class="flow">
+    <div class="fi"><span class="fd">4월 11일</span>
+      <p class="ft">조합 총회에서 <b>DL이앤씨 해지</b>가 가결됨</p><span class="fw">총회</span></div>
+    <div class="fi ct"><span class="fd">4월 29일</span>
+      <p class="ft">법원이 그 결의의 <b>효력을 정지</b>. DL의 시공사 지위 유지</p><span class="fw">법원</span></div>
+    <div class="fi"><span class="fd">5월 22일</span>
+      <p class="ft">비대위가 <b>집행부 해임총회</b>를 열고 가결을 선포</p><span class="fw">총회</span></div>
+    <div class="fi ct"><span class="fd">5월 29일</span>
+      <p class="ft">5월 30일 총회를 막아 달라는 신청이 <b>기각</b>됨</p><span class="fw">법원</span></div>
+    <div class="fi"><span class="fd">5월 30일</span>
+      <p class="ft">조합원 발의 총회에서 <b>DL 해지 · GS건설 선정 · 집행부 재신임</b>이 가결됨</p><span class="fw">총회</span></div>
+    <div class="fi ct"><span class="fd">6월 26일</span>
+      <p class="ft">조합장에 대한 <b>구속영장이 기각</b>됨. 불구속 수사로 진행</p><span class="fw">법원</span></div>
+    <div class="fi ct"><span class="fd">7월 10일</span>
+      <p class="ft">법원이 <b>5월 22일 해임총회는 정족수 미달</b>이라며 효력을 정지</p><span class="fw">법원</span></div>
+    <div class="fi now"><span class="fd">지금</span>
+      <p class="ft"><b>5월 30일 총회가 유효한지에 대한 법원 결정을 기다리는 중</b><br>7월 안에 나올 예정입니다. 이 결정이 앞으로의 방향을 크게 좌우합니다.</p><span class="fw">대기</span></div>
+    <div class="fi soon"><span class="fd">8월 8일</span>
+      <p class="ft"><b>임시총회 예정</b> — 사업시행계획 변경, 대의원 선출, 예산안 <a href="#s1">안건 보기 ▶</a></p><span class="fw">예정</span></div>
+  </div>
+</section>
+
+<!-- ══ DL vs GS ══ -->
+<section id="vs">
+  <h2>DL이앤씨와 GS건설 — 양측은 각각 어떻게 보는가</h2>
+  <p class="h2sub">같은 회사를 두고 조합 측과 비대위 측의 평가가 정반대입니다. 네 칸을 모두 읽어 보십시오.</p>
+
+  <div class="mx">
+    <p class="mxh">DL이앤씨에 대하여</p>
+    <div class="vs">
+      <div class="side a"><div class="cap">조합 측이 보는 DL</div><div class="body">
+        <span class="tag t-claim">주장</span>
+        <p>계약서에 <b>독소조항</b>이 있다. 공사비 증액을 거부하면 사업비 대여 중단·공사 중단·입주 거부까지 할 수 있는 구조다.</p>
+        <p>682만원은 2025년 8월 기준일 뿐이고, 물가변동을 반영하면 <b>최종 818만원</b>이 된다.</p>
+        <p>2026년 1월부터 <b>이주비 대출 날인을 거부</b>해 조합원에게 부담을 떠넘기려 했다.</p>
+        <p>총회를 가처분으로 막으려 하는 등 사업을 지연시켰다.</p>
+      </div></div>
+      <div class="side b"><div class="cap">비대위 측이 보는 DL</div><div class="body">
+        <span class="tag t-claim">주장</span>
+        <p><b>682만원 확정 공사비</b>에 책임준공까지 확약받았다. 지금 물가에 이런 조건은 없다.</p>
+        <p><b>계약만 체결하면 즉시 착공</b>이 가능하다. 4월에 시공 확약서도 냈다.</p>
+        <p>기존 설계와 인허가가 그대로라 <b>추가 절차가 없다.</b></p>
+        <p>이미 현장을 맡고 있어 <b>인도 절차도 필요 없다.</b></p>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="mx">
+    <p class="mxh">GS건설에 대하여</p>
+    <div class="vs">
+      <div class="side a"><div class="cap">조합 측이 보는 GS</div><div class="body">
+        <span class="tag t-claim">주장</span>
+        <p><b>729만원 확정 공사비.</b> 경쟁을 통해 끌어낸 좋은 조건이다.</p>
+        <p>8월 착공을 목표로 하며, 9월로 밀리더라도 <b>같은 조건을 적용받도록 유예</b>를 확보했다.</p>
+        <p>5월 15일 산출내역서 제출을 마쳤고, 도급계약이 확정되는 대로 감리자 지정을 신청한다.</p>
+        <p>앞으로 증액 요구에 시달리지 않으려면 계약 구조를 봐야 한다.</p>
+      </div></div>
+      <div class="side b"><div class="cap">비대위 측이 보는 GS</div><div class="body">
+        <span class="tag t-claim">주장</span>
+        <p><b>변동 공사비</b>다. 물가가 오르거나 설계가 바뀌면 올려주기로 계약서에 적혀 있다.</p>
+        <p><b>영업정지 문제</b>가 걸려 있어 일반분양 일정에 영향을 줄 수 있다.</p>
+        <p>비슷한 규모의 다른 구역과 달리 <b>피해보상 확약서가 없고, 입찰보증금도 낮은 데다 반환까지 의결</b>됐다.</p>
+        <p>HUG 보증을 넘기는 데 6개월, 현장을 넘겨받는 데 10개월이 걸린다.</p>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="plain">
+    <b>이 표를 보실 때 —</b> 양측 모두 <b>자기가 미는 시공사는 좋게, 상대편 시공사는 나쁘게</b> 말합니다.
+    그래서 어느 한쪽만 읽으면 정반대의 결론에 이르게 됩니다. 네 칸을 모두 읽고 판단하시는 것이 중요합니다.<br><br>
+    자료의 출처도 함께 보십시오. <b>조합 측의 「팩트체크」 자료는 GS건설 공식 카카오톡 채널(‘상대원2구역 자이’)에 올라와 있고,
+    비대위 측 자료에는 DL이앤씨가 보낸 공문이 그대로 인용된 경우가 많습니다.</b>
+    양쪽 다 시공사와 무관한 제3자의 자료가 아닙니다.
+  </div>
+</section>
+
+<h2 style="margin-bottom:26px">여기서부터는 자세한 내용입니다</h2>
+
 <!-- ══ 1 ══ -->
 <section id="s1">
-  <h2>1. 8월 8일 임시총회 — 무엇을 정하는 자리인가</h2>
+  <h2>8월 8일 임시총회 — 무엇을 정하는 자리인가</h2>
   <p class="h2sub">지금 조합원이 실제로 할 수 있는 일은 이것 하나입니다. 책자는 7월 24일 발송되었습니다.</p>
 
   <div class="gate now">
@@ -409,7 +565,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
 <!-- ══ 2 ══ -->
 <section id="s2">
-  <h2>2. 착공은 언제인가</h2>
+  <h2>착공은 언제인가 — 왜 이렇게 차이가 나나</h2>
   <p class="h2sub">가장 많이 묻는 질문입니다. 양측은 <b>서로 다른 시공사를 전제로</b> 계산하고 있어서, 나란히 놓고 봐야 뜻이 통합니다.</p>
 
   <div class="chart">
@@ -482,7 +638,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
 <!-- ══ 3 ══ -->
 <section id="s3">
-  <h2>3. 내 돈은 어떻게 되나</h2>
+  <h2>내 돈은 어떻게 되나</h2>
   <p class="h2sub">이주비 이자 · 공사비 · 분담금 · 비례율</p>
 
   <div class="qrow">이주비 대출 이자 — 지금 누가 내고 있나</div>
@@ -576,7 +732,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
 <!-- ══ 4 ══ -->
 <section id="s4">
-  <h2>4. 착공까지 남은 관문 7개</h2>
+  <h2>착공까지 남은 관문 7개</h2>
   <p class="h2sub">단계의 이름은 같지만, <b>어느 시공사로 가느냐에 따라 내용이 달라집니다.</b> 두 경우를 나란히 적었습니다.</p>
 
   <div class="plain">
@@ -671,7 +827,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
         <dt>비대위·DL 측</dt>
         <dd>GS로 가면 <b>설계가 바뀌어 건축심의부터 새로 받아야 하고, 인허가를 처음부터 다시 밟게 되어 최소 2년이 더 걸린다</b>고 주장합니다. DL로 가면 기존 설계 그대로라 이 과정이 없다는 것입니다.</dd>
       </dl>
-      <p class="hint" style="margin-top:12px">※ 조합 측은 이 주장에 대해 「팩트체크 1. 착공일정 설계특허」라는 영상으로 반박한 바 있으나(5/10), <b>영상 내용은 확인하지 못했습니다.</b> 아시는 분은 알려주십시오.</p>
+      <p class="hint" style="margin-top:12px">※ 조합 측은 이 주장에 대해 「상대원2구역 팩트체크 1. 착공일정 설계특허」라는 자료로 반박한 바 있습니다(2026.3.22). <a href="http://pf.kakao.com/_JAyAX/112799402" target="_blank" rel="noopener">자료 보기</a> — 다만 <b>내용이 이미지로만 되어 있어 이 페이지에 옮기지 못했습니다.</b> 이 자료는 <b>GS건설 공식 카카오톡 채널(‘상대원2구역 자이’)</b>에 올라와 있습니다. 보신 분은 내용을 알려주십시오.</p>
     </div>
   </div>
 
@@ -726,7 +882,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
 <!-- ══ 5 ══ -->
 <section id="s5">
-  <h2>5. 법원이 실제로 판단한 것</h2>
+  <h2>법원이 판단한 것 · 조합장 수사</h2>
   <p class="h2sub">양측 주장과 달리, 이것은 확인 가능한 사실입니다.</p>
 
   <div class="log">
@@ -755,6 +911,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
       <span class="tag t-ok">법원 결정</span><br>
       <a class="src" href="https://v.daum.net/v/20260629180047054?f=p" target="_blank" rel="noopener">기사 보기</a>
     </div>
+
     <div class="item ok">
       <p class="d">7월 10일</p>
       <p class="t">법원이 <b>5월 22일 비대위 주최 해임총회는 정족수에 미달한다</b>고 판단해 효력을 정지했습니다. 조합장은 해임되지 않은 상태입니다.</p>
@@ -768,12 +925,55 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     </div>
   </div>
 
+  <h3>조합장 수사는 어떻게 진행되고 있습니까</h3>
+  <p>가장 많이 오해가 생기는 부분이라 시간 순서대로 적습니다.</p>
+
+  <div class="log">
+    <div class="item ok">
+      <p class="d">수사 내용</p>
+      <p class="t">경찰은 조합장이 <b>자재 납품 등 계약상 편의를 제공하는 대가로 특정 업체 관계자로부터 수억 원의 금품을 받은 혐의</b>로 수사하고 있습니다. 압수수색과 출국금지가 이루어졌습니다.</p>
+      <span class="tag t-ok">언론 보도</span>
+    </div>
+    <div class="item ok">
+      <p class="d">5월 29일 · 6월 23일</p>
+      <p class="t">경찰이 구속영장을 <b>두 차례</b> 신청했습니다. 첫 번째는 <b>5월 30일 총회 하루 전</b>, 두 번째는 <b>가처분 결정을 앞둔 시점</b>이었습니다.</p>
+      <span class="tag t-ok">언론 보도</span>
+    </div>
+    <div class="item ok">
+      <p class="d">6월 26일</p>
+      <p class="t">법원이 영장을 <b>기각</b>했습니다. 현재 <b>불구속 상태로 수사가 계속되고 있습니다.</b></p>
+      <span class="tag t-ok">법원 결정</span>
+    </div>
+  </div>
+
+  <div class="vs">
+    <div class="side a"><div class="cap">조합 측 입장</div><div class="body">
+      <span class="tag t-claim">주장</span>
+      <p>금품을 받은 사실이 <b>전혀 없다</b>며 혐의를 부인하고 있습니다.</p>
+      <p>영장 신청이 <b>총회와 가처분 결정 직전에 이루어진 점</b>을 들어 수사의 공정성에 의문을 제기하고, 강압·편파 수사였다며 민원을 제기할 예정이라고 밝혔습니다.</p>
+      <p>출국금지는 뇌물 건이 아니라 <b>약 2년 전 교회 강제집행과 관련해 배임으로 고소당한 별개의 사건</b> 때문이라는 입장입니다.</p>
+    </div></div>
+    <div class="side b"><div class="cap">비대위 측 입장</div><div class="body">
+      <span class="tag t-claim">주장</span>
+      <p><b>기각이 무죄를 뜻하지 않는다</b>는 점을 강조합니다. 수사와 기소, 재판은 계속 진행됩니다.</p>
+      <p>압수수색과 출국금지까지 이루어진 상황에서 <b>조합 운영을 계속 맡기는 것이 적절한지</b> 묻고 있습니다.</p>
+      <p>이러한 사법 위험 자체가 인허가·금융 협의에 부담이 된다고 봅니다.</p>
+    </div></div>
+  </div>
+
+  <div class="plain">
+    <b>이 페이지의 원칙 —</b> 수사가 진행 중인 사건은 <b>법원이 판단한 것까지만</b> 적습니다.
+    유죄인지 무죄인지는 이 페이지가 말할 수 없고, 재판에서 가려집니다.
+    어느 쪽 주장도 결론으로 옮기지 않겠습니다.
+  </div>
+
+
   <p class="fixme"><a href="#s7" data-fix="5. 법원이 판단한 것">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
 </section>
 
 <!-- ══ 6 ══ -->
 <section id="s6">
-  <h2>6. 무엇을 가장 알고 싶으십니까</h2>
+  <h2>무엇을 가장 알고 싶으십니까</h2>
   <p class="h2sub">지지하는 쪽을 묻지 않습니다. 조합원들이 어떤 정보를 원하는지 모아서 공개하려는 것입니다.</p>
 
   <form class="poll" id="poll">
@@ -792,7 +992,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
 <!-- ══ 7 ══ -->
 <section id="s7">
-  <h2>7. 잘못된 내용이 있으면 알려주십시오</h2>
+  <h2>잘못된 내용이 있으면 알려주십시오</h2>
   <p class="h2sub">조합 측이든 비대위 측이든 관계없이 받습니다.</p>
 
   <div class="gate wait">
