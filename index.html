@@ -158,6 +158,12 @@ h3{font-size:1.15em; margin:34px 0 12px; line-height:1.5}
 .gate.wait .gs{color:var(--muted); background:var(--soft)}
 .gate p{margin:0 0 8px} .gate p:last-child{margin-bottom:0}
 .plain{background:var(--accentbg); border-radius:10px; padding:12px 16px; font-size:.95em; margin:0 0 12px}
+/* 시공사에 따라 달라지는 부분 */
+.altpath{border:2px dashed var(--line); border-radius:10px; padding:14px 16px; margin:14px 0 0;
+  background:var(--bg); font-size:.95em}
+.altpath .ah{font-weight:800; margin:0 0 10px; font-size:.95em}
+.altpath dl{margin:0} .altpath dt{font-weight:800; margin:0 0 3px}
+.altpath dd{margin:0 0 12px} .altpath dd:last-child{margin-bottom:0}
 
 /* ── 접기 ── */
 details{border:2px solid var(--line); border-radius:12px; margin:16px 0; background:var(--surface)}
@@ -285,7 +291,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <p class="stepnote">
       막혀 있는 곳은 <b>① 시공사 확정</b>과 <b>⑥ 자금 조달</b> 두 군데입니다.
       ①이 풀려야 나머지가 차례로 움직입니다. <a href="#s4">일곱 가지가 무엇인지 보기 ▶</a><br>
-      ※ 이미 끝난 일(이주·철거 등)은 빼고, <b>착공까지 남은 것만</b> 셌습니다.
+      ※ 이미 끝난 일(이주·철거 등)은 빼고, <b>착공까지 남은 것만</b> 셌습니다.<br>※ 이 일곱 가지는 <b>GS건설 기준</b>입니다. DL이앤씨로 돌아가면 ②⑥⑦의 내용이 달라집니다.
     </p>
   </div>
   <div class="blk">
@@ -543,31 +549,59 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 <!-- ══ 4 ══ -->
 <section id="s4">
   <h2>4. 착공까지 남은 관문 7개</h2>
-  <p class="h2sub">이 목록 자체는 양측이 다투지 않습니다. 다투는 것은 "누가 더 빨리 통과시킬 수 있느냐"입니다.</p>
+  <p class="h2sub">단계의 이름은 같지만, <b>어느 시공사로 가느냐에 따라 내용이 달라집니다.</b></p>
+
+  <div class="plain">
+    <b>먼저 알아두실 것 —</b> 아래 일곱 단계는 <b>GS건설로 진행할 때를 기준</b>으로 적었습니다.
+    5월 30일 총회 결과가 현재 상태이기 때문입니다.<br><br>
+    다만 <b>①②⑥⑦ 네 단계는 DL이앤씨로 돌아갈 경우 내용이 달라집니다.</b>
+    달라지는 부분은 각 단계 안에 <b>점선 상자</b>로 따로 적어 두었습니다.
+    ③④⑤는 어느 쪽으로 가든 똑같이 필요합니다.<br><br>
+    비대위 측이 말하는 "2027년 11월"이라는 숫자는, 바로 이 <b>②⑥⑦에 걸리는 시간을 더한 것</b>입니다.
+  </div>
 
   <div class="gate stop">
     <p class="gh">① 시공사 확정</p><p class="gs">막힘 — 법원 판단 대기</p>
     <p>5월 30일 총회에서 DL 해지·GS 선정이 가결됐으나, 그 총회의 효력을 정지해 달라는 신청이 법원에 걸려 있습니다. <b>결정은 7월 안에 나올 예정입니다.</b></p>
+    <div class="altpath">
+      <p class="ah">시공사에 따라 이렇게 달라집니다</p>
+      <dl>
+        <dt>GS건설로 갈 경우</dt>
+        <dd>법원 결정이 나와야 확정됩니다. 이후에도 DL이 본안소송을 낼 수 있습니다.</dd>
+        <dt>DL이앤씨로 갈 경우</dt>
+        <dd>법적으로는 <b>아직 시공사 지위가 유지되고 있어</b>, 도급계약만 체결하면 된다는 것이 비대위 측 주장입니다. 조합 측은 5월에 "DL도 도급계약서(안)조차 내지 않았다"고 밝힌 바 있습니다.</dd>
+      </dl>
+    </div>
   </div>
 
   <div class="gate now">
     <p class="gh">② 사업시행계획 변경인가</p><p class="gs">진행 중 — 8월 8일 총회 제10호 안건</p>
-    <p>2025년 10월 인가 때 붙은 조건(비행안전평가)을 이행하는 절차입니다. 6월 19일 성남시로부터 협의 결과를 받았고, 총회 의결이 남았습니다.</p>
+    <p>2025년 10월 인가 때 붙은 조건(비행안전평가)을 이행하는 절차입니다. 6월 19일 성남시로부터 협의 결과를 받았고, 총회 의결이 남았습니다. <b>이 조건 이행은 시공사가 누구든 필요합니다.</b></p>
+    <div class="altpath">
+      <p class="ah">여기가 양측 주장이 가장 크게 갈리는 곳입니다</p>
+      <dl>
+        <dt>조합 측</dt>
+        <dd>비행안전평가 조건을 처리하는 것이 전부라는 입장입니다. 설계를 다시 하거나 건축심의를 새로 받아야 한다는 언급은 하지 않았습니다.</dd>
+        <dt>비대위·DL 측</dt>
+        <dd>GS로 가면 <b>설계가 바뀌어 건축심의부터 새로 받아야 하고, 인허가를 처음부터 다시 밟게 되어 최소 2년이 더 걸린다</b>고 주장합니다. DL로 가면 기존 설계 그대로라 이 과정이 없다는 것입니다.</dd>
+      </dl>
+      <p class="hint" style="margin-top:12px">※ 조합 측은 이 주장에 대해 「팩트체크 1. 착공일정 설계특허」라는 영상으로 반박한 바 있으나(5/10), <b>영상 내용은 확인하지 못했습니다.</b> 아시는 분은 알려주십시오.</p>
+    </div>
   </div>
 
   <div class="gate now">
-    <p class="gh">③ 종후자산 감정평가</p><p class="gs">진행 중</p>
+    <p class="gh">③ 종후자산 감정평가</p><p class="gs">진행 중 · 어느 쪽이든 공통</p>
     <p>다 지어진 뒤의 아파트 가치를 매기는 절차입니다. 이 결과가 나와야 비례율과 분담금이 계산됩니다.</p>
   </div>
 
   <div class="gate wait">
-    <p class="gh">④ 관리처분계획 변경인가</p><p class="gs">대기</p>
+    <p class="gh">④ 관리처분계획 변경인가</p><p class="gs">대기 · 어느 쪽이든 공통</p>
     <p><b>각자 낼 돈이 확정되는 절차입니다.</b> 확정된 공사비와 일반분양가를 반영해 다시 짜고, 조합원 공람을 거쳐 총회 의결 후 성남시 인가를 받아야 합니다.</p>
   </div>
 
   <div class="gate wait">
-    <p class="gh">⑤ 감리자 지정</p><p class="gs">대기 — 성남시 소관, 약 3개월 예상</p>
-    <p>공사를 감독할 감리자를 성남시가 지정합니다. 도급계약서가 있어야 신청할 수 있습니다.</p>
+    <p class="gh">⑤ 감리자 지정</p><p class="gs">대기 · 어느 쪽이든 공통 — 약 3개월</p>
+    <p>공사를 감독할 감리자를 성남시가 지정합니다. 도급계약서가 있어야 신청할 수 있습니다. 조합 측도 <b>"DL로 가더라도 감리자 선정에만 2~3개월이 걸린다"</b>고 밝힌 바 있습니다(5/18).</p>
   </div>
 
   <div class="gate stop">
@@ -576,11 +610,29 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
       <div class="side a"><div class="cap">조합 측</div><div class="body"><p>한도는 대부분 소진됐지만, 관리처분 변경인가 후 HUG 증액 보증 절차를 진행할 수 있다. 그때까지 공백은 GS 자금으로 메운다.</p></div></div>
       <div class="side b"><div class="cap">비대위 측</div><div class="body"><p>HUG 내규상 분쟁 중인 구역은 보증이 안 된다. 그러면 이율이 5%대에서 10%대로 올라 월 이자가 30억에서 60억이 된다.</p></div></div>
     </div>
+    <div class="altpath">
+      <p class="ah">시공사에 따라 이렇게 달라집니다</p>
+      <dl>
+        <dt>GS건설로 갈 경우</dt>
+        <dd>기존 HUG 보증은 DL의 책임준공 확약을 전제로 받은 것이라, GS 앞으로 <b>새로 넘기는 절차</b>가 필요합니다. 비대위 측은 여기에 <b>DL의 동의가 필요해 6개월</b>이 걸린다고 봅니다.</dd>
+        <dt>DL이앤씨로 갈 경우</dt>
+        <dd>기존 보증 구조가 그대로 유지되므로 <b>넘기는 절차 자체가 없습니다.</b> 다만 사업비 한도가 소진된 문제는 어느 쪽이든 남습니다.</dd>
+      </dl>
+    </div>
   </div>
 
   <div class="gate wait">
     <p class="gh">⑦ 현장 인도 및 착공신고</p><p class="gs">대기</p>
-    <p>DL이 지금까지 쓴 비용 정산과 현장 인계가 필요합니다. 비대위 측은 여기서 유치권 분쟁이 생길 수 있다고 보고, 조합 측은 절차대로 진행 가능하다고 봅니다.</p>
+    <p>공사를 시작하려면 현장을 넘겨받아야 합니다.</p>
+    <div class="altpath">
+      <p class="ah">시공사에 따라 이렇게 달라집니다</p>
+      <dl>
+        <dt>GS건설로 갈 경우</dt>
+        <dd>지금 현장은 DL이 맡고 있으므로, <b>DL이 이미 쓴 비용을 정산하고 현장을 넘겨받아야</b> 합니다. 비대위 측은 DL이 유치권을 걸면 명도소송까지 가서 <b>10개월</b>이 걸린다고 봅니다. 조합 측은 절차대로 진행 가능하다는 입장입니다.</dd>
+        <dt>DL이앤씨로 갈 경우</dt>
+        <dd>DL이 이미 현장을 맡고 있으므로 <b>넘겨받는 절차가 없습니다.</b></dd>
+      </dl>
+    </div>
   </div>
 
   <p class="fixme"><a href="#s7" data-fix="4. 착공까지 남은 관문">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
