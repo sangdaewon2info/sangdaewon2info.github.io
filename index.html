@@ -959,6 +959,19 @@ var STALE_DAYS = 10;         // 이만큼 지나면 "오래된 내용" 경고가
   }
   function show(msg){ sent.textContent = msg; sent.style.display = 'block'; }
 
+  // 복사가 안 됐을 때: 직접 고를 수 있게 글상자로 보여줍니다
+  function showManual(head, text){
+    sent.textContent = '';
+    var p = document.createElement('div'); p.textContent = head;
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.readOnly = true; ta.rows = 6;
+    ta.style.cssText = 'width:100%;margin-top:12px;padding:12px;font:inherit;font-size:.9em;'
+      + 'line-height:1.6;border:2px solid currentColor;border-radius:8px;background:#fff;color:#111';
+    sent.appendChild(p); sent.appendChild(ta);
+    sent.style.display = 'block';
+    ta.focus(); ta.select();
+  }
+
   function copyText(t){
     if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(t);
     return new Promise(function(res, rej){
@@ -975,7 +988,7 @@ var STALE_DAYS = 10;         // 이만큼 지나면 "오래된 내용" 경고가
     copyText(t).then(function(){
       show("복사했습니다. 카카오톡이나 문자 창에 붙여넣어 보내 주십시오.");
     }).catch(function(){
-      show("아래 내용을 손으로 복사해 보내 주십시오.\n\n" + t);
+      showManual("복사가 되지 않았습니다. 아래 글상자의 내용을 길게 눌러 복사해 주십시오.", t);
     });
   });
 
@@ -983,9 +996,15 @@ var STALE_DAYS = 10;         // 이만큼 지나면 "오래된 내용" 경고가
   if (OPENCHAT_URL) {
     bk.addEventListener('click', function(){
       var t = compose(); if (!t) return;
-      copyText(t).catch(function(){});
-      show("내용을 복사했습니다. 열리는 채팅방에 붙여넣어 보내 주십시오.");
-      window.open(OPENCHAT_URL, '_blank', 'noopener');
+      // 복사에 성공했는지 확인한 뒤에 안내 문구를 정합니다.
+      // 실패했는데 "복사했다"고 하면 붙여넣을 것이 없어 헛걸음하게 됩니다.
+      copyText(t).then(function(){
+        show("내용을 복사했습니다. 열리는 채팅방에 붙여넣어 보내 주십시오.");
+        window.open(OPENCHAT_URL, '_blank', 'noopener');
+      }).catch(function(){
+        showManual("복사가 되지 않았습니다. 아래 글상자의 내용을 길게 눌러 복사하신 뒤, "
+                 + "‘카카오톡으로 보내기’를 다시 눌러 주십시오.", t);
+      });
     });
   } else { bk.style.display = 'none'; }
 
