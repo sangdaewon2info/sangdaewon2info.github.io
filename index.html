@@ -42,8 +42,7 @@ h1{font-size:1.8em; line-height:1.32; margin:0 0 10px; letter-spacing:-.015em}
 .asof{font-size:.95em; color:var(--muted); margin:0}
 
 .tools{position:sticky; top:0; z-index:50; background:var(--bg);
-  border-bottom:2px solid var(--line); padding:10px 0; margin-bottom:26px;
-  display:flex; gap:10px; flex-wrap:wrap}
+  border-bottom:2px solid var(--line); padding:10px 0; margin-bottom:26px}
 .tools button{font:inherit; font-size:.95em; font-weight:700; cursor:pointer;
   background:var(--surface); color:var(--fg); border:2px solid var(--fg);
   border-radius:10px; padding:12px 18px; min-height:56px}
@@ -309,8 +308,33 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   .sw{padding:16px 18px; border-right:2px solid var(--line)}
   .sb{padding:16px 18px}
 }
+
+/* ── 목차 바 ── */
+.trow{display:flex; gap:10px; flex-wrap:wrap}
+.toc{display:none; gap:8px; margin-top:10px}
+.toc.open{display:grid; grid-template-columns:1fr 1fr}
+.toc a{display:flex; align-items:center; justify-content:center; text-align:center;
+  min-height:60px; padding:10px 8px; border-radius:10px; text-decoration:none;
+  font-weight:800; font-size:.95em; line-height:1.35;
+  background:var(--surface); color:var(--fg); border:2px solid var(--line)}
+.toc a.on{background:var(--fg); color:var(--bg); border-color:var(--fg)}
+.toc a:active{background:var(--accent); color:#fff; border-color:var(--accent)}
+@media(min-width:760px){
+  #tocBtn{display:none}
+  .toc{display:grid !important; grid-template-columns:repeat(6,1fr)}
+  .toc a{min-height:52px; font-size:.9em}
+}
+/* ── 맨 위로 ── */
+#toTop{position:fixed; right:16px; bottom:16px; z-index:60; display:none;
+  flex-direction:column; align-items:center; justify-content:center; gap:1px;
+  width:74px; height:74px; border-radius:50%; cursor:pointer;
+  font:inherit; font-size:1.05em; font-weight:800; line-height:1;
+  background:var(--fg); color:var(--bg); border:3px solid var(--bg);
+  box-shadow:0 3px 12px rgba(0,0,0,.28)}
+#toTop span{font-size:.62em; font-weight:700}
+#toTop.show{display:flex}
 @media print{
-  .tools,.poll,.report,.fixme{display:none!important}
+  .tools,.poll,.report,.fixme,#toTop{display:none!important}
   body{font-size:11pt; --scale:1; background:#fff}
   .wrap{max-width:100%}
   details .dbody{display:block!important}
@@ -344,8 +368,19 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 </header>
 
 <div class="tools">
-  <button type="button" onclick="document.body.classList.toggle('big')">글씨 크게 / 작게</button>
-  <button type="button" onclick="window.print()">인쇄하기</button>
+  <div class="trow">
+    <button type="button" id="bigBtn">글씨 크게</button>
+    <button type="button" onclick="window.print()">인쇄</button>
+    <button type="button" id="tocBtn" aria-expanded="false">목차 ▾</button>
+  </div>
+  <nav id="toc" class="toc">
+    <a href="#paths" data-g="paths">두 갈래길</a>
+    <a href="#sum"   data-g="sum">한눈에</a>
+    <a href="#s3"    data-g="s3">내 돈</a>
+    <a href="#s1"    data-g="s1">총회·절차</a>
+    <a href="#s5"    data-g="s5">법원</a>
+    <a href="#s6"    data-g="s6">알려주기</a>
+  </nav>
 </div>
 
 <div class="stale" id="stale"></div>
@@ -401,7 +436,8 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
 <!-- ══ 한눈에 보기 ══ -->
 <!-- ══ 경로 비교 (최상단) ══ -->
-<section id="paths">
+<!-- ══ paths ══ -->
+<section id="paths" data-g="paths">
   <h2>DL로 갈 때와 GS로 갈 때, 무엇이 다른가</h2>
   <p class="h2sub">착공까지 거쳐야 할 일곱 단계를 두 경우로 나란히 놓았습니다. 이 페이지에서 가장 중요한 표입니다.</p>
   <div class="plain">
@@ -477,69 +513,8 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   <p class="fixme"><a href="#s7" data-fix="DL/GS 경로 비교">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
 </section>
 
-<section id="sum">
-  <h2>한눈에 보기</h2>
-  <p class="h2sub">자세한 설명은 아래에 있습니다. 급하시면 이 표만 보셔도 됩니다.</p>
-
-  <div class="oneline">
-    <div class="ol"><p class="q">시공사는 정해졌습니까</p>
-      <p class="a"><b>아직입니다.</b> 5월 30일 총회로 GS건설이 뽑혔지만, 그 총회가 유효한지에 대한 법원 판단이 남았습니다.</p></div>
-
-    <div class="ol"><p class="q">착공은 언제입니까</p>
-      <p class="a">조합 측 <b>2026년 8~9월</b> · 비대위 측 <b>2027년 11월</b><br>
-        <span class="s">양쪽 주장이 15개월 넘게 차이 납니다. <a href="#s2">자세히 ▶</a></span></p></div>
-
-    <div class="ol"><p class="q">공사비는 얼마입니까</p>
-      <p class="a">평당 <b>DL 682만원 · GS 729만원</b><br>
-        <span class="s">2021년 관리처분 기준은 459만원이었습니다. <a href="#s3">자세히 ▶</a></span></p></div>
-
-    <div class="ol"><p class="q">제 분담금은 얼마가 됩니까</p>
-      <p class="a"><b>아직 나온 것이 없습니다.</b><br>
-        <span class="s">비례율도 공개되지 않았습니다. 관리처분 변경 절차가 끝나야 나옵니다.</span></p></div>
-
-    <div class="ol"><p class="q">조합장은 어떻게 되었습니까</p>
-      <p class="a"><b>해임되지 않았고, 불구속 상태로 수사받고 있습니다.</b><br>
-        <span class="s">6월 26일 구속영장이 기각됐습니다. 기각은 무죄가 아니며 수사는 계속됩니다. <a href="#s5">자세히 ▶</a></span></p></div>
-
-    <div class="ol"><p class="q">다음 일정은 무엇입니까</p>
-      <p class="a"><b>8월 8일 임시총회</b><br>
-        <span class="s">그 전에 5월 30일 총회에 대한 법원 결정이 나올 예정입니다.</span></p></div>
-
-    <div class="ol hi"><p class="q">저는 무엇을 하면 됩니까</p>
-      <p class="a"><b>8월 8일 총회에 참석하시거나 서면결의서를 내십시오.</b><br>
-        <span class="s">이주비 대출 이자는 조합이 내고 있으니 <b>직접 내지 마십시오.</b> 문의는 조합 사무실 031-747-2730</span></p></div>
-  </div>
-</section>
-
-<!-- ══ 진행 상황 ══ -->
-<section id="flow">
-  <h2>지금까지의 진행</h2>
-  <p class="h2sub">총회와 법원 판단이 번갈아 이어져 왔습니다.</p>
-
-  <div class="flow">
-    <div class="fi"><span class="fd">4월 11일</span>
-      <p class="ft">조합 총회에서 <b>DL이앤씨 해지</b>가 가결됨</p><span class="fw">총회</span></div>
-    <div class="fi ct"><span class="fd">4월 29일</span>
-      <p class="ft">법원이 그 결의의 <b>효력을 정지</b>. DL의 시공사 지위 유지</p><span class="fw">법원</span></div>
-    <div class="fi"><span class="fd">5월 22일</span>
-      <p class="ft">비대위가 <b>집행부 해임총회</b>를 열고 가결을 선포</p><span class="fw">총회</span></div>
-    <div class="fi ct"><span class="fd">5월 29일</span>
-      <p class="ft">5월 30일 총회를 막아 달라는 신청이 <b>기각</b>됨</p><span class="fw">법원</span></div>
-    <div class="fi"><span class="fd">5월 30일</span>
-      <p class="ft">조합원 발의 총회에서 <b>DL 해지 · GS건설 선정 · 집행부 재신임</b>이 가결됨</p><span class="fw">총회</span></div>
-    <div class="fi ct"><span class="fd">6월 26일</span>
-      <p class="ft">조합장에 대한 <b>구속영장이 기각</b>됨. 불구속 수사로 진행</p><span class="fw">법원</span></div>
-    <div class="fi ct"><span class="fd">7월 10일</span>
-      <p class="ft">법원이 <b>5월 22일 해임총회는 정족수 미달</b>이라며 효력을 정지</p><span class="fw">법원</span></div>
-    <div class="fi now"><span class="fd">지금</span>
-      <p class="ft"><b>5월 30일 총회가 유효한지에 대한 법원 결정을 기다리는 중</b><br>7월 안에 나올 예정입니다. 이 결정이 앞으로의 방향을 크게 좌우합니다.</p><span class="fw">대기</span></div>
-    <div class="fi soon"><span class="fd">8월 8일</span>
-      <p class="ft"><b>임시총회 예정</b> — 사업시행계획 변경, 대의원 선출, 예산안 <a href="#s1">안건 보기 ▶</a></p><span class="fw">예정</span></div>
-  </div>
-</section>
-
-<!-- ══ DL vs GS ══ -->
-<section id="vs">
+<!-- ══ vs ══ -->
+<section id="vs" data-g="paths">
   <h2>DL이앤씨와 GS건설 — 양측은 각각 어떻게 보는가</h2>
   <p class="h2sub">같은 회사를 두고 조합 측과 비대위 측의 평가가 정반대입니다. 네 칸을 모두 읽어 보십시오.</p>
 
@@ -592,74 +567,8 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   </div>
 </section>
 
-<h2 style="margin-bottom:26px">여기서부터는 자세한 내용입니다</h2>
-
-<!-- ══ 1 ══ -->
-<section id="s1">
-  <h2>8월 8일 임시총회 — 무엇을 정하는 자리인가</h2>
-  <p class="h2sub">지금 조합원이 실제로 할 수 있는 일은 이것 하나입니다. 책자는 7월 24일 발송되었습니다.</p>
-
-  <div class="gate now">
-    <p class="gh">제10호 — 사업시행계획 변경(안) 수립 및 신청 승인</p>
-    <p class="gs">착공과 가장 직접 관련된 안건</p>
-    <p class="plain">쉽게 말하면: 2025년 10월 인가받을 때 성남시가 "이건 나중에 꼭 해오라"고 붙인 숙제(비행안전평가)를 이제 처리하는 안건입니다.</p>
-    <div class="vs">
-      <div class="side a"><div class="cap">조합 측 설명</div><div class="body">
-        <span class="tag t-doc">조합 공지 (7/26)</span>
-        <p>착공 전에 반드시 이행해야 하는 필수 안건이다. 부결되면 착공 일정을 진행할 수 없고, 나중에 다시 총회를 열어 의결받아야 착공이 가능해진다.</p>
-      </div></div>
-      <div class="side b"><div class="cap">비대위 측 설명</div><div class="body">
-        <span class="tag t-claim">주장 (7/27)</span>
-        <p>이 안건이 지금 올라온다는 것 자체가 애초에 올해 4월 착공이 불가능했다는 뜻이다. 변경인가에는 6개월에서 1년 10개월이 걸린다.</p>
-      </div></div>
-    </div>
-  </div>
-
-  <div class="gate now">
-    <p class="gh">제9호 — 대의원 선출</p>
-    <p class="gs">조합 운영에 관한 안건</p>
-    <p class="plain">쉽게 말하면: 대의원 9명이 한꺼번에 사퇴해서 대의원회가 열리지 못하는 상태입니다. 사람을 채우는 안건입니다.</p>
-    <div class="vs">
-      <div class="side a"><div class="cap">조합 측 설명</div><div class="body">
-        <span class="tag t-doc">조합 공지 (6/5·7/24)</span>
-        <p>DL이앤씨를 지지하던 대의원 9인이 회의를 무산시키려고 단체 사퇴해 정족수가 미달됐다. 총회에서 채워 정상 운영하겠다.</p>
-      </div></div>
-      <div class="side b"><div class="cap">비대위 측 설명</div><div class="body">
-        <span class="tag t-claim">주장 (7/12·7/27)</span>
-        <p>정관에 대의원 임기가 정해져 있지 않아 몇 년짜리 자리인지 모르고 뽑게 된다. 선거관리위원회 구성 절차에도 하자가 있다.</p>
-      </div></div>
-    </div>
-  </div>
-
-  <div class="gate now">
-    <p class="gh">제6호 · 제5호 — 사업비와 총회 비용</p>
-    <p class="gs">돈에 관한 안건</p>
-    <div class="vs">
-      <div class="side a"><div class="cap">조합 측 설명</div><div class="body">
-        <span class="tag t-doc">조합 공지 (7/26)</span>
-        <p>착공하려면 국·공유지 매입 등 상당한 자금이 필요하다. HUG 사업비 한도는 이미 대부분 소진됐고, 관리처분계획 변경인가 이후에야 증액 보증을 받을 수 있어 그때까지 자금 공백을 메워야 한다.</p>
-      </div></div>
-      <div class="side b"><div class="cap">비대위 측 설명</div><div class="body">
-        <span class="tag t-claim">주장 (7/27)</span>
-        <p>이대로면 이주비 대출 이자가 월 100만원에서 200만원, 금리가 오르면 300만원까지 갈 수 있다. 사업비 이자도 연 360억에서 760억이 된다.</p>
-      </div></div>
-    </div>
-  </div>
-
-  <details>
-    <summary>총회에 못 가면 어떻게 되나요?</summary>
-    <div class="dbody">
-      <p>서면결의서로도 참여할 수 있습니다. 다만 <b>새 시공사를 정하는 안건</b>은 법(도시정비법)상 조합원 과반수가 <b>직접 출석</b>해야 합니다. 8월 8일 총회에는 시공사 선정 안건은 없습니다.</p>
-      <p>총회 장소·시간·셔틀버스는 조합에 확인하십시오. <b>조합 사무실 031-747-2730</b></p>
-      <p class="pending">※ 이 페이지는 어느 안건에 찬성하거나 반대하라고 권하지 않습니다. 안건의 뜻과 양측 입장만 옮깁니다.</p>
-    </div>
-  </details>
-
-  <p class="fixme"><a href="#s7" data-fix="1. 8월 8일 임시총회">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
-</section>
-
-<!-- ══ 2 ══ -->
-<section id="s2">
+<!-- ══ s2 ══ -->
+<section id="s2" data-g="paths">
   <h2>착공은 언제인가 — 왜 이렇게 차이가 나나</h2>
   <p class="h2sub">가장 많이 묻는 질문입니다. 양측은 <b>서로 다른 시공사를 전제로</b> 계산하고 있어서, 나란히 놓고 봐야 뜻이 통합니다.</p>
 
@@ -731,8 +640,70 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   <p class="fixme"><a href="#s7" data-fix="2. 착공은 언제인가">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
 </section>
 
-<!-- ══ 3 ══ -->
-<section id="s3">
+<!-- ══ sum ══ -->
+<section id="sum" data-g="sum">
+  <h2>한눈에 보기</h2>
+  <p class="h2sub">자세한 설명은 아래에 있습니다. 급하시면 이 표만 보셔도 됩니다.</p>
+
+  <div class="oneline">
+    <div class="ol"><p class="q">시공사는 정해졌습니까</p>
+      <p class="a"><b>아직입니다.</b> 5월 30일 총회로 GS건설이 뽑혔지만, 그 총회가 유효한지에 대한 법원 판단이 남았습니다.</p></div>
+
+    <div class="ol"><p class="q">착공은 언제입니까</p>
+      <p class="a">조합 측 <b>2026년 8~9월</b> · 비대위 측 <b>2027년 11월</b><br>
+        <span class="s">양쪽 주장이 15개월 넘게 차이 납니다. <a href="#s2">자세히 ▶</a></span></p></div>
+
+    <div class="ol"><p class="q">공사비는 얼마입니까</p>
+      <p class="a">평당 <b>DL 682만원 · GS 729만원</b><br>
+        <span class="s">2021년 관리처분 기준은 459만원이었습니다. <a href="#s3">자세히 ▶</a></span></p></div>
+
+    <div class="ol"><p class="q">제 분담금은 얼마가 됩니까</p>
+      <p class="a"><b>아직 나온 것이 없습니다.</b><br>
+        <span class="s">비례율도 공개되지 않았습니다. 관리처분 변경 절차가 끝나야 나옵니다.</span></p></div>
+
+    <div class="ol"><p class="q">조합장은 어떻게 되었습니까</p>
+      <p class="a"><b>해임되지 않았고, 불구속 상태로 수사받고 있습니다.</b><br>
+        <span class="s">6월 26일 구속영장이 기각됐습니다. 기각은 무죄가 아니며 수사는 계속됩니다. <a href="#s5">자세히 ▶</a></span></p></div>
+
+    <div class="ol"><p class="q">다음 일정은 무엇입니까</p>
+      <p class="a"><b>8월 8일 임시총회</b><br>
+        <span class="s">그 전에 5월 30일 총회에 대한 법원 결정이 나올 예정입니다.</span></p></div>
+
+    <div class="ol hi"><p class="q">저는 무엇을 하면 됩니까</p>
+      <p class="a"><b>8월 8일 총회에 참석하시거나 서면결의서를 내십시오.</b><br>
+        <span class="s">이주비 대출 이자는 조합이 내고 있으니 <b>직접 내지 마십시오.</b> 문의는 조합 사무실 031-747-2730</span></p></div>
+  </div>
+</section>
+
+<!-- ══ flow ══ -->
+<section id="flow" data-g="sum">
+  <h2>지금까지의 진행</h2>
+  <p class="h2sub">총회와 법원 판단이 번갈아 이어져 왔습니다.</p>
+
+  <div class="flow">
+    <div class="fi"><span class="fd">4월 11일</span>
+      <p class="ft">조합 총회에서 <b>DL이앤씨 해지</b>가 가결됨</p><span class="fw">총회</span></div>
+    <div class="fi ct"><span class="fd">4월 29일</span>
+      <p class="ft">법원이 그 결의의 <b>효력을 정지</b>. DL의 시공사 지위 유지</p><span class="fw">법원</span></div>
+    <div class="fi"><span class="fd">5월 22일</span>
+      <p class="ft">비대위가 <b>집행부 해임총회</b>를 열고 가결을 선포</p><span class="fw">총회</span></div>
+    <div class="fi ct"><span class="fd">5월 29일</span>
+      <p class="ft">5월 30일 총회를 막아 달라는 신청이 <b>기각</b>됨</p><span class="fw">법원</span></div>
+    <div class="fi"><span class="fd">5월 30일</span>
+      <p class="ft">조합원 발의 총회에서 <b>DL 해지 · GS건설 선정 · 집행부 재신임</b>이 가결됨</p><span class="fw">총회</span></div>
+    <div class="fi ct"><span class="fd">6월 26일</span>
+      <p class="ft">조합장에 대한 <b>구속영장이 기각</b>됨. 불구속 수사로 진행</p><span class="fw">법원</span></div>
+    <div class="fi ct"><span class="fd">7월 10일</span>
+      <p class="ft">법원이 <b>5월 22일 해임총회는 정족수 미달</b>이라며 효력을 정지</p><span class="fw">법원</span></div>
+    <div class="fi now"><span class="fd">지금</span>
+      <p class="ft"><b>5월 30일 총회가 유효한지에 대한 법원 결정을 기다리는 중</b><br>7월 안에 나올 예정입니다. 이 결정이 앞으로의 방향을 크게 좌우합니다.</p><span class="fw">대기</span></div>
+    <div class="fi soon"><span class="fd">8월 8일</span>
+      <p class="ft"><b>임시총회 예정</b> — 사업시행계획 변경, 대의원 선출, 예산안 <a href="#s1">안건 보기 ▶</a></p><span class="fw">예정</span></div>
+  </div>
+</section>
+
+<!-- ══ s3 ══ -->
+<section id="s3" data-g="s3">
   <h2>내 돈은 어떻게 되나</h2>
   <p class="h2sub">이주비 이자 · 공사비 · 분담금 · 비례율</p>
 
@@ -832,8 +803,115 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   <p class="fixme"><a href="#s7" data-fix="3. 내 돈은 어떻게 되나">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
 </section>
 
-<!-- ══ 4 ══ -->
-<section id="s4">
+<!-- ══ cost ══ -->
+<section id="cost" data-g="s3">
+  <h2>총회 한 번에 드는 돈</h2>
+  <p class="h2sub">8월 8일 총회 책자에 실린 비용 예산(안)입니다. 조합원이 부담하는 돈입니다.</p>
+
+  <div class="chart">
+    <p class="ct">2026년도 2차 임시총회 비용 예산(안)</p>
+    <p class="cs">총회 책자 108쪽 · 총계 <b>12억 4,947만원</b></p>
+    <div class="brow"><p class="bl"><span>총회 홍보 인건비 (홍보인원 50인)</span><b>5억 8,500만원</b></p>
+      <div class="bt"><div class="bf gs" style="width:47%"></div></div>
+      <p class="bnote">65일 × 50명 × 하루 18만원</p></div>
+    <div class="brow"><p class="bl"><span>안전요원 1,500명</span><b>2억 7,000만원</b></p>
+      <div class="bt"><div class="bf dl" style="width:22%"></div></div></div>
+    <div class="brow"><p class="bl"><span>서면결의서 제출 회의비 (1,300명 × 7만원)</span><b>9,100만원</b></p>
+      <div class="bt"><div class="bf base" style="width:7%"></div></div></div>
+    <div class="brow"><p class="bl"><span>직접 참석 회의비 (700명 × 10만원)</span><b>7,000만원</b></p>
+      <div class="bt"><div class="bf base" style="width:6%"></div></div>
+      <p class="bnote">서면결의서를 낸 뒤 직접 참석하면 10만원을 지급</p></div>
+    <div class="brow"><p class="bl"><span>총회책자 제작 (2,800부)</span><b>4,200만원</b></p>
+      <div class="bt"><div class="bf base" style="width:3%"></div></div></div>
+    <div class="brow"><p class="bl"><span>총회장 대관료</span><b>1,700만원</b></p>
+      <div class="bt"><div class="bf base" style="width:1.5%"></div></div></div>
+    <p class="bnote" style="margin-top:20px;padding-top:16px;border-top:2px solid var(--line)">
+      그 밖에 우편료·인쇄·속기·영상촬영·현수막·예비비 등이 포함되어 총계 <b>12억 4,947만원</b>입니다.</p>
+  </div>
+
+  <div class="vs">
+    <div class="side a"><div class="cap">조합 측 설명</div><div class="body">
+      <span class="tag t-doc">총회 책자 기재</span>
+      <p>책자에 이렇게 적혀 있습니다 — <b>“그동안 총회 비용 및 상기 총회 비용은 비상대책위원회(착해모)의 반복적인 임시총회 개최 방해로 인해 비용이 지속적으로 발생한 것으로,
+         조합은 이에 따른 손해에 대하여 비대위를 상대로 민사상 손해배상 청구를 추진할 예정입니다.”</b></p>
+      <p>실비 정산을 원칙으로 하며 항목 간 조정이 있을 수 있다고 밝히고 있습니다.</p>
+    </div></div>
+    <div class="side b"><div class="cap">비대위 측 주장</div><div class="body">
+      <span class="tag t-claim">주장</span>
+      <p>제5호 안건은 <b>4월 11일 총회 비용 12억을 조합원이 대신 내라는 것</b>이라고 봅니다.
+         그 총회는 법원에서 효력이 정지됐는데 그 비용을 왜 조합원이 부담하느냐는 것입니다.</p>
+      <p>홍보인원 인건비와 참석 회의비 지급이 <b>사실상 참석을 유도하기 위한 지출</b>이라고 지적합니다.</p>
+    </div></div>
+  </div>
+  <p class="fixme"><a href="#s7" data-fix="총회 비용">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
+</section>
+
+<!-- ══ s1 ══ -->
+<section id="s1" data-g="s1">
+  <h2>8월 8일 임시총회 — 무엇을 정하는 자리인가</h2>
+  <p class="h2sub">지금 조합원이 실제로 할 수 있는 일은 이것 하나입니다. 책자는 7월 24일 발송되었습니다.</p>
+
+  <div class="gate now">
+    <p class="gh">제10호 — 사업시행계획 변경(안) 수립 및 신청 승인</p>
+    <p class="gs">착공과 가장 직접 관련된 안건</p>
+    <p class="plain">쉽게 말하면: 2025년 10월 인가받을 때 성남시가 "이건 나중에 꼭 해오라"고 붙인 숙제(비행안전평가)를 이제 처리하는 안건입니다.</p>
+    <div class="vs">
+      <div class="side a"><div class="cap">조합 측 설명</div><div class="body">
+        <span class="tag t-doc">조합 공지 (7/26)</span>
+        <p>착공 전에 반드시 이행해야 하는 필수 안건이다. 부결되면 착공 일정을 진행할 수 없고, 나중에 다시 총회를 열어 의결받아야 착공이 가능해진다.</p>
+      </div></div>
+      <div class="side b"><div class="cap">비대위 측 설명</div><div class="body">
+        <span class="tag t-claim">주장 (7/27)</span>
+        <p>이 안건이 지금 올라온다는 것 자체가 애초에 올해 4월 착공이 불가능했다는 뜻이다. 변경인가에는 6개월에서 1년 10개월이 걸린다.</p>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="gate now">
+    <p class="gh">제9호 — 대의원 선출</p>
+    <p class="gs">조합 운영에 관한 안건</p>
+    <p class="plain">쉽게 말하면: 대의원 9명이 한꺼번에 사퇴해서 대의원회가 열리지 못하는 상태입니다. 사람을 채우는 안건입니다.</p>
+    <div class="vs">
+      <div class="side a"><div class="cap">조합 측 설명</div><div class="body">
+        <span class="tag t-doc">조합 공지 (6/5·7/24)</span>
+        <p>DL이앤씨를 지지하던 대의원 9인이 회의를 무산시키려고 단체 사퇴해 정족수가 미달됐다. 총회에서 채워 정상 운영하겠다.</p>
+      </div></div>
+      <div class="side b"><div class="cap">비대위 측 설명</div><div class="body">
+        <span class="tag t-claim">주장 (7/12·7/27)</span>
+        <p>정관에 대의원 임기가 정해져 있지 않아 몇 년짜리 자리인지 모르고 뽑게 된다. 선거관리위원회 구성 절차에도 하자가 있다.</p>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="gate now">
+    <p class="gh">제6호 · 제5호 — 사업비와 총회 비용</p>
+    <p class="gs">돈에 관한 안건</p>
+    <div class="vs">
+      <div class="side a"><div class="cap">조합 측 설명</div><div class="body">
+        <span class="tag t-doc">조합 공지 (7/26)</span>
+        <p>착공하려면 국·공유지 매입 등 상당한 자금이 필요하다. HUG 사업비 한도는 이미 대부분 소진됐고, 관리처분계획 변경인가 이후에야 증액 보증을 받을 수 있어 그때까지 자금 공백을 메워야 한다.</p>
+      </div></div>
+      <div class="side b"><div class="cap">비대위 측 설명</div><div class="body">
+        <span class="tag t-claim">주장 (7/27)</span>
+        <p>이대로면 이주비 대출 이자가 월 100만원에서 200만원, 금리가 오르면 300만원까지 갈 수 있다. 사업비 이자도 연 360억에서 760억이 된다.</p>
+      </div></div>
+    </div>
+  </div>
+
+  <details>
+    <summary>총회에 못 가면 어떻게 되나요?</summary>
+    <div class="dbody">
+      <p>서면결의서로도 참여할 수 있습니다. 다만 <b>새 시공사를 정하는 안건</b>은 법(도시정비법)상 조합원 과반수가 <b>직접 출석</b>해야 합니다. 8월 8일 총회에는 시공사 선정 안건은 없습니다.</p>
+      <p>총회 장소·시간·셔틀버스는 조합에 확인하십시오. <b>조합 사무실 031-747-2730</b></p>
+      <p class="pending">※ 이 페이지는 어느 안건에 찬성하거나 반대하라고 권하지 않습니다. 안건의 뜻과 양측 입장만 옮깁니다.</p>
+    </div>
+  </details>
+
+  <p class="fixme"><a href="#s7" data-fix="1. 8월 8일 임시총회">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
+</section>
+
+<!-- ══ s4 ══ -->
+<section id="s4" data-g="s1">
   <h2>착공까지 남은 관문 7개</h2>
   <p class="h2sub">일곱 단계가 각각 무슨 뜻인지 하나씩 풀어 적었습니다. DL과 GS를 나란히 비교한 표는 <a href="#paths">맨 위에 있습니다 ▲</a></p>
 
@@ -941,8 +1019,47 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   <p class="fixme"><a href="#s7" data-fix="4. 착공까지 남은 관문">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
 </section>
 
-<!-- ══ 5 ══ -->
-<section id="s5">
+<!-- ══ sched ══ -->
+<section id="sched" data-g="s1">
+  <h2>조합이 내놓은 공식 일정표</h2>
+  <p class="h2sub">조합장 직인이 찍힌 문서에 적힌 계획입니다. 계획이지 확정이 아닙니다.</p>
+
+  <div class="sched">
+    <div class="sr"><div class="sw">2026년 5~7월</div><div class="sb">
+      <p class="st">동호수 추첨 및 관리처분계획 변경 준비</p>
+      <p>GS건설 선정(5/30) · <b>감리자 지정 신청 완료(6/1)</b> · 부동산원 동호수 추첨 신청 ·
+         침례교회 이주(6/3) · 공사비 및 도급계약서 체결 · 종후자산평가</p></div></div>
+    <div class="sr hi"><div class="sw">2026년 8~9월</div><div class="sb">
+      <p class="st">착공</p>
+      <p>조합원 동호수 추첨 · 착공계 접수 관계부서 협의 · <b>착공신고</b></p></div></div>
+    <div class="sr"><div class="sw">2026년 10~12월</div><div class="sb">
+      <p class="st">관리처분계획 변경인가</p>
+      <p>관리처분 변경을 위한 임시총회 · 관리처분계획 변경 접수 · 조합원 분양계약(동·호수 계약)</p></div></div>
+    <div class="sr"><div class="sw">2027년 1~4월</div><div class="sb">
+      <p class="st">일반분양</p>
+      <p>모델하우스 오픈 · 일반분양</p></div></div>
+  </div>
+  <p class="bnote">문서에 “상기 일정은 예상계획이며, 업무추진에 따라 변경될 수 있습니다”라고 적혀 있습니다.</p>
+
+  <div class="qrow">이 일정표에서 조합원들이 묻는 것</div>
+  <div class="vs">
+    <div class="side a"><div class="cap">조합 측</div><div class="body">
+      <span class="tag t-doc">조합 공식 일정표</span>
+      <p>8~9월에 착공하고, <b>관리처분계획 변경인가는 그 뒤인 10~12월</b>에 하는 것으로 계획되어 있습니다.</p>
+      <p>착공을 먼저 해서 시간을 벌고, 확정된 공사비와 일반분양가를 반영한 관리처분 변경은 이어서 처리하겠다는 것입니다.</p>
+    </div></div>
+    <div class="side b"><div class="cap">비대위 측</div><div class="body">
+      <span class="tag t-claim">주장</span>
+      <p><b>순서가 뒤바뀌었다</b>고 봅니다. 도시정비법상 조합원에게 집을 배정하는 것은 <b>인가받은 관리처분계획에 따라야 하는데</b>,
+         계획이 확정되기도 전에 동호수 추첨부터 하는 것은 근거가 없다는 주장입니다.</p>
+      <p>관리처분 변경 전에는 <b>내 분담금이 얼마인지 모르는 상태에서 동·호수를 정하게 된다</b>는 점도 지적합니다.</p>
+    </div></div>
+  </div>
+  <p class="fixme"><a href="#s7" data-fix="조합 공식 일정표">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
+</section>
+
+<!-- ══ s5 ══ -->
+<section id="s5" data-g="s5">
   <h2>법원이 판단한 것 · 조합장 수사</h2>
   <p class="h2sub">양측 주장과 달리, 이것은 확인 가능한 사실입니다.</p>
 
@@ -1032,91 +1149,8 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   <p class="fixme"><a href="#s7" data-fix="5. 법원이 판단한 것">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
 </section>
 
-
-<!-- ══ 조합 공식 일정 ══ -->
-<section id="sched">
-  <h2>조합이 내놓은 공식 일정표</h2>
-  <p class="h2sub">조합장 직인이 찍힌 문서에 적힌 계획입니다. 계획이지 확정이 아닙니다.</p>
-
-  <div class="sched">
-    <div class="sr"><div class="sw">2026년 5~7월</div><div class="sb">
-      <p class="st">동호수 추첨 및 관리처분계획 변경 준비</p>
-      <p>GS건설 선정(5/30) · <b>감리자 지정 신청 완료(6/1)</b> · 부동산원 동호수 추첨 신청 ·
-         침례교회 이주(6/3) · 공사비 및 도급계약서 체결 · 종후자산평가</p></div></div>
-    <div class="sr hi"><div class="sw">2026년 8~9월</div><div class="sb">
-      <p class="st">착공</p>
-      <p>조합원 동호수 추첨 · 착공계 접수 관계부서 협의 · <b>착공신고</b></p></div></div>
-    <div class="sr"><div class="sw">2026년 10~12월</div><div class="sb">
-      <p class="st">관리처분계획 변경인가</p>
-      <p>관리처분 변경을 위한 임시총회 · 관리처분계획 변경 접수 · 조합원 분양계약(동·호수 계약)</p></div></div>
-    <div class="sr"><div class="sw">2027년 1~4월</div><div class="sb">
-      <p class="st">일반분양</p>
-      <p>모델하우스 오픈 · 일반분양</p></div></div>
-  </div>
-  <p class="bnote">문서에 “상기 일정은 예상계획이며, 업무추진에 따라 변경될 수 있습니다”라고 적혀 있습니다.</p>
-
-  <div class="qrow">이 일정표에서 조합원들이 묻는 것</div>
-  <div class="vs">
-    <div class="side a"><div class="cap">조합 측</div><div class="body">
-      <span class="tag t-doc">조합 공식 일정표</span>
-      <p>8~9월에 착공하고, <b>관리처분계획 변경인가는 그 뒤인 10~12월</b>에 하는 것으로 계획되어 있습니다.</p>
-      <p>착공을 먼저 해서 시간을 벌고, 확정된 공사비와 일반분양가를 반영한 관리처분 변경은 이어서 처리하겠다는 것입니다.</p>
-    </div></div>
-    <div class="side b"><div class="cap">비대위 측</div><div class="body">
-      <span class="tag t-claim">주장</span>
-      <p><b>순서가 뒤바뀌었다</b>고 봅니다. 도시정비법상 조합원에게 집을 배정하는 것은 <b>인가받은 관리처분계획에 따라야 하는데</b>,
-         계획이 확정되기도 전에 동호수 추첨부터 하는 것은 근거가 없다는 주장입니다.</p>
-      <p>관리처분 변경 전에는 <b>내 분담금이 얼마인지 모르는 상태에서 동·호수를 정하게 된다</b>는 점도 지적합니다.</p>
-    </div></div>
-  </div>
-  <p class="fixme"><a href="#s7" data-fix="조합 공식 일정표">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
-</section>
-
-<!-- ══ 총회 비용 ══ -->
-<section id="cost">
-  <h2>총회 한 번에 드는 돈</h2>
-  <p class="h2sub">8월 8일 총회 책자에 실린 비용 예산(안)입니다. 조합원이 부담하는 돈입니다.</p>
-
-  <div class="chart">
-    <p class="ct">2026년도 2차 임시총회 비용 예산(안)</p>
-    <p class="cs">총회 책자 108쪽 · 총계 <b>12억 4,947만원</b></p>
-    <div class="brow"><p class="bl"><span>총회 홍보 인건비 (홍보인원 50인)</span><b>5억 8,500만원</b></p>
-      <div class="bt"><div class="bf gs" style="width:47%"></div></div>
-      <p class="bnote">65일 × 50명 × 하루 18만원</p></div>
-    <div class="brow"><p class="bl"><span>안전요원 1,500명</span><b>2억 7,000만원</b></p>
-      <div class="bt"><div class="bf dl" style="width:22%"></div></div></div>
-    <div class="brow"><p class="bl"><span>서면결의서 제출 회의비 (1,300명 × 7만원)</span><b>9,100만원</b></p>
-      <div class="bt"><div class="bf base" style="width:7%"></div></div></div>
-    <div class="brow"><p class="bl"><span>직접 참석 회의비 (700명 × 10만원)</span><b>7,000만원</b></p>
-      <div class="bt"><div class="bf base" style="width:6%"></div></div>
-      <p class="bnote">서면결의서를 낸 뒤 직접 참석하면 10만원을 지급</p></div>
-    <div class="brow"><p class="bl"><span>총회책자 제작 (2,800부)</span><b>4,200만원</b></p>
-      <div class="bt"><div class="bf base" style="width:3%"></div></div></div>
-    <div class="brow"><p class="bl"><span>총회장 대관료</span><b>1,700만원</b></p>
-      <div class="bt"><div class="bf base" style="width:1.5%"></div></div></div>
-    <p class="bnote" style="margin-top:20px;padding-top:16px;border-top:2px solid var(--line)">
-      그 밖에 우편료·인쇄·속기·영상촬영·현수막·예비비 등이 포함되어 총계 <b>12억 4,947만원</b>입니다.</p>
-  </div>
-
-  <div class="vs">
-    <div class="side a"><div class="cap">조합 측 설명</div><div class="body">
-      <span class="tag t-doc">총회 책자 기재</span>
-      <p>책자에 이렇게 적혀 있습니다 — <b>“그동안 총회 비용 및 상기 총회 비용은 비상대책위원회(착해모)의 반복적인 임시총회 개최 방해로 인해 비용이 지속적으로 발생한 것으로,
-         조합은 이에 따른 손해에 대하여 비대위를 상대로 민사상 손해배상 청구를 추진할 예정입니다.”</b></p>
-      <p>실비 정산을 원칙으로 하며 항목 간 조정이 있을 수 있다고 밝히고 있습니다.</p>
-    </div></div>
-    <div class="side b"><div class="cap">비대위 측 주장</div><div class="body">
-      <span class="tag t-claim">주장</span>
-      <p>제5호 안건은 <b>4월 11일 총회 비용 12억을 조합원이 대신 내라는 것</b>이라고 봅니다.
-         그 총회는 법원에서 효력이 정지됐는데 그 비용을 왜 조합원이 부담하느냐는 것입니다.</p>
-      <p>홍보인원 인건비와 참석 회의비 지급이 <b>사실상 참석을 유도하기 위한 지출</b>이라고 지적합니다.</p>
-    </div></div>
-  </div>
-  <p class="fixme"><a href="#s7" data-fix="총회 비용">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
-</section>
-
-<!-- ══ 6 ══ -->
-<section id="s6">
+<!-- ══ s6 ══ -->
+<section id="s6" data-g="s6">
   <h2>무엇을 가장 알고 싶으십니까</h2>
   <p class="h2sub">지지하는 쪽을 묻지 않습니다. 조합원들이 어떤 정보를 원하는지 모아서 공개하려는 것입니다.</p>
 
@@ -1134,8 +1168,8 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   </form>
 </section>
 
-<!-- ══ 7 ══ -->
-<section id="s7">
+<!-- ══ s7 ══ -->
+<section id="s7" data-g="s6">
   <h2>잘못된 내용이 있으면 알려주십시오</h2>
   <p class="h2sub">조합 측이든 비대위 측이든 관계없이 받습니다.</p>
 
@@ -1213,6 +1247,8 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
 </div>
 
+<button id="toTop" type="button" aria-label="맨 위로">▲<span>맨 위로</span></button>
+
 <script>
 // ══════════════════════════════════════════
 // 설정 — 아래 값만 채우면 됩니다
@@ -1237,6 +1273,51 @@ var MEETING = "2026-08-08";  // 다음 총회 날짜 (없으면 "" 로 비우십
 var STALE_DAYS = 10;         // 이만큼 지나면 "오래된 내용" 경고가 뜹니다
 
 (function(){
+  // ── 글씨 크기 ──
+  var bigBtn = document.getElementById('bigBtn');
+  bigBtn.addEventListener('click', function(){
+    var on = document.body.classList.toggle('big');
+    bigBtn.textContent = on ? '글씨 작게' : '글씨 크게';
+  });
+
+  // ── 목차 열고 닫기 ──
+  var toc = document.getElementById('toc'), tocBtn = document.getElementById('tocBtn');
+  tocBtn.addEventListener('click', function(){
+    var open = toc.classList.toggle('open');
+    tocBtn.setAttribute('aria-expanded', open);
+    tocBtn.textContent = open ? '목차 ▴' : '목차 ▾';
+  });
+  [].forEach.call(toc.querySelectorAll('a'), function(a){
+    a.addEventListener('click', function(){
+      if (window.innerWidth < 760) {
+        toc.classList.remove('open');
+        tocBtn.setAttribute('aria-expanded', false);
+        tocBtn.textContent = '목차 ▾';
+      }
+    });
+  });
+
+  // ── 지금 보고 있는 곳을 목차에서 진하게 ──
+  var links = {};
+  [].forEach.call(toc.querySelectorAll('a'), function(a){ links[a.dataset.g] = a; });
+  var marks = [].map.call(document.querySelectorAll('section[data-g]'), function(sec){
+    return { g: sec.dataset.g, el: sec };
+  });
+  var toTop = document.getElementById('toTop');
+  var ticking = false;
+  function spy(){
+    ticking = false;
+    var y = window.scrollY + 140, cur = null;
+    marks.forEach(function(m){ if (m.el.offsetTop <= y) cur = m.g; });
+    for (var g in links) links[g].classList.toggle('on', g === cur);
+    toTop.classList.toggle('show', window.scrollY > 900);
+  }
+  window.addEventListener('scroll', function(){
+    if (!ticking) { ticking = true; requestAnimationFrame(spy); }
+  }, {passive:true});
+  spy();
+  toTop.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+
   // ── 날짜 자동 계산 ──
   function d(s){var p=s.split('-'); return new Date(+p[0], +p[1]-1, +p[2]);}
   var today = new Date(); today.setHours(0,0,0,0);
