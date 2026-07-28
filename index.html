@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>상대원2구역 — 지금 어디까지 왔나</title>
+<style>
+/* ══════════════════════════════════════════════════
+   색: 남색 + 미색 (Navy & Cream)
+   · 배경을 순백 대신 따뜻한 미색으로 → 눈부심을 줄여 고령 독자에게 편함
+   · 글자를 순검정 대신 짙은 남색으로 → 대비는 유지하면서 덜 딱딱함
+   · 색은 "상태"와 "근거 종류"에만 씁니다.
+     양측을 색으로 구분하지 않습니다 (편들기로 보이지 않게)
+   ══════════════════════════════════════════════════ */
+:root{
+  --bg:#FAF7F0; --surface:#FFFFFF;
+  --fg:#14213D; --muted:#4A5568;
+  --line:#DAD2C4; --soft:#F1EDE4;
+  --accent:#1D5C7A; --accentbg:#E4EFF4;
+
+  --go:#1E6B4F;   --gobg:#E2F0E9;   /* 진행·통과 */
+  --wait:#856A2B; --waitbg:#F9EFD8; /* 대기 */
+  --stop:#9B3A2E; --stopbg:#FAE7E3; /* 막힘 */
+
+  --sideA:#EDF1F6; --sideAbar:#DCE4EE;  /* 조합 측 (찬 기운) */
+  --sideB:#F5F0E7; --sideBbar:#EAE1D2;  /* 비대위 측 (따뜻한 기운) */
+  --scale:1;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","맑은 고딕",sans-serif;
+  font-size:calc(19px * var(--scale)); line-height:1.85; word-break:keep-all;
+}
+body.big{--scale:1.28}
+.wrap{max-width:840px; margin:0 auto; padding:0 20px 80px}
+
+header{border-bottom:5px solid var(--fg); padding:30px 0 22px; margin-bottom:8px}
+h1{font-size:1.8em; line-height:1.32; margin:0 0 10px; letter-spacing:-.015em}
+.asof{font-size:.95em; color:var(--muted); margin:0}
+
+.tools{position:sticky; top:0; z-index:50; background:var(--bg);
+  border-bottom:2px solid var(--line); padding:10px 0; margin-bottom:26px;
+  display:flex; gap:10px; flex-wrap:wrap}
+.tools button{font:inherit; font-size:.95em; font-weight:700; cursor:pointer;
+  background:var(--surface); color:var(--fg); border:2px solid var(--fg);
+  border-radius:10px; padding:12px 18px; min-height:56px}
+.tools button:active{background:var(--fg); color:var(--bg)}
+
+/* ── 상태판 ── */
+.status{border:4px solid var(--fg); border-radius:16px; padding:24px 22px;
+  margin:0 0 34px; background:var(--surface)}
+.status .lab{font-size:.95em; color:var(--muted); margin:0 0 6px}
+.status .v{font-size:1.4em; font-weight:800; line-height:1.4; margin:0}
+.status .blk{padding:20px 0; border-bottom:2px dashed var(--line)}
+.status .blk:first-child{padding-top:0}
+.status .blk:last-child{border-bottom:0; padding-bottom:0}
+.dday{display:inline-block; white-space:nowrap; background:var(--stop); color:#fff;
+  border-radius:8px; padding:2px 14px; margin-left:8px}
+
+/* ── 관문 진행 막대 ── */
+.bars{display:flex; gap:5px; margin:14px 0 10px}
+.bars i{flex:1; height:26px; border-radius:5px; display:block; border:1.5px solid rgba(0,0,0,.14)}
+.bars i.go{background:var(--go)} .bars i.wait{background:var(--waitbg)} .bars i.stop{background:var(--stop)}
+.barkey{display:flex; gap:18px; flex-wrap:wrap; font-size:.88em; color:var(--muted); margin:0}
+.barkey span{display:flex; align-items:center; gap:7px}
+.barkey b{width:16px; height:16px; border-radius:4px; display:inline-block; border:1.5px solid rgba(0,0,0,.14)}
+
+/* ── 섹션 ── */
+section{margin:0 0 54px; scroll-margin-top:92px}
+h2{font-size:1.5em; line-height:1.4; margin:0 0 6px; padding-top:28px; border-top:4px solid var(--fg)}
+.h2sub{color:var(--muted); font-size:.95em; margin:0 0 22px}
+h3{font-size:1.15em; margin:34px 0 12px; line-height:1.5}
+
+/* ── 양측 비교 ── */
+.vs{display:grid; grid-template-columns:1fr; gap:16px; margin:16px 0 8px}
+@media(min-width:760px){.vs{grid-template-columns:1fr 1fr}}
+.side{border:2px solid var(--line); border-radius:12px; overflow:hidden}
+.side.a{background:var(--sideA)} .side.b{background:var(--sideB)}
+.side .cap{font-weight:800; padding:13px 16px; border-bottom:2px solid var(--line)}
+.side.a .cap{background:var(--sideAbar)} .side.b .cap{background:var(--sideBbar)}
+.side .body{padding:16px}
+.side p{margin:0 0 12px} .side p:last-child{margin-bottom:0}
+.side .note{font-size:.9em; color:var(--muted)}
+.qrow{margin:28px 0 10px; font-weight:800; font-size:1.1em; color:var(--surface);
+  background:var(--fg); padding:13px 18px; border-radius:10px}
+
+/* ── 근거 배지 ── */
+.tag{display:inline-block; font-size:.8em; font-weight:800; line-height:1.5;
+  padding:3px 11px; border-radius:999px; margin:0 0 8px; white-space:nowrap}
+.t-ok{background:var(--gobg); color:var(--go); border:1.5px solid var(--go)}
+.t-doc{background:var(--waitbg); color:var(--wait); border:1.5px solid var(--wait)}
+.t-claim{background:var(--surface); color:var(--muted); border:1.5px solid var(--muted)}
+
+/* ── 도표: 시간축 ── */
+.chart{background:var(--surface); border:2px solid var(--line); border-radius:14px;
+  padding:22px 20px; margin:18px 0}
+.chart .ct{font-weight:800; margin:0 0 4px}
+.chart .cs{font-size:.9em; color:var(--muted); margin:0 0 20px}
+.axis{position:relative; height:34px; border-bottom:3px solid var(--fg); margin-bottom:6px}
+.axis span{position:absolute; top:100%; transform:translateX(-50%);
+  font-size:.82em; color:var(--muted); white-space:nowrap; padding-top:8px}
+.axis span:first-child{transform:translateX(0)}
+.axis span:first-child::before{left:1px}
+.axis span:last-child{transform:translateX(-100%)}
+.axis span:last-child::before{left:auto; right:1px}
+.axis span::before{content:""; position:absolute; left:50%; top:-9px; width:2px; height:9px; background:var(--line)}
+.tl{margin-top:30px}
+.tl .lbl{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  font-size:.92em; margin:0 0 8px}
+.tl .lbl b{font-weight:800}
+.tl .lbl em{font-style:normal; font-weight:800; color:var(--accent)}
+.tl .lbl em.b{color:var(--wait)}
+.tl .track{position:relative; height:30px; background:var(--soft); border-radius:8px; overflow:hidden}
+.tl .pin{position:absolute; top:0; height:30px; border-radius:8px; min-width:10px}
+.tl .pin.a{background:var(--accent)} .tl .pin.b{background:var(--wait)}
+.tl .pin.range{opacity:.4; border-radius:0 8px 8px 0}
+.gapnote{background:var(--soft); border-left:8px solid var(--fg); border-radius:0 10px 10px 0;
+  padding:14px 18px; margin:26px 0 0; font-weight:700}
+
+/* ── 도표: 막대 ── */
+.brow{margin:0 0 20px}
+.brow .bl{display:flex; justify-content:space-between; gap:12px; font-size:.92em; margin:0 0 6px}
+.brow .bl b{font-weight:800}
+.brow .bt{height:36px; background:var(--soft); border-radius:8px; overflow:hidden}
+.brow .bf{height:100%; border-radius:8px; display:flex; align-items:center;
+  justify-content:flex-end; padding:0 12px; color:#fff; font-weight:800; font-size:.88em}
+.bf.base{background:var(--muted)} .bf.dl{background:var(--wait)}
+.bf.gs{background:var(--accent)}
+/* 추정치는 빗금으로 표시 — 확정 금액과 구분하되 색으로 편들지 않습니다 */
+.bf.est{background:repeating-linear-gradient(45deg,
+  var(--wait) 0 12px, rgba(255,255,255,.42) 12px 24px)}
+.bnote{font-size:.85em; color:var(--muted); margin:7px 0 0; line-height:1.6}
+.bnote b{color:var(--fg)}
+
+/* ── 관문 ── */
+.gate{border:2px solid var(--line); border-left:14px solid var(--line);
+  border-radius:12px; padding:18px 20px; margin:0 0 14px; background:var(--surface)}
+.gate.stop{border-left-color:var(--stop)}
+.gate.now{border-left-color:var(--wait)}
+.gate.wait{border-left-color:var(--muted)}
+.gate .gh{font-weight:800; font-size:1.12em; margin:0 0 4px; line-height:1.5}
+.gate .gs{font-size:.9em; font-weight:800; margin:0 0 12px; display:inline-block;
+  padding:2px 12px; border-radius:999px}
+.gate.stop .gs{color:var(--stop); background:var(--stopbg)}
+.gate.now .gs{color:var(--wait); background:var(--waitbg)}
+.gate.wait .gs{color:var(--muted); background:var(--soft)}
+.gate p{margin:0 0 8px} .gate p:last-child{margin-bottom:0}
+.plain{background:var(--accentbg); border-radius:10px; padding:12px 16px; font-size:.95em; margin:0 0 12px}
+
+/* ── 접기 ── */
+details{border:2px solid var(--line); border-radius:12px; margin:16px 0; background:var(--surface)}
+summary{cursor:pointer; font-weight:800; padding:16px 18px; min-height:56px;
+  display:flex; align-items:center; gap:10px; list-style:none; line-height:1.5}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"＋"; font-size:1.25em; flex:none; color:var(--accent)}
+details[open] summary::before{content:"－"}
+details .dbody{padding:0 18px 18px}
+
+/* ── 세로 타임라인 ── */
+.log{position:relative; padding-left:34px}
+.log::before{content:""; position:absolute; left:9px; top:8px; bottom:8px; width:3px; background:var(--line)}
+.log .item{position:relative; padding:0 0 30px}
+.log .item::before{content:""; position:absolute; left:-32px; top:9px; width:19px; height:19px;
+  border-radius:50%; background:var(--surface); border:4px solid var(--muted)}
+.log .item.ok::before{border-color:var(--go)}
+.log .item.now::before{border-color:var(--stop); background:var(--stopbg)}
+.log .d{font-weight:800; font-size:1.05em; color:var(--accent)}
+.log .t{margin:4px 0 8px}
+a{color:var(--accent)}
+a.src{display:inline-block; font-weight:700; margin-top:4px}
+.pending{color:var(--muted); font-weight:700}
+
+/* ── 출처 고지 ── */
+.origin{border:3px dashed var(--accent); border-radius:16px; padding:22px;
+  margin:0 0 42px; background:var(--accentbg)}
+.origin p{margin:0 0 12px} .origin p:last-child{margin:0}
+.origin .big{font-size:1.12em; font-weight:800; line-height:1.55}
+
+.fixme{margin:20px 0 0; text-align:right}
+.fixme a{display:inline-block; font-weight:800; font-size:.95em; text-decoration:none;
+  border:2px solid var(--line); border-radius:999px; padding:12px 20px; min-height:52px;
+  line-height:1.7; color:var(--fg); background:var(--surface)}
+.fixme a:active{background:var(--fg); color:var(--bg)}
+
+/* ── 폼 ── */
+.poll,.report{border:4px solid var(--fg); border-radius:16px; padding:24px 22px; background:var(--surface)}
+.poll label{display:flex; gap:14px; align-items:flex-start; padding:16px 14px;
+  border:2px solid var(--line); border-radius:10px; margin-bottom:12px;
+  background:var(--bg); cursor:pointer; min-height:60px}
+.poll label:has(input:checked){border-color:var(--accent); background:var(--accentbg)}
+.poll input{width:30px; height:30px; margin:4px 0 0; flex:none; accent-color:var(--accent)}
+.poll .sub{margin:0 0 18px; color:var(--muted); font-size:.95em}
+.report label.f{display:block; font-weight:800; margin:24px 0 8px; font-size:1.05em}
+.report label.f:first-of-type{margin-top:0}
+.report select,.report textarea{font:inherit; font-size:1em; width:100%; padding:14px;
+  border:2px solid var(--line); border-radius:10px; background:var(--bg); color:var(--fg)}
+.report select{min-height:60px}
+.report textarea{min-height:120px; line-height:1.7; resize:vertical}
+.report .hint{font-size:.9em; color:var(--muted); margin:6px 0 0}
+.sendbtns{display:grid; gap:12px; margin-top:26px}
+.btn{font:inherit; font-size:1.05em; font-weight:800; cursor:pointer; width:100%;
+  background:var(--accent); color:#fff; border:0; border-radius:12px; padding:20px; min-height:68px}
+.btn.alt{background:var(--surface); color:var(--fg); border:3px solid var(--fg)}
+.thanks,.sent{display:none; background:var(--gobg); border:2px solid var(--go); color:var(--go);
+  border-radius:10px; padding:18px; font-weight:800; margin-top:16px; line-height:1.6}
+.sent{white-space:pre-wrap; word-break:break-word; user-select:all}
+
+.about{border:3px solid var(--fg); border-radius:16px; padding:24px 22px;
+  margin-top:42px; background:var(--surface)}
+.about h2{border-top:0; padding-top:0; font-size:1.25em}
+.about p{margin:0 0 12px} .about p:last-child{margin:0}
+footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
+  color:var(--muted); font-size:.9em}
+
+@media print{
+  .tools,.poll,.report,.fixme{display:none!important}
+  body{font-size:11pt; --scale:1; background:#fff}
+  .wrap{max-width:100%}
+  details .dbody{display:block!important}
+  section,.chart,.gate{page-break-inside:avoid}
+  a{color:#000; text-decoration:none}
+  a.src::after{content:" (" attr(href) ")"; font-size:8pt; word-break:break-all}
+}
+
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141A21; --surface:#1B222B; --fg:#EDF1F5; --muted:#A8B4C0;
+    --line:#37414D; --soft:#232C36; --accent:#7FB6D6; --accentbg:#1E2B36;
+    --go:#6FCF9B; --gobg:#16301F; --wait:#E0BB6E; --waitbg:#332913;
+    --stop:#E58C7C; --stopbg:#3A211C;
+    --sideA:#1E2731; --sideAbar:#28323E; --sideB:#282219; --sideBbar:#332C21;
+  }
+  .qrow{background:var(--accent); color:#141A21}
+  .bars i.wait{background:#4A3C1C}
+  .tl .pin.a,.tl .pin.b,.bf{color:#141A21}
+  .dday{color:#141A21}
+  .btn{color:#141A21}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>상대원2구역<br>지금 어디까지 왔나</h1>
+  <p class="asof">2026년 7월 28일 정리 · 조합원이 만든 비공식 정리본</p>
+</header>
+
+<div class="tools">
+  <button type="button" onclick="document.body.classList.toggle('big')">글씨 크게 / 작게</button>
+  <button type="button" onclick="window.print()">인쇄하기</button>
+</div>
+
+<!-- ══ 상태판 ══ -->
+<div class="status">
+  <div class="blk">
+    <p class="lab">착공까지 남은 관문</p>
+    <p class="v">7개 중 &nbsp;완료 0 · 진행 3 · 막힘 2 · 대기 2</p>
+    <div class="bars">
+      <i class="stop" title="① 시공사 확정 — 막힘"></i>
+      <i class="wait" title="② 사업시행계획 변경인가 — 진행"></i>
+      <i class="wait" title="③ 종후자산 감정평가 — 진행"></i>
+      <i class="wait" title="④ 관리처분계획 변경인가 — 대기"></i>
+      <i class="wait" title="⑤ 감리자 지정 — 대기"></i>
+      <i class="stop" title="⑥ 자금 조달 — 막힘"></i>
+      <i class="wait" title="⑦ 현장 인도·착공신고 — 대기"></i>
+    </div>
+    <p class="barkey">
+      <span><b style="background:var(--go)"></b>통과</span>
+      <span><b style="background:var(--waitbg)"></b>진행·대기</span>
+      <span><b style="background:var(--stop)"></b>막힘</span>
+    </p>
+  </div>
+  <div class="blk">
+    <p class="lab">지금 기다리는 것</p>
+    <p class="v">5월 30일 총회에 대한 법원 결정<br>(7월 안에 나올 예정)</p>
+  </div>
+  <div class="blk">
+    <p class="lab">가장 가까운 일정</p>
+    <p class="v">8월 8일 임시총회 <span class="dday">11일 남음</span></p>
+  </div>
+</div>
+
+<!-- ══ 출처 고지 ══ -->
+<div class="origin">
+  <p class="big">이 내용은 어디서 가져온 것입니까</p>
+  <p>조합 공지 단톡방과 정상화모임(착해모) 단톡방, <b>두 곳에 실제로 올라온 글</b>을 그대로 정리한 것입니다. 여기에 법원 결정과 언론 보도로 확인되는 사실을 더했습니다.</p>
+  <p>새로 취재하거나 조사한 내용은 없습니다. <b>양측이 각자 한 말을 옮긴 것</b>입니다.</p>
+  <p class="big">그래서 잘못 읽었을 수 있습니다.</p>
+  <p>단톡방 글은 길고 서로 엇갈려서, 만든 사람이 뜻을 잘못 이해했거나 중요한 내용을 빠뜨렸을 수 있습니다. 특히 <b>총회 책자와 계약서 원문은 보지 못한 채</b> 정리했습니다.</p>
+  <p><b>틀린 곳을 발견하시면 꼭 알려주십시오.</b> 조합 측이든 비대위 측이든 관계없이 받습니다. 확인되면 고치고, 무엇을 고쳤는지도 함께 적어 둡니다.
+     <br><a href="#s7"><b>▶ 고쳐야 할 곳 알려주기</b></a></p>
+</div>
+
+<!-- ══ 1 ══ -->
+<section id="s1">
+  <h2>1. 8월 8일 임시총회 — 무엇을 정하는 자리인가</h2>
+  <p class="h2sub">지금 조합원이 실제로 할 수 있는 일은 이것 하나입니다. 책자는 7월 24일 발송되었습니다.</p>
+
+  <div class="gate now">
+    <p class="gh">제10호 — 사업시행계획 변경(안) 수립 및 신청 승인</p>
+    <p class="gs">착공과 가장 직접 관련된 안건</p>
+    <p class="plain">쉽게 말하면: 2025년 10월 인가받을 때 성남시가 "이건 나중에 꼭 해오라"고 붙인 숙제(비행안전평가)를 이제 처리하는 안건입니다.</p>
+    <div class="vs">
+      <div class="side a"><div class="cap">조합 측 설명</div><div class="body">
+        <span class="tag t-doc">조합 공지 (7/26)</span>
+        <p>착공 전에 반드시 이행해야 하는 필수 안건이다. 부결되면 착공 일정을 진행할 수 없고, 나중에 다시 총회를 열어 의결받아야 착공이 가능해진다.</p>
+      </div></div>
+      <div class="side b"><div class="cap">비대위 측 설명</div><div class="body">
+        <span class="tag t-claim">주장 (7/27)</span>
+        <p>이 안건이 지금 올라온다는 것 자체가 애초에 올해 4월 착공이 불가능했다는 뜻이다. 변경인가에는 6개월에서 1년 10개월이 걸린다.</p>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="gate now">
+    <p class="gh">제9호 — 대의원 선출</p>
+    <p class="gs">조합 운영에 관한 안건</p>
+    <p class="plain">쉽게 말하면: 대의원 9명이 한꺼번에 사퇴해서 대의원회가 열리지 못하는 상태입니다. 사람을 채우는 안건입니다.</p>
+    <div class="vs">
+      <div class="side a"><div class="cap">조합 측 설명</div><div class="body">
+        <span class="tag t-doc">조합 공지 (6/5·7/24)</span>
+        <p>DL이앤씨를 지지하던 대의원 9인이 회의를 무산시키려고 단체 사퇴해 정족수가 미달됐다. 총회에서 채워 정상 운영하겠다.</p>
+      </div></div>
+      <div class="side b"><div class="cap">비대위 측 설명</div><div class="body">
+        <span class="tag t-claim">주장 (7/12·7/27)</span>
+        <p>정관에 대의원 임기가 정해져 있지 않아 몇 년짜리 자리인지 모르고 뽑게 된다. 선거관리위원회 구성 절차에도 하자가 있다.</p>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="gate now">
+    <p class="gh">제6호 · 제5호 — 사업비와 총회 비용</p>
+    <p class="gs">돈에 관한 안건</p>
+    <div class="vs">
+      <div class="side a"><div class="cap">조합 측 설명</div><div class="body">
+        <span class="tag t-doc">조합 공지 (7/26)</span>
+        <p>착공하려면 국·공유지 매입 등 상당한 자금이 필요하다. HUG 사업비 한도는 이미 대부분 소진됐고, 관리처분계획 변경인가 이후에야 증액 보증을 받을 수 있어 그때까지 자금 공백을 메워야 한다.</p>
+      </div></div>
+      <div class="side b"><div class="cap">비대위 측 설명</div><div class="body">
+        <span class="tag t-claim">주장 (7/27)</span>
+        <p>이대로면 이주비 대출 이자가 월 100만원에서 200만원, 금리가 오르면 300만원까지 갈 수 있다. 사업비 이자도 연 360억에서 760억이 된다.</p>
+      </div></div>
+    </div>
+  </div>
+
+  <details>
+    <summary>총회에 못 가면 어떻게 되나요?</summary>
+    <div class="dbody">
+      <p>서면결의서로도 참여할 수 있습니다. 다만 <b>새 시공사를 정하는 안건</b>은 법(도시정비법)상 조합원 과반수가 <b>직접 출석</b>해야 합니다. 8월 8일 총회에는 시공사 선정 안건은 없습니다.</p>
+      <p>총회 장소·시간·셔틀버스는 조합에 확인하십시오. <b>조합 사무실 031-747-2730</b></p>
+      <p class="pending">※ 이 페이지는 어느 안건에 찬성하거나 반대하라고 권하지 않습니다. 안건의 뜻과 양측 입장만 옮깁니다.</p>
+    </div>
+  </details>
+
+  <p class="fixme"><a href="#s7" data-fix="1. 8월 8일 임시총회">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
+</section>
+
+<!-- ══ 2 ══ -->
+<section id="s2">
+  <h2>2. 착공은 언제인가</h2>
+  <p class="h2sub">가장 많이 묻는 질문입니다. 양측은 <b>서로 다른 시공사를 전제로</b> 계산하고 있어서, 나란히 놓고 봐야 뜻이 통합니다.</p>
+
+  <div class="chart">
+    <p class="ct">양측이 말하는 착공 시점</p>
+    <p class="cs">둘 다 아직 <b>주장</b>입니다. 확정된 날짜가 아닙니다.</p>
+    <div class="axis">
+      <span style="left:0%">2026<br>7월</span>
+      <span style="left:20%">2027<br>1월</span>
+      <span style="left:60%">2028<br>1월</span>
+      <span style="left:100%">2029<br>1월</span>
+    </div>
+    <div class="tl" style="margin-top:72px">
+      <p class="lbl"><b>조합 측 — GS건설로 진행 시</b><em>2026년 8~9월</em></p>
+      <div class="track"><div class="pin a" style="left:1.5%; width:5%"></div></div>
+    </div>
+    <div class="tl">
+      <p class="lbl"><b>비대위 측 — GS건설로 진행 시</b><em class="b">2027년 11월 ~ 2028년 11월</em></p>
+      <div class="track">
+        <div class="pin b range" style="left:53.3%; right:6.7%"></div>
+        <div class="pin b" style="left:53.3%; width:3%"></div>
+      </div>
+    </div>
+    <div class="tl">
+      <p class="lbl"><b>비대위 측 — DL이앤씨로 진행 시</b><em class="b">계약 즉시</em></p>
+      <div class="track"><div class="pin b" style="left:0; width:3%"></div></div>
+    </div>
+    <p class="gapnote">두 계산의 차이는 약 <b>15개월에서 27개월</b>입니다.</p>
+  </div>
+
+  <div class="qrow">GS건설로 진행할 경우</div>
+  <div class="vs">
+    <div class="side a"><div class="cap">조합 측</div><div class="body">
+      <span class="tag t-claim">주장</span>
+      <p><b>2026년 8월 착공 목표.</b> 9월로 밀리더라도 8월 기준 공사비 조건(평당 729만원)을 그대로 적용받도록 1개월 유예를 확보했다.</p>
+      <p class="note">근거: 조합 공지 5/15·6/26·7/6</p>
+    </div></div>
+    <div class="side b"><div class="cap">비대위 측</div><div class="body">
+      <span class="tag t-claim">주장</span>
+      <p><b>2027년 11월.</b> 본계약 1개월 + HUG 보증 승계 6개월 + DL 기투입비 정산·현장 인도 10개월. DL이 비협조적이면 2028년 11월까지 갈 수 있다.</p>
+      <p class="note">근거: 정상화모임 단톡방 7/10</p>
+    </div></div>
+  </div>
+
+  <div class="qrow">DL이앤씨로 진행할 경우</div>
+  <div class="vs">
+    <div class="side a"><div class="cap">조합 측</div><div class="body">
+      <span class="tag t-claim">입장 없음</span>
+      <p>5월 30일 총회에서 해지가 확정되었으므로 <b>논의 대상이 아니라는 입장</b>입니다.</p>
+      <p class="note">5월 당시에는 "DL도 도급계약서를 내지 않았고 감리자 선정에만 2~3개월이 걸려 6월 착공은 불가능하다"고 밝힌 바 있습니다. (5/18·5/21)</p>
+    </div></div>
+    <div class="side b"><div class="cap">비대위 측</div><div class="body">
+      <span class="tag t-claim">주장</span>
+      <p><b>도급계약만 맺으면 즉시 착공 가능.</b> DL은 4월에 시공 확약서를 냈고 "6월 내 착공 가능"이라는 공문도 보냈다.</p>
+      <p class="note">근거: 정상화모임 단톡방 7/11 · DL 공문 4월</p>
+    </div></div>
+  </div>
+
+  <details>
+    <summary>왜 이렇게 차이가 나나요?</summary>
+    <div class="dbody">
+      <p>계산에 넣는 항목이 다르기 때문입니다.</p>
+      <p><b>조합 측</b>은 남은 행정 절차(감리자 지정, 관리처분 변경)만 계산합니다.</p>
+      <p><b>비대위 측</b>은 여기에 <b>DL과의 법적 정리에 걸리는 시간</b>(HUG 보증을 GS로 넘기는 절차, DL이 이미 쓴 돈 정산, 현장을 넘겨받는 절차)을 더해서 계산합니다.</p>
+      <p>어느 쪽 계산이 맞는지는 <b>5월 30일 총회에 대한 법원 결정</b>이 나와야 좁혀집니다.</p>
+    </div>
+  </details>
+
+  <p class="fixme"><a href="#s7" data-fix="2. 착공은 언제인가">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
+</section>
+
+<!-- ══ 3 ══ -->
+<section id="s3">
+  <h2>3. 내 돈은 어떻게 되나</h2>
+  <p class="h2sub">이주비 이자 · 공사비 · 분담금 · 비례율</p>
+
+  <div class="qrow">이주비 대출 이자 — 지금 누가 내고 있나</div>
+  <div class="vs">
+    <div class="side a"><div class="cap">조합 측</div><div class="body">
+      <span class="tag t-doc">조합 공지 (6/15)</span>
+      <p><b>조합이 대신 내고 있습니다.</b> GS건설 입찰보증금을 활용해 납부 완료했으며, 조합원이 직접 낼 필요가 없다고 안내하고 있습니다.</p>
+      <p>애초에 DL이앤씨가 1월부터 날인을 거부해 생긴 문제라는 입장입니다.</p>
+    </div></div>
+    <div class="side b"><div class="cap">비대위 측</div><div class="body">
+      <span class="tag t-claim">주장</span>
+      <p>지금 대납되고 있는 것은 인정하되 <b>재원과 앞으로가 문제</b>라는 입장입니다. 대납에 쓰인 돈이 GS 입찰보증금이라는 점을 지적합니다.</p>
+      <p>사업이 길어지면 월 100만원 내던 이자가 200만원, 금리가 오르면 300만원까지 갈 수 있다고 봅니다.</p>
+    </div></div>
+  </div>
+  <div class="plain"><b>지금 당장 하실 일:</b> 이주비 대출 이자를 <b>개인적으로 내지 마십시오.</b> 이중 납부가 될 수 있습니다. 이 점은 양측 설명이 다르지 않습니다. 확인이 필요하면 조합 사무실(031-747-2730)로 문의하십시오.</div>
+
+  <div class="qrow">평당 공사비 — 얼마로 짓게 되나</div>
+
+  <div class="chart">
+    <p class="ct">거론되는 평당 공사비</p>
+    <p class="cs">맨 위 하나만 확정된 사실이고, 아래 셋은 계약 조건이나 추정입니다.</p>
+
+    <div class="brow">
+      <p class="bl"><span>2021년 최초 관리처분인가 기준</span><b>459만원</b></p>
+      <div class="bt"><div class="bf base" style="width:51%">459</div></div>
+      <p class="bnote">양측 모두 인정하는 숫자입니다.</p>
+    </div>
+
+    <div class="brow">
+      <p class="bl"><span>DL이앤씨</span><b>682만원</b></p>
+      <div class="bt"><div class="bf dl" style="width:76%">682</div></div>
+      <p class="bnote"><b>비대위 측:</b> 확정 공사비이며 책임준공까지 확약받았다.<br>
+        <b>조합 측:</b> 2025년 8월 기준일 뿐이고 물가만큼 계속 오른다 → 아래 빗금 막대</p>
+    </div>
+
+    <div class="brow">
+      <p class="bl"><span>GS건설</span><b>729만원</b></p>
+      <div class="bt"><div class="bf gs" style="width:81%">729</div></div>
+      <p class="bnote"><b>조합 측:</b> 확정 금액이다.<br>
+        <b>비대위 측:</b> 변동 공사비라 물가·설계 변경 시 오른다. <b>다만 얼마가 될지 액수는 제시하지 않았습니다.</b></p>
+    </div>
+
+    <div class="brow">
+      <p class="bl"><span>DL이앤씨 최종 예상액</span><b>818만원</b></p>
+      <div class="bt"><div class="bf est" style="width:91%"></div></div>
+      <p class="bnote">빗금은 <b>추정치</b>라는 뜻입니다. 계약서에 적힌 금액이 아니라 <b>조합 측이 계산한 값</b>이며, 비대위 측은 이 계산에 동의하지 않습니다.</p>
+    </div>
+
+    <p class="bnote" style="margin-top:24px;padding-top:16px;border-top:2px solid var(--line)">
+      막대가 넷인데 <b>DL만 두 개인 것은 조합 측이 DL에 대해서만 추가 계산을 내놓았기 때문</b>입니다.
+      비대위 측은 GS가 오를 것이라고 보지만 금액을 밝히지 않아 막대로 그릴 수 없었습니다.
+      <b>GS 막대가 짧다고 해서 오르지 않는다는 뜻이 아닙니다.</b></p>
+  </div>
+
+  <div class="vs">
+    <div class="side a"><div class="cap">조합 측</div><div class="body">
+      <span class="tag t-claim">주장</span>
+      <p><b>GS건설 729만원/평</b>이며 확정 금액이다.</p>
+      <p><b>DL의 682만원은 2025년 8월 기준일 뿐</b>이고, 착공까지·준공까지 물가변동만큼 계속 오르는 구조라 최종적으로는 <b>818만원/평</b>이 된다.</p>
+    </div></div>
+    <div class="side b"><div class="cap">비대위 측</div><div class="body">
+      <span class="tag t-claim">주장</span>
+      <p><b>DL 682만원/평은 확정 공사비이고 책임준공까지 확약</b>받았다.</p>
+      <p><b>GS는 변동 공사비</b>이며, 물가가 오르거나 특화 설계로 바뀌면 금액을 올려주기로 계약서에 적혀 있다.</p>
+    </div></div>
+  </div>
+
+  <div class="qrow">추가 분담금 — 얼마나 더 내게 되나</div>
+  <div class="vs">
+    <div class="side a"><div class="cap">조합 측</div><div class="body">
+      <span class="tag t-doc">조합 공지 (7/24)</span>
+      <p><b>아직 확정 안내가 없습니다.</b> "관리처분계획 변경 절차를 진행 중이며, 확정된 공사비와 일반분양가, 감정평가 결과를 반영한 실제 비례율을 정리해 안내하겠다"는 입장입니다.</p>
+    </div></div>
+    <div class="side b"><div class="cap">비대위 측</div><div class="body">
+      <span class="tag t-claim">주장 · 추정치</span>
+      <p>소송이 길어지는 경우를 전제로 <b>추가 분담금 1억~5억</b>이라는 추정을 내놓고 있습니다. 이자·손해배상·공사비 인상을 각각 더한 계산입니다.</p>
+    </div></div>
+  </div>
+
+  <div class="qrow">비례율 — 지금 얼마인가</div>
+  <div class="side"><div class="cap" style="background:var(--soft)">양측 모두 확정 수치 없음</div><div class="body" style="background:var(--surface)">
+    <span class="tag t-claim">공개된 자료 없음</span>
+    <p>2025년경 매수하신 분들은 <b>비례율 약 130%</b>라는 설명을 듣고 계약한 경우가 많습니다. 현재 비례율은 <b>공식적으로 공개된 바가 없습니다.</b></p>
+    <p>조합은 "관리처분계획 변경 절차가 끝나면 실제 비례율을 안내하겠다"는 입장이고(7/24), 비대위 측은 내용증명으로 공개를 요구하고 있습니다(7/20).</p>
+    <p class="note">비례율은 분담금에 직접 영향을 주는 숫자입니다. 이 페이지도 확인되는 대로 반영하겠습니다.</p>
+  </div></div>
+
+  <p class="fixme"><a href="#s7" data-fix="3. 내 돈은 어떻게 되나">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
+</section>
+
+<!-- ══ 4 ══ -->
+<section id="s4">
+  <h2>4. 착공까지 남은 관문 7개</h2>
+  <p class="h2sub">이 목록 자체는 양측이 다투지 않습니다. 다투는 것은 "누가 더 빨리 통과시킬 수 있느냐"입니다.</p>
+
+  <div class="gate stop">
+    <p class="gh">① 시공사 확정</p><p class="gs">막힘 — 법원 판단 대기</p>
+    <p>5월 30일 총회에서 DL 해지·GS 선정이 가결됐으나, 그 총회의 효력을 정지해 달라는 신청이 법원에 걸려 있습니다. <b>결정은 7월 안에 나올 예정입니다.</b></p>
+  </div>
+
+  <div class="gate now">
+    <p class="gh">② 사업시행계획 변경인가</p><p class="gs">진행 중 — 8월 8일 총회 제10호 안건</p>
+    <p>2025년 10월 인가 때 붙은 조건(비행안전평가)을 이행하는 절차입니다. 6월 19일 성남시로부터 협의 결과를 받았고, 총회 의결이 남았습니다.</p>
+  </div>
+
+  <div class="gate now">
+    <p class="gh">③ 종후자산 감정평가</p><p class="gs">진행 중</p>
+    <p>다 지어진 뒤의 아파트 가치를 매기는 절차입니다. 이 결과가 나와야 비례율과 분담금이 계산됩니다.</p>
+  </div>
+
+  <div class="gate wait">
+    <p class="gh">④ 관리처분계획 변경인가</p><p class="gs">대기</p>
+    <p><b>각자 낼 돈이 확정되는 절차입니다.</b> 확정된 공사비와 일반분양가를 반영해 다시 짜고, 조합원 공람을 거쳐 총회 의결 후 성남시 인가를 받아야 합니다.</p>
+  </div>
+
+  <div class="gate wait">
+    <p class="gh">⑤ 감리자 지정</p><p class="gs">대기 — 성남시 소관, 약 3개월 예상</p>
+    <p>공사를 감독할 감리자를 성남시가 지정합니다. 도급계약서가 있어야 신청할 수 있습니다.</p>
+  </div>
+
+  <div class="gate stop">
+    <p class="gh">⑥ 자금 조달 (HUG 보증)</p><p class="gs">막힘 — 양측 설명이 정면으로 다름</p>
+    <div class="vs">
+      <div class="side a"><div class="cap">조합 측</div><div class="body"><p>한도는 대부분 소진됐지만, 관리처분 변경인가 후 HUG 증액 보증 절차를 진행할 수 있다. 그때까지 공백은 GS 자금으로 메운다.</p></div></div>
+      <div class="side b"><div class="cap">비대위 측</div><div class="body"><p>HUG 내규상 분쟁 중인 구역은 보증이 안 된다. 그러면 이율이 5%대에서 10%대로 올라 월 이자가 30억에서 60억이 된다.</p></div></div>
+    </div>
+  </div>
+
+  <div class="gate wait">
+    <p class="gh">⑦ 현장 인도 및 착공신고</p><p class="gs">대기</p>
+    <p>DL이 지금까지 쓴 비용 정산과 현장 인계가 필요합니다. 비대위 측은 여기서 유치권 분쟁이 생길 수 있다고 보고, 조합 측은 절차대로 진행 가능하다고 봅니다.</p>
+  </div>
+
+  <p class="fixme"><a href="#s7" data-fix="4. 착공까지 남은 관문">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
+</section>
+
+<!-- ══ 5 ══ -->
+<section id="s5">
+  <h2>5. 법원이 실제로 판단한 것</h2>
+  <p class="h2sub">양측 주장과 달리, 이것은 확인 가능한 사실입니다.</p>
+
+  <div class="log">
+    <div class="item ok">
+      <p class="d">4월 29일</p>
+      <p class="t">법원이 DL이앤씨의 신청을 받아들여, <b>4월 11일 총회의 시공사 해지 결의 효력을 정지</b>했습니다. DL의 시공사 지위가 유지되었습니다.</p>
+      <span class="tag t-ok">법원 결정</span><br>
+      <a class="src" href="https://economist.co.kr/article/view/ecn202604300074" target="_blank" rel="noopener">기사 보기 — 이코노미스트</a>
+    </div>
+    <div class="item ok">
+      <p class="d">5월 29일</p>
+      <p class="t">5월 30일 총회를 열지 못하게 해 달라는 <b>개최금지 신청이 기각</b>되어, 총회가 예정대로 열렸습니다.</p>
+      <span class="tag t-ok">법원 결정</span><br>
+      <span class="pending">기사 링크 확인 중 — 알고 계신 분은 아래로 알려주십시오</span>
+    </div>
+    <div class="item ok">
+      <p class="d">5월 30일</p>
+      <p class="t">조합원 발의 임시총회에서 <b>DL 해지 · GS건설 선정 · 집행부 재신임이 가결</b>되었습니다.</p>
+      <span class="tag t-ok">총회 결과</span><br>
+      <a class="src" href="https://www.newsworks.co.kr/news/articleView.html?idxno=842378" target="_blank" rel="noopener">기사 보기 — 뉴스웍스</a>
+    </div>
+    <div class="item ok">
+      <p class="d">6월 26일</p>
+      <p class="t">조합장에 대한 <b>구속영장이 기각</b>되었습니다. 법원은 "도주 및 증거인멸의 우려가 있다고 보기 어렵다"고 밝혔습니다.</p>
+      <p><b>기각은 무죄가 아닙니다.</b> 수사는 불구속 상태로 계속되며, 유무죄는 재판에서 가려집니다.</p>
+      <span class="tag t-ok">법원 결정</span><br>
+      <a class="src" href="https://v.daum.net/v/20260629180047054?f=p" target="_blank" rel="noopener">기사 보기</a>
+    </div>
+    <div class="item ok">
+      <p class="d">7월 10일</p>
+      <p class="t">법원이 <b>5월 22일 비대위 주최 해임총회는 정족수에 미달한다</b>고 판단해 효력을 정지했습니다. 조합장은 해임되지 않은 상태입니다.</p>
+      <span class="tag t-ok">법원 결정</span><br>
+      <span class="pending">기사 링크 확인 중 — 다만 이 결과는 <b>조합과 비대위 양측이 각자의 공지로 동일하게 인정</b>했습니다 (양측 7월 10일 공지)</span>
+    </div>
+    <div class="item now">
+      <p class="d">아직 나오지 않음</p>
+      <p class="t"><b>5월 30일 총회의 효력을 정지해 달라는 신청.</b> 재판부는 7월 9일까지 자료를 받고 7월 안에 결정하겠다고 밝혔습니다. <b>이 결정이 앞으로의 방향을 크게 좌우합니다.</b></p>
+      <span class="tag t-claim">결정 대기 중</span>
+    </div>
+  </div>
+
+  <p class="fixme"><a href="#s7" data-fix="5. 법원이 판단한 것">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
+</section>
+
+<!-- ══ 6 ══ -->
+<section id="s6">
+  <h2>6. 무엇을 가장 알고 싶으십니까</h2>
+  <p class="h2sub">지지하는 쪽을 묻지 않습니다. 조합원들이 어떤 정보를 원하는지 모아서 공개하려는 것입니다.</p>
+
+  <form class="poll" id="poll">
+    <p class="sub">해당하는 것을 모두 골라 주십시오. 이름·연락처를 묻지 않습니다.</p>
+    <label><input type="checkbox" name="q" value="비례율"><span>지금 비례율이 정확히 얼마인지</span></label>
+    <label><input type="checkbox" name="q" value="분담금"><span>내가 내야 할 분담금이 얼마가 되는지</span></label>
+    <label><input type="checkbox" name="q" value="착공일"><span>실제 착공 예정일</span></label>
+    <label><input type="checkbox" name="q" value="손해배상"><span>DL 손해배상이 얼마나 나올지</span></label>
+    <label><input type="checkbox" name="q" value="총회안건"><span>8월 8일 총회 안건이 무슨 뜻인지</span></label>
+    <label><input type="checkbox" name="q" value="재판"><span>재판이 어떻게 진행되고 있는지</span></label>
+    <label><input type="checkbox" name="q" value="이주비"><span>이주비 이자를 앞으로 누가 내는지</span></label>
+    <button class="btn" type="submit">보내기</button>
+    <div class="thanks" id="thanks">보내주셔서 감사합니다. 모인 결과는 이 페이지에 공개하겠습니다.</div>
+  </form>
+</section>
+
+<!-- ══ 7 ══ -->
+<section id="s7">
+  <h2>7. 잘못된 내용이 있으면 알려주십시오</h2>
+  <p class="h2sub">조합 측이든 비대위 측이든 관계없이 받습니다.</p>
+
+  <div class="gate wait">
+    <p class="gh">이런 것을 기다립니다</p>
+    <p>· 이 페이지에서 <b>사실과 다른 부분</b><br>
+       · <b>"기사 링크 확인 중"</b>이라고 표시된 항목의 근거 자료<br>
+       · 총회 책자, 공문, 계약서, 법원 결정문 등 <b>원문 자료</b><br>
+       · 빠진 쟁점, 한쪽 주장만 실린 곳</p>
+    <p class="note">이름·연락처를 묻지 않습니다. 보내주신 분이 누구인지 밝히지 않습니다.
+       받은 내용은 확인 후 반영하고, 무엇을 어떻게 고쳤는지 아래 기록에 남깁니다.</p>
+  </div>
+
+  <form class="report" id="report">
+    <label class="f" for="fx-sec">어느 부분입니까</label>
+    <select id="fx-sec">
+      <option>1. 8월 8일 임시총회</option>
+      <option>2. 착공은 언제인가</option>
+      <option>3. 내 돈은 어떻게 되나</option>
+      <option>4. 착공까지 남은 관문</option>
+      <option>5. 법원이 판단한 것</option>
+      <option>전체 / 그 밖의 내용</option>
+    </select>
+
+    <label class="f" for="fx-what">무엇이 잘못되었습니까</label>
+    <textarea id="fx-what" placeholder="예) 2번에서 GS 공사비를 729만원이라고 했는데, 총회 책자에는 다른 금액으로 적혀 있습니다."></textarea>
+
+    <label class="f" for="fx-src">근거가 있으면 적어 주십시오 <span style="font-weight:400">(없어도 됩니다)</span></label>
+    <textarea id="fx-src" placeholder="예) 8월 8일 총회 책자 ○○쪽 / ○월 ○일 조합 공지 / 기사 주소"></textarea>
+    <p class="hint">사진이나 파일은 아래 카카오톡이나 이메일로 보내주시면 됩니다.</p>
+
+    <div class="sendbtns">
+      <button class="btn" type="button" id="btn-kakao">카카오톡으로 보내기</button>
+      <button class="btn alt" type="button" id="btn-copy">내용 복사하기</button>
+      <button class="btn alt" type="button" id="btn-mail">이메일로 보내기</button>
+    </div>
+    <div class="sent" id="sent"></div>
+    <p class="hint" id="howto">복사한 뒤 카카오톡이나 문자에 붙여넣어 보내셔도 됩니다.</p>
+  </form>
+
+  <h3>고친 기록</h3>
+  <div class="log">
+    <div class="item ok">
+      <p class="d">7월 28일</p>
+      <p class="t">첫 공개.</p>
+    </div>
+  </div>
+</section>
+
+<div class="about">
+  <h2>이 페이지에 대하여</h2>
+  <p>상대원2구역 조합원 한 사람이 만들었습니다. <b>이름은 밝히지 않습니다.</b></p>
+  <p>조합, 비대위, 시공사 <b>어느 쪽과도 관계가 없고 외부 자금을 받지 않았습니다.</b></p>
+  <p>어느 편도 들지 않고, <b>확인된 사실과 양측 주장을 그대로 옮기는 것만</b> 합니다. 어느 쪽에 투표하라고 권하지 않습니다.</p>
+  <p>틀린 내용이 있으면 위로 알려주십시오. 확인되면 고치고, <b>고친 내역도 함께 공개</b>합니다.</p>
+</div>
+
+<footer>
+  <p><b>표시 안내</b> —
+    <span class="tag t-ok">법원·행정 확인</span> 판결·인가 등으로 확인된 사실 ·
+    <span class="tag t-doc">문서 있음</span> 공문·계약서 등 원문이 있는 내용 ·
+    <span class="tag t-claim">주장</span> 어느 한쪽의 주장으로, 근거는 아직 확인되지 않음</p>
+  <p>"입장 없음"이나 빈 칸은 그쪽이 틀렸다는 뜻이 아니라, 공개된 자료에서 해당 주장을 찾지 못했다는 뜻입니다.</p>
+  <p>양측 설명은 어디서나 <b>같은 순서(조합 측 → 비대위 측)</b>로, <b>같은 분량</b>으로 놓았습니다. 두 칸의 바탕색이 다른 것은 <b>구분을 쉽게 하기 위한 것일 뿐</b>, 어느 쪽이 옳다는 뜻이 아닙니다.</p>
+  <p>도표의 막대 길이와 위치는 <b>양측이 말한 숫자를 그대로</b> 그린 것입니다. 숫자는 글로도 함께 적어 두었습니다.</p>
+  <p>개인 이름은 공적 지위에 있는 분 외에는 싣지 않습니다. 수사·재판이 진행 중인 사안은 결과가 나온 것까지만 적습니다.</p>
+  <p>이 페이지는 조합의 공식 안내가 아닙니다. 중요한 결정은 반드시 조합 공식 문서와 총회 책자를 직접 확인하십시오. 조합 사무실 031-747-2730</p>
+</footer>
+
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// 설정 — 아래 값만 채우면 됩니다
+// ══════════════════════════════════════════
+// 설문 결과를 모을 구글폼 (버너 계정으로 만드십시오)
+//   FORM_ID  : 폼 주소 .../d/e/★★★/viewform 의 ★ 부분
+//   ENTRY_ID : entry.000000 형태
+//   ※ 폼 설정에서 "이메일 주소 수집"과 "로그인 필요"를 반드시 끄십시오
+var FORM_ID  = "";
+var ENTRY_ID = "";
+
+// 수정 요청을 받을 창구. 채워 넣은 것만 버튼으로 보입니다.
+//   OPENCHAT_URL : 카카오톡 오픈채팅 링크 (익명 프로필). 어르신께 가장 쉽습니다.
+//   CONTACT_MAIL : 익명 이메일 (Proton Mail 등). 파일 첨부용.
+//   둘 다 비워도 "내용 복사하기"는 항상 동작합니다.
+var OPENCHAT_URL = "";
+var CONTACT_MAIL = "";
+
+(function(){
+  // ── 설문 ──
+  document.getElementById('poll').addEventListener('submit', function(e){
+    e.preventDefault();
+    var picked = [].slice.call(this.querySelectorAll('input[name=q]:checked')).map(function(i){return i.value;});
+    if (!picked.length) { alert("한 개 이상 골라 주십시오."); return; }
+    if (FORM_ID && ENTRY_ID) {
+      var body = new URLSearchParams();
+      picked.forEach(function(v){ body.append(ENTRY_ID, v); });
+      fetch("https://docs.google.com/forms/d/e/" + FORM_ID + "/formResponse",
+            {method:"POST", mode:"no-cors", body:body}).catch(function(){});
+    }
+    document.getElementById('thanks').style.display = 'block';
+    this.querySelector('.btn').disabled = true;
+    this.querySelector('.btn').textContent = "보냈습니다";
+  });
+
+  // ── 수정 요청 ──
+  var sec = document.getElementById('fx-sec');
+  var sent = document.getElementById('sent');
+
+  document.querySelectorAll('.fixme a[data-fix]').forEach(function(a){
+    a.addEventListener('click', function(){
+      var want = a.getAttribute('data-fix');
+      [].forEach.call(sec.options, function(o){ if (o.text === want) sec.value = o.value; });
+      setTimeout(function(){ document.getElementById('fx-what').focus({preventScroll:true}); }, 400);
+    });
+  });
+
+  function compose(){
+    var what = document.getElementById('fx-what').value.trim();
+    var src  = document.getElementById('fx-src').value.trim();
+    if (!what) { alert("무엇이 잘못되었는지 적어 주십시오."); return null; }
+    return "[상대원2구역 정리본 수정 요청]\n"
+         + "부분: " + sec.value + "\n"
+         + "내용: " + what + "\n"
+         + (src ? "근거: " + src + "\n" : "");
+  }
+  function show(msg){ sent.textContent = msg; sent.style.display = 'block'; }
+
+  function copyText(t){
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(t);
+    return new Promise(function(res, rej){
+      var ta = document.createElement('textarea');
+      ta.value = t; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      var ok = false; try { ok = document.execCommand('copy'); } catch(e) {}
+      document.body.removeChild(ta); ok ? res() : rej();
+    });
+  }
+
+  document.getElementById('btn-copy').addEventListener('click', function(){
+    var t = compose(); if (!t) return;
+    copyText(t).then(function(){
+      show("복사했습니다. 카카오톡이나 문자 창에 붙여넣어 보내 주십시오.");
+    }).catch(function(){
+      show("아래 내용을 손으로 복사해 보내 주십시오.\n\n" + t);
+    });
+  });
+
+  var bk = document.getElementById('btn-kakao');
+  if (OPENCHAT_URL) {
+    bk.addEventListener('click', function(){
+      var t = compose(); if (!t) return;
+      copyText(t).catch(function(){});
+      show("내용을 복사했습니다. 열리는 채팅방에 붙여넣어 보내 주십시오.");
+      window.open(OPENCHAT_URL, '_blank', 'noopener');
+    });
+  } else { bk.style.display = 'none'; }
+
+  var bm = document.getElementById('btn-mail');
+  if (CONTACT_MAIL) {
+    bm.addEventListener('click', function(){
+      var t = compose(); if (!t) return;
+      location.href = "mailto:" + CONTACT_MAIL
+        + "?subject=" + encodeURIComponent("상대원2구역 정리본 수정 요청")
+        + "&body=" + encodeURIComponent(t);
+    });
+  } else { bm.style.display = 'none'; }
+
+  if (!OPENCHAT_URL && !CONTACT_MAIL) {
+    document.getElementById('howto').innerHTML =
+      "<b>복사한 뒤 아래 방법으로 보내 주십시오.</b> 조합원 단톡방에 올리시거나, 이 페이지를 알려주신 분께 전달해 주셔도 됩니다.";
+  }
+})();
+</script>
+</body>
+</html>
