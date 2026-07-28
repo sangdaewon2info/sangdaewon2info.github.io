@@ -158,6 +158,27 @@ h3{font-size:1.15em; margin:34px 0 12px; line-height:1.5}
 .gate.wait .gs{color:var(--muted); background:var(--soft)}
 .gate p{margin:0 0 8px} .gate p:last-child{margin-bottom:0}
 .plain{background:var(--accentbg); border-radius:10px; padding:12px 16px; font-size:.95em; margin:0 0 12px}
+/* ── 두 경로 비교표 ── */
+.paths{background:var(--surface); border:2px solid var(--line); border-radius:14px;
+  padding:20px 18px; margin:18px 0 26px}
+.paths .ph{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:0 0 10px;
+  position:sticky; top:78px; background:var(--surface); z-index:10; padding:6px 0}
+.paths .ph div{font-weight:800; font-size:.9em; text-align:center; padding:9px 6px;
+  border-radius:8px; line-height:1.35}
+.paths .ph .hd{background:var(--sideBbar)}
+.paths .ph .hg{background:var(--sideAbar)}
+.prow{margin:0 0 14px}
+.prow .pn{font-weight:800; font-size:.95em; margin:0 0 6px; line-height:1.45}
+.prow .pc{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.prow .pc div{border:2px solid var(--line); border-radius:9px; padding:11px 12px;
+  font-size:.85em; line-height:1.5; background:var(--soft)}
+/* '절차 없음'도 색으로 칭찬하지 않습니다. 굵은 글씨로만 구분합니다 */
+.prow .pc .none{background:var(--soft); border-color:var(--muted); font-weight:700}
+.prow .pc .arg{background:var(--waitbg); border-color:var(--wait); color:var(--wait); font-weight:700}
+.pkey{font-size:.85em; color:var(--muted); margin:16px 0 0; padding-top:14px;
+  border-top:2px solid var(--line); line-height:1.65}
+.pkey b{color:var(--fg)}
+
 /* 시공사에 따라 달라지는 부분 */
 .altpath{border:2px dashed var(--line); border-radius:10px; padding:14px 16px; margin:14px 0 0;
   background:var(--bg); font-size:.95em}
@@ -291,7 +312,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <p class="stepnote">
       막혀 있는 곳은 <b>① 시공사 확정</b>과 <b>⑥ 자금 조달</b> 두 군데입니다.
       ①이 풀려야 나머지가 차례로 움직입니다. <a href="#s4">일곱 가지가 무엇인지 보기 ▶</a><br>
-      ※ 이미 끝난 일(이주·철거 등)은 빼고, <b>착공까지 남은 것만</b> 셌습니다.<br>※ 이 일곱 가지는 <b>GS건설 기준</b>입니다. DL이앤씨로 돌아가면 ②⑥⑦의 내용이 달라집니다.
+      ※ 이미 끝난 일(이주·철거 등)은 빼고, <b>착공까지 남은 것만</b> 셌습니다.<br>※ 위 색깔은 <b>현재 조합이 진행 중인 GS건설 경로</b>를 기준으로 한 것입니다. DL이앤씨로 갈 경우 ①②⑥⑦의 사정이 달라집니다. <a href="#s4">두 경우를 나란히 보기 ▶</a>
     </p>
   </div>
   <div class="blk">
@@ -549,16 +570,74 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 <!-- ══ 4 ══ -->
 <section id="s4">
   <h2>4. 착공까지 남은 관문 7개</h2>
-  <p class="h2sub">단계의 이름은 같지만, <b>어느 시공사로 가느냐에 따라 내용이 달라집니다.</b></p>
+  <p class="h2sub">단계의 이름은 같지만, <b>어느 시공사로 가느냐에 따라 내용이 달라집니다.</b> 두 경우를 나란히 적었습니다.</p>
 
   <div class="plain">
-    <b>먼저 알아두실 것 —</b> 아래 일곱 단계는 <b>GS건설로 진행할 때를 기준</b>으로 적었습니다.
-    5월 30일 총회 결과가 현재 상태이기 때문입니다.<br><br>
-    다만 <b>①②⑥⑦ 네 단계는 DL이앤씨로 돌아갈 경우 내용이 달라집니다.</b>
-    달라지는 부분은 각 단계 안에 <b>점선 상자</b>로 따로 적어 두었습니다.
-    ③④⑤는 어느 쪽으로 가든 똑같이 필요합니다.<br><br>
-    비대위 측이 말하는 "2027년 11월"이라는 숫자는, 바로 이 <b>②⑥⑦에 걸리는 시간을 더한 것</b>입니다.
+    <b>지금은 어느 시공사로 갈지가 정해지지 않았습니다.</b>
+    5월 30일 총회로 GS건설이 선정되었고 조합은 그 방향으로 일을 진행하고 있지만,
+    그 총회의 효력을 다투는 법원 결정이 아직 남아 있습니다.<br><br>
+    그래서 <b>두 경우를 모두 적었습니다.</b> 아래 표에서 나란히 보실 수 있습니다.
   </div>
+
+  <div class="paths">
+    <div class="ph">
+      <div class="hd">DL이앤씨로<br>갈 경우</div>
+      <div class="hg">GS건설로<br>갈 경우</div>
+    </div>
+
+    <div class="prow"><p class="pn">① 시공사 확정</p><div class="pc">
+      <div class="arg">비대위: 지위가 유지되고 있어 계약만 하면 된다<br>조합: <b>5월 30일 총회로 이미 해지됐다</b></div>
+      <div class="arg">5월 30일 총회에 대한 법원 결정을 기다리는 중</div>
+    </div></div>
+
+    <div class="prow"><p class="pn">② 사업시행계획 변경인가</p><div class="pc">
+      <div>비행안전평가 조건만 처리하면 됨</div>
+      <div class="arg">조합: 똑같다<br>비대위·DL: 설계가 바뀌어 <b>건축심의부터 다시, 2년 추가</b></div>
+    </div></div>
+
+    <div class="prow"><p class="pn">③ 종후자산 감정평가</p><div class="pc">
+      <div>필요</div><div>필요</div>
+    </div></div>
+
+    <div class="prow"><p class="pn">④ 관리처분계획 변경인가</p><div class="pc">
+      <div>필요</div><div>필요</div>
+    </div></div>
+
+    <div class="prow"><p class="pn">⑤ 감리자 지정</p><div class="pc">
+      <div>필요 · 2~3개월 <span style="font-weight:400">(조합 측 설명)</span></div>
+      <div>필요 · 약 3개월</div>
+    </div></div>
+
+    <div class="prow"><p class="pn">⑥ 자금 조달 (HUG 보증)</p><div class="pc">
+      <div class="none">기존 보증이 그대로 유지됨</div>
+      <div class="arg">GS 앞으로 새로 넘겨야 함<br>비대위: <b>DL 동의 필요, 6개월</b></div>
+    </div></div>
+
+    <div class="prow"><p class="pn">⑦ 현장 인도 및 착공신고</p><div class="pc">
+      <div class="none">DL이 이미 현장을 맡고 있어 넘겨받을 필요 없음</div>
+      <div class="arg">기투입비 정산 후 넘겨받아야 함<br>비대위: 유치권 다툼 시 <b>10개월</b></div>
+    </div></div>
+
+    <p class="pkey">
+      <b>노랑</b>은 양측 주장이 갈리거나 시간이 더 든다는 뜻입니다. 나머지는 회색으로 두었습니다.
+      어느 쪽이 낫다는 표시가 아닙니다.<br>
+      ③④⑤는 어느 쪽으로 가든 같습니다. 갈리는 것은 <b>①②⑥⑦</b>이며,
+      비대위 측이 말하는 <b>"2027년 11월"</b>은 ②⑥⑦에 걸리는 시간을 더한 값입니다.
+    </p>
+
+    <p class="pkey" style="border-top:0;padding-top:0">
+      <b>이 표를 보실 때 함께 알아두실 것</b><br>
+      · 왼쪽 칸의 "필요 없다"는 설명은 <b>대부분 비대위 측 주장</b>이며 아직 확인된 사실이 아닙니다.<br>
+      · <b>DL로 가려면 5월 30일 총회 결과가 뒤집혀야 합니다.</b> 그 자체가 또 하나의 절차입니다.
+        조합 측은 5월에 "DL이 도급계약서(안)조차 내지 않았다"고 밝힌 바 있습니다.<br>
+      · <b>이 표는 '절차'만 비교한 것입니다.</b> 공사비가 얼마인지, 계약 조건이 어떤지,
+        손해배상이 얼마나 나올지 같은 <b>돈 문제는 빠져 있습니다.</b>
+        그 부분은 <a href="#s3">3번 '내 돈은 어떻게 되나'</a>에서 보십시오.
+        절차가 짧다고 해서 돈이 덜 든다는 뜻은 아닙니다.
+    </p>
+  </div>
+
+  <h3>각 단계가 무엇인지 자세히</h3>
 
   <div class="gate stop">
     <p class="gh">① 시공사 확정</p><p class="gs">막힘 — 법원 판단 대기</p>
