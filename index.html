@@ -35,7 +35,7 @@ body{
   font-size:calc(19px * var(--scale)); line-height:1.85; word-break:keep-all;
 }
 body.big{--scale:1.28}
-.wrap{max-width:840px; margin:0 auto; padding:0 20px 80px}
+.wrap{max-width:1120px; margin:0 auto; padding:0 22px 80px}
 
 header{border-bottom:5px solid var(--fg); padding:30px 0 22px; margin-bottom:8px}
 h1{font-size:1.8em; line-height:1.32; margin:0 0 10px; letter-spacing:-.015em}
@@ -89,7 +89,7 @@ h3{font-size:1.15em; margin:34px 0 12px; line-height:1.5}
 
 /* ── 양측 비교 ── */
 .vs{display:grid; grid-template-columns:1fr; gap:16px; margin:16px 0 8px}
-@media(min-width:760px){.vs{grid-template-columns:1fr 1fr}}
+@media(min-width:720px){.vs{grid-template-columns:1fr 1fr}}
 .side{border:2px solid var(--line); border-radius:12px; overflow:hidden}
 .side.a{background:var(--sideA)} .side.b{background:var(--sideB)}
 .side .cap{font-weight:800; padding:13px 16px; border-bottom:2px solid var(--line)}
@@ -312,6 +312,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 /* ── 목차 바 ── */
 .trow{display:flex; gap:10px; flex-wrap:wrap}
 .toc{display:none; gap:8px; margin-top:10px}
+.toc a:last-child{grid-column:1/-1}
 .toc.open{display:grid; grid-template-columns:1fr 1fr}
 .toc a{display:flex; align-items:center; justify-content:center; text-align:center;
   min-height:60px; padding:10px 8px; border-radius:10px; text-decoration:none;
@@ -321,7 +322,8 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 .toc a:active{background:var(--accent); color:#fff; border-color:var(--accent)}
 @media(min-width:760px){
   #tocBtn{display:none}
-  .toc{display:grid !important; grid-template-columns:repeat(6,1fr)}
+  .toc{display:grid !important; grid-template-columns:repeat(5,1fr)}
+  .toc a:last-child{grid-column:auto}
   .toc a{min-height:52px; font-size:.9em}
 }
 /* ── 맨 위로 ── */
@@ -374,11 +376,10 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <button type="button" id="tocBtn" aria-expanded="false">목차 ▾</button>
   </div>
   <nav id="toc" class="toc">
-    <a href="#paths" data-g="paths">두 갈래길</a>
     <a href="#sum"   data-g="sum">한눈에</a>
+    <a href="#paths" data-g="paths">두 갈래길</a>
     <a href="#s3"    data-g="s3">내 돈</a>
-    <a href="#s1"    data-g="s1">총회·절차</a>
-    <a href="#s5"    data-g="s5">법원</a>
+    <a href="#s1"    data-g="s1">절차·법원</a>
     <a href="#s6"    data-g="s6">알려주기</a>
   </nav>
 </div>
@@ -436,6 +437,69 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
 <!-- ══ 한눈에 보기 ══ -->
 <!-- ══ 경로 비교 (최상단) ══ -->
+<!-- ══ paths ══ -->
+<!-- ══ sum ══ -->
+<section id="sum" data-g="sum">
+  <h2>한눈에 보기</h2>
+  <p class="h2sub">자세한 설명은 아래에 있습니다. 급하시면 이 표만 보셔도 됩니다.</p>
+
+  <div class="oneline">
+    <div class="ol"><p class="q">시공사는 정해졌습니까</p>
+      <p class="a"><b>아직입니다.</b> 5월 30일 총회로 GS건설이 뽑혔지만, 그 총회가 유효한지에 대한 법원 판단이 남았습니다.</p></div>
+
+    <div class="ol"><p class="q">착공은 언제입니까</p>
+      <p class="a">조합 측 <b>2026년 8~9월</b> · 비대위 측 <b>2027년 11월</b><br>
+        <span class="s">양쪽 주장이 15개월 넘게 차이 납니다. <a href="#s2">자세히 ▶</a></span></p></div>
+
+    <div class="ol"><p class="q">공사비는 얼마입니까</p>
+      <p class="a">평당 <b>DL 682만원 · GS 729만원</b><br>
+        <span class="s">2021년 관리처분 기준은 459만원이었습니다. <a href="#s3">자세히 ▶</a></span></p></div>
+
+    <div class="ol"><p class="q">제 분담금은 얼마가 됩니까</p>
+      <p class="a"><b>아직 나온 것이 없습니다.</b><br>
+        <span class="s">비례율도 공개되지 않았습니다. 관리처분 변경 절차가 끝나야 나옵니다.</span></p></div>
+
+    <div class="ol"><p class="q">조합장은 어떻게 되었습니까</p>
+      <p class="a"><b>해임되지 않았고, 불구속 상태로 수사받고 있습니다.</b><br>
+        <span class="s">6월 26일 구속영장이 기각됐습니다. 기각은 무죄가 아니며 수사는 계속됩니다. <a href="#s5">자세히 ▶</a></span></p></div>
+
+    <div class="ol"><p class="q">다음 일정은 무엇입니까</p>
+      <p class="a"><b>8월 8일 임시총회</b><br>
+        <span class="s">그 전에 5월 30일 총회에 대한 법원 결정이 나올 예정입니다.</span></p></div>
+
+    <div class="ol hi"><p class="q">저는 무엇을 하면 됩니까</p>
+      <p class="a"><b>8월 8일 총회에 참석하시거나 서면결의서를 내십시오.</b><br>
+        <span class="s">이주비 대출 이자는 조합이 내고 있으니 <b>직접 내지 마십시오.</b> 문의는 조합 사무실 031-747-2730</span></p></div>
+  </div>
+</section>
+
+<!-- ══ flow ══ -->
+<section id="flow" data-g="sum">
+  <h2>지금까지의 진행</h2>
+  <p class="h2sub">총회와 법원 판단이 번갈아 이어져 왔습니다.</p>
+
+  <div class="flow">
+    <div class="fi"><span class="fd">4월 11일</span>
+      <p class="ft">조합 총회에서 <b>DL이앤씨 해지</b>가 가결됨</p><span class="fw">총회</span></div>
+    <div class="fi ct"><span class="fd">4월 29일</span>
+      <p class="ft">법원이 그 결의의 <b>효력을 정지</b>. DL의 시공사 지위 유지</p><span class="fw">법원</span></div>
+    <div class="fi"><span class="fd">5월 22일</span>
+      <p class="ft">비대위가 <b>집행부 해임총회</b>를 열고 가결을 선포</p><span class="fw">총회</span></div>
+    <div class="fi ct"><span class="fd">5월 29일</span>
+      <p class="ft">5월 30일 총회를 막아 달라는 신청이 <b>기각</b>됨</p><span class="fw">법원</span></div>
+    <div class="fi"><span class="fd">5월 30일</span>
+      <p class="ft">조합원 발의 총회에서 <b>DL 해지 · GS건설 선정 · 집행부 재신임</b>이 가결됨</p><span class="fw">총회</span></div>
+    <div class="fi ct"><span class="fd">6월 26일</span>
+      <p class="ft">조합장에 대한 <b>구속영장이 기각</b>됨. 불구속 수사로 진행</p><span class="fw">법원</span></div>
+    <div class="fi ct"><span class="fd">7월 10일</span>
+      <p class="ft">법원이 <b>5월 22일 해임총회는 정족수 미달</b>이라며 효력을 정지</p><span class="fw">법원</span></div>
+    <div class="fi now"><span class="fd">지금</span>
+      <p class="ft"><b>5월 30일 총회가 유효한지에 대한 법원 결정을 기다리는 중</b><br>7월 안에 나올 예정입니다. 이 결정이 앞으로의 방향을 크게 좌우합니다.</p><span class="fw">대기</span></div>
+    <div class="fi soon"><span class="fd">8월 8일</span>
+      <p class="ft"><b>임시총회 예정</b> — 사업시행계획 변경, 대의원 선출, 예산안 <a href="#s1">안건 보기 ▶</a></p><span class="fw">예정</span></div>
+  </div>
+</section>
+
 <!-- ══ paths ══ -->
 <section id="paths" data-g="paths">
   <h2>DL로 갈 때와 GS로 갈 때, 무엇이 다른가</h2>
@@ -638,68 +702,6 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   </details>
 
   <p class="fixme"><a href="#s7" data-fix="2. 착공은 언제인가">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
-</section>
-
-<!-- ══ sum ══ -->
-<section id="sum" data-g="sum">
-  <h2>한눈에 보기</h2>
-  <p class="h2sub">자세한 설명은 아래에 있습니다. 급하시면 이 표만 보셔도 됩니다.</p>
-
-  <div class="oneline">
-    <div class="ol"><p class="q">시공사는 정해졌습니까</p>
-      <p class="a"><b>아직입니다.</b> 5월 30일 총회로 GS건설이 뽑혔지만, 그 총회가 유효한지에 대한 법원 판단이 남았습니다.</p></div>
-
-    <div class="ol"><p class="q">착공은 언제입니까</p>
-      <p class="a">조합 측 <b>2026년 8~9월</b> · 비대위 측 <b>2027년 11월</b><br>
-        <span class="s">양쪽 주장이 15개월 넘게 차이 납니다. <a href="#s2">자세히 ▶</a></span></p></div>
-
-    <div class="ol"><p class="q">공사비는 얼마입니까</p>
-      <p class="a">평당 <b>DL 682만원 · GS 729만원</b><br>
-        <span class="s">2021년 관리처분 기준은 459만원이었습니다. <a href="#s3">자세히 ▶</a></span></p></div>
-
-    <div class="ol"><p class="q">제 분담금은 얼마가 됩니까</p>
-      <p class="a"><b>아직 나온 것이 없습니다.</b><br>
-        <span class="s">비례율도 공개되지 않았습니다. 관리처분 변경 절차가 끝나야 나옵니다.</span></p></div>
-
-    <div class="ol"><p class="q">조합장은 어떻게 되었습니까</p>
-      <p class="a"><b>해임되지 않았고, 불구속 상태로 수사받고 있습니다.</b><br>
-        <span class="s">6월 26일 구속영장이 기각됐습니다. 기각은 무죄가 아니며 수사는 계속됩니다. <a href="#s5">자세히 ▶</a></span></p></div>
-
-    <div class="ol"><p class="q">다음 일정은 무엇입니까</p>
-      <p class="a"><b>8월 8일 임시총회</b><br>
-        <span class="s">그 전에 5월 30일 총회에 대한 법원 결정이 나올 예정입니다.</span></p></div>
-
-    <div class="ol hi"><p class="q">저는 무엇을 하면 됩니까</p>
-      <p class="a"><b>8월 8일 총회에 참석하시거나 서면결의서를 내십시오.</b><br>
-        <span class="s">이주비 대출 이자는 조합이 내고 있으니 <b>직접 내지 마십시오.</b> 문의는 조합 사무실 031-747-2730</span></p></div>
-  </div>
-</section>
-
-<!-- ══ flow ══ -->
-<section id="flow" data-g="sum">
-  <h2>지금까지의 진행</h2>
-  <p class="h2sub">총회와 법원 판단이 번갈아 이어져 왔습니다.</p>
-
-  <div class="flow">
-    <div class="fi"><span class="fd">4월 11일</span>
-      <p class="ft">조합 총회에서 <b>DL이앤씨 해지</b>가 가결됨</p><span class="fw">총회</span></div>
-    <div class="fi ct"><span class="fd">4월 29일</span>
-      <p class="ft">법원이 그 결의의 <b>효력을 정지</b>. DL의 시공사 지위 유지</p><span class="fw">법원</span></div>
-    <div class="fi"><span class="fd">5월 22일</span>
-      <p class="ft">비대위가 <b>집행부 해임총회</b>를 열고 가결을 선포</p><span class="fw">총회</span></div>
-    <div class="fi ct"><span class="fd">5월 29일</span>
-      <p class="ft">5월 30일 총회를 막아 달라는 신청이 <b>기각</b>됨</p><span class="fw">법원</span></div>
-    <div class="fi"><span class="fd">5월 30일</span>
-      <p class="ft">조합원 발의 총회에서 <b>DL 해지 · GS건설 선정 · 집행부 재신임</b>이 가결됨</p><span class="fw">총회</span></div>
-    <div class="fi ct"><span class="fd">6월 26일</span>
-      <p class="ft">조합장에 대한 <b>구속영장이 기각</b>됨. 불구속 수사로 진행</p><span class="fw">법원</span></div>
-    <div class="fi ct"><span class="fd">7월 10일</span>
-      <p class="ft">법원이 <b>5월 22일 해임총회는 정족수 미달</b>이라며 효력을 정지</p><span class="fw">법원</span></div>
-    <div class="fi now"><span class="fd">지금</span>
-      <p class="ft"><b>5월 30일 총회가 유효한지에 대한 법원 결정을 기다리는 중</b><br>7월 안에 나올 예정입니다. 이 결정이 앞으로의 방향을 크게 좌우합니다.</p><span class="fw">대기</span></div>
-    <div class="fi soon"><span class="fd">8월 8일</span>
-      <p class="ft"><b>임시총회 예정</b> — 사업시행계획 변경, 대의원 선출, 예산안 <a href="#s1">안건 보기 ▶</a></p><span class="fw">예정</span></div>
-  </div>
 </section>
 
 <!-- ══ s3 ══ -->
@@ -1059,7 +1061,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 </section>
 
 <!-- ══ s5 ══ -->
-<section id="s5" data-g="s5">
+<section id="s5" data-g="s1">
   <h2>법원이 판단한 것 · 조합장 수사</h2>
   <p class="h2sub">양측 주장과 달리, 이것은 확인 가능한 사실입니다.</p>
 
