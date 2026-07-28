@@ -74,6 +74,15 @@ h1{font-size:1.8em; line-height:1.32; margin:0 0 10px; letter-spacing:-.015em}
 .srcline{font-size:.9em; color:var(--muted); line-height:1.7; margin:0 0 30px;
   padding:14px 18px; background:var(--soft); border-radius:10px}
 
+/* ── 어르신용 쉬운 페이지로 가는 길 ── */
+.easy{display:block; text-decoration:none; color:var(--fg);
+  border:4px solid var(--fg); border-radius:16px; padding:20px 22px; margin:0 0 26px;
+  background:var(--surface)}
+.easy b{display:block; font-size:1.12em; line-height:1.5}
+.easy span{display:block; font-size:.9em; color:var(--muted); margin-top:6px; line-height:1.65}
+.easy:active{background:var(--fg); color:var(--bg)}
+.easy:active span{color:var(--bg)}
+
 /* ── 계획 대 실제 ── */
 .gap{border:2px solid var(--line); border-radius:14px; overflow:hidden; background:var(--surface); margin:16px 0}
 .gr{border-bottom:2px solid var(--line); padding:16px 18px}
@@ -407,6 +416,12 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 </div>
 
 <div class="stale" id="stale"></div>
+
+<!-- 글이 많아 읽기 어려우신 분을 위한 쉬운 페이지 -->
+<a class="easy" href="easy.html">
+  <b>글이 많아 어려우십니까 — 쉬운 정리본이 있습니다 ▶</b>
+  <span>큰 글씨로, 꼭 아셔야 할 다섯 가지만 담았습니다. 인쇄해서 보셔도 됩니다.</span>
+</a>
 
 <!-- ══ 핵심 요약 — 이것만 읽으셔도 됩니다 ══ -->
 <div class="core">
