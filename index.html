@@ -411,18 +411,20 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 }
 
 .trow{display:flex; gap:10px; flex-wrap:wrap}
-.toc{display:none; gap:8px; margin-top:10px}
-.toc.open{display:grid; grid-template-columns:1fr 1fr}
+.toc{display:none; gap:7px; margin-top:10px}
+/* 라벨을 짧게 줄여 2단 4줄 → 2단 4줄이 아니라 3단으로. 목차가 화면을 덜 먹습니다 */
+.toc.open{display:grid; grid-template-columns:repeat(2,1fr)}
+@media(min-width:400px){.toc.open{grid-template-columns:repeat(3,1fr)}}
 .toc a{display:flex; align-items:center; justify-content:center; text-align:center;
-  min-height:60px; padding:10px 8px; border-radius:10px; text-decoration:none;
-  font-weight:800; font-size:.95em; line-height:1.35;
+  min-height:52px; padding:8px 6px; border-radius:10px; text-decoration:none;
+  font-weight:800; font-size:.85em; line-height:1.3; word-break:keep-all;
   background:var(--surface); color:var(--fg); border:2px solid var(--line)}
 .toc a.on{background:var(--fg); color:var(--bg); border-color:var(--fg)}
 .toc a:active{background:var(--accent); color:#fff; border-color:var(--accent)}
 @media(min-width:760px){
   #tocBtn{display:none}
-  .toc{display:grid !important; grid-template-columns:repeat(7,1fr)}
-  .toc a{min-height:52px; font-size:.82em}
+  .toc{display:grid !important; grid-template-columns:repeat(8,1fr)}
+  .toc a{min-height:48px; font-size:.75em}
 }
 #toTop{position:fixed; right:16px; bottom:16px; z-index:60; display:none;
   flex-direction:column; align-items:center; justify-content:center; gap:1px;
@@ -475,14 +477,14 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <button type="button" id="tocBtn" aria-expanded="false">목차 ▾</button>
   </div>
   <nav id="toc" class="toc">
-    <a href="#sum"     data-g="sum">한눈에</a>
-    <a href="#compare" data-g="compare">쟁점별 비교</a>
-    <a href="#later"   data-g="later">앞으로</a>
-    <a href="#vote"    data-g="vote">내 한 표</a>
-    <a href="#paths"   data-g="paths">두 갈래길</a>
-    <a href="#money"   data-g="money">내 돈</a>
-    <a href="#facts"   data-g="facts">확인된 사실</a>
-    <a href="#ask"     data-g="ask">제보·질의</a>
+    <a href="#sum"     data-g="sum">자주 묻는 것</a>
+    <a href="#compare" data-g="compare">조합 vs 비대위</a>
+    <a href="#later"   data-g="later">늦어지면</a>
+    <a href="#vote"    data-g="vote">8월 8일 총회</a>
+    <a href="#paths"   data-g="paths">GS vs DL</a>
+    <a href="#money"   data-g="money">공사비·분담금</a>
+    <a href="#facts"   data-g="facts">법원·일정표</a>
+    <a href="#ask"     data-g="ask">제보</a>
   </nav>
 </div>
 
@@ -558,8 +560,8 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
 <!-- ══ 1. 한눈에 보기 ══ -->
 <section id="sum" data-g="sum">
-  <h2>그다음으로 많이 묻는 것</h2>
-  <p class="h2sub">위 네 가지 다음으로 조합원들이 자주 묻는 질문입니다.</p>
+  <h2>자주 묻는 것</h2>
+  <p class="h2sub">맨 위 네 가지 다음으로 많이 묻는 질문입니다.</p>
 
   <div class="oneline">
     <div class="ol"><p class="q">착공은 언제입니까</p>
@@ -586,7 +588,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
 <!-- ══ 카테고리별 좌우 비교 ══ -->
 <section id="compare" data-g="compare">
-  <h2>쟁점별로 — 양측이 뭐라고 하는가</h2>
+  <h2>조합 측과 비대위 측, 무엇이 다른가</h2>
   <p class="h2sub">왼쪽이 조합 측, 오른쪽이 비대위 측입니다. <b>초록색으로 합쳐진 칸은 양측이 다투지 않는 부분</b>입니다.</p>
 
   <div class="cmp">
@@ -687,7 +689,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
 <!-- ══ 앞으로 일어날 일 (상단으로 이동) ══ -->
 <section id="later" data-g="later">
-  <h2>앞으로 일어날 일</h2>
+  <h2>늦어지면 어떻게 되나</h2>
   <p class="h2sub">지금까지 나온 이야기는 대부분 <b>가처분</b>과 <b>이번 총회</b>에 관한 것입니다. 그 뒤에 따라오는 것들이 있습니다.</p>
 
   <div class="plain">
@@ -1100,7 +1102,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
 <!-- ══ 3. 두 갈래길 ══ -->
 <section id="paths" data-g="paths">
-  <h2>DL로 갈 때와 GS로 갈 때, 무엇이 다른가</h2>
+  <h2>GS로 갈 때와 DL로 갈 때, 절차가 어떻게 다른가</h2>
   <p class="h2sub">착공까지 거쳐야 할 일곱 단계에, 돈으로 갈리는 한 단계를 더해 여덟 가지를 나란히 놓았습니다.</p>
 
   <div class="plain">
@@ -1479,7 +1481,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
 <!-- ══ 6. 확인된 사실 ══ -->
 <section id="facts" data-g="facts">
-  <h2>확인된 사실 · 지금까지의 진행</h2>
+  <h2>법원이 판단한 것 · 조합 일정표</h2>
   <p class="h2sub">양측 주장과 달리, 이것은 확인 가능한 사실입니다.</p>
 
   <div class="flow">
