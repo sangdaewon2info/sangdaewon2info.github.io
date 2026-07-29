@@ -69,6 +69,15 @@ ul.bul.tight li{margin-bottom:6px}
 ul.bul .sub{display:block; font-size:.9em; color:var(--muted); margin-top:4px; line-height:1.6}
 .lead{font-weight:800; margin:0 0 10px; line-height:1.55}
 
+/* ── 공통 표시: 같은 성격의 단서를 매번 길게 쓰지 않고 표시 하나로 대신합니다 ── */
+.mk{display:inline-block; font-size:.78em; font-weight:800; line-height:1.5;
+  padding:2px 10px; border-radius:999px; margin-right:7px; white-space:nowrap;
+  border:1.5px solid var(--muted); color:var(--muted); background:var(--surface)}
+.mk-judge{border-color:var(--accent); color:var(--accent); background:var(--accentbg)}
+.mk-unk{border-style:dashed}
+.mk-guess{border-color:var(--wait); color:var(--wait); background:var(--waitbg)}
+.mklist{margin:14px 0 0; padding-top:14px; border-top:2px solid var(--line)}
+
 /* ── 의도 한 줄 ── */
 .intent{margin:0 0 8px; padding:16px 20px; background:var(--fg); color:var(--bg);
   border-radius:12px; font-size:1.02em; font-weight:700; line-height:1.6}
@@ -333,13 +342,9 @@ a.src{display:inline-block; font-weight:700; margin-top:4px}
   line-height:1.7; color:var(--fg); background:var(--surface)}
 .fixme a:active{background:var(--fg); color:var(--bg)}
 
-.poll,.report{border:4px solid var(--fg); border-radius:16px; padding:24px 22px; background:var(--surface)}
-.poll label{display:flex; gap:14px; align-items:flex-start; padding:16px 14px;
+.report{border:4px solid var(--fg); border-radius:16px; padding:24px 22px; background:var(--surface)}
   border:2px solid var(--line); border-radius:10px; margin-bottom:12px;
   background:var(--bg); cursor:pointer; min-height:60px}
-.poll label:has(input:checked){border-color:var(--accent); background:var(--accentbg)}
-.poll input{width:30px; height:30px; margin:4px 0 0; flex:none; accent-color:var(--accent)}
-.poll .sub{margin:0 0 18px; color:var(--muted); font-size:.95em}
 .report label.f{display:block; font-weight:800; margin:24px 0 8px; font-size:1.05em}
 .report label.f:first-of-type{margin-top:0}
 .report select,.report textarea{font:inherit; font-size:1em; width:100%; padding:14px;
@@ -351,7 +356,7 @@ a.src{display:inline-block; font-weight:700; margin-top:4px}
 .btn{font:inherit; font-size:1.05em; font-weight:800; cursor:pointer; width:100%;
   background:var(--accent); color:#fff; border:0; border-radius:12px; padding:20px; min-height:68px}
 .btn.alt{background:var(--surface); color:var(--fg); border:3px solid var(--fg)}
-.thanks,.sent{display:none; background:var(--gobg); border:2px solid var(--go); color:var(--go);
+.sent{display:none; background:var(--gobg); border:2px solid var(--go); color:var(--go);
   border-radius:10px; padding:18px; font-weight:800; margin-top:16px; line-height:1.6}
 .sent{white-space:pre-wrap; word-break:break-word; user-select:all}
 
@@ -435,7 +440,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 #toTop span{font-size:.62em; font-weight:700}
 #toTop.show{display:flex}
 @media print{
-  .tools,.poll,.report,.fixme,#toTop{display:none!important}
+  .tools,.report,.fixme,#toTop{display:none!important}
   body{font-size:11pt; --scale:1; background:#fff}
   .wrap{max-width:100%}
   details .dbody{display:block!important}
@@ -542,6 +547,18 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <li><b>미는 쪽 말은 좋게 · 반대쪽 말은 나쁘게</b> 되어 있습니다
       <span class="sub">한 칸만 읽으면 정반대 결론에 이릅니다.</span></li>
   </ul>
+
+  <div class="mklist">
+    <p class="ah" style="font-weight:800;margin:0 0 10px">본문에 자주 나오는 표시 세 가지</p>
+    <ul class="bul tight">
+      <li><span class="mk mk-judge">판단 안 함</span> 어느 쪽이 옳은지 <b>이 페이지가 정하지 않습니다.</b>
+        색·길이·순서도 우열 표시가 아닙니다</li>
+      <li><span class="mk mk-unk">확인 못 함</span> 원문이나 근거를 <b>이 페이지가 보지 못했습니다.</b>
+        틀렸다는 뜻이 아니라 <b>확인이 안 됐다</b>는 뜻입니다</li>
+      <li><span class="mk mk-guess">예상</span> <b>아직 일어나지 않은 일</b>입니다.
+        그렇게 된다는 뜻이 아닙니다</li>
+    </ul>
+  </div>
 </div>
 
 <!-- ══ 상태판 ══ -->
@@ -681,7 +698,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
   <ul class="bul tight" style="margin-top:16px">
     <li>이 표는 <b>양측 주장을 줄여 놓은 것</b>입니다. 근거와 자세한 설명은 아래 각 항목에 있습니다</li>
-    <li><b>어느 쪽이 맞는지 이 페이지는 판단하지 않습니다</b></li>
+    <li><span class="mk mk-judge">판단 안 함</span> 어느 쪽이 맞는지 이 페이지는 정하지 않습니다</li>
   </ul>
 
   <p class="fixme"><a href="#report" data-fix="전체 / 그 밖의 내용">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
@@ -767,7 +784,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   <div class="row"><div class="rc">
     <div class="a"><span class="tag t-party">당사자 문서 · 조합 공지 (7/26)</span><ul class="bul tight"><li>착공하려면 국·공유지 매입 등 상당한 자금이 필요하다. HUG 사업비 한도는 이미 대부분 소진됐고,
          관리처분계획 변경인가 이후에야 증액 보증을 받을 수 있어 그때까지 자금 공백을 메워야 한다.</li><li>그래서 <b>빨리 착공하는 것이 비용을 줄이는 길</b>이라는 입장입니다.</li></ul></div>
-    <div class="b"><span class="tag t-oral">구두 주장 · 단톡방</span><ul class="bul tight"><li>사업비 이자가 <b>월 30억 규모</b>로 나가고 있고, 지난해 11월부터 아무 진척 없이 이자만 나갔다고 봅니다.</li><li>사업비는 이미 <b>5,600억 수준</b>이 집행됐다고 보며, <b>이번 총회 안건이 전부 돈을 더 쓰고 더 빌리는 구조</b>라는 것이 안건을 막으려는 이유입니다.</li></ul><p class="bnote">금액은 비대위 측이 제시한 값이며 이 페이지가 검증하지 못했습니다.</p></div>
+    <div class="b"><span class="tag t-oral">구두 주장 · 단톡방</span><ul class="bul tight"><li>사업비 이자가 <b>월 30억 규모</b>로 나가고 있고, 지난해 11월부터 아무 진척 없이 이자만 나갔다고 봅니다.</li><li>사업비는 이미 <b>5,600억 수준</b>이 집행됐다고 보며, <b>이번 총회 안건이 전부 돈을 더 쓰고 더 빌리는 구조</b>라는 것이 안건을 막으려는 이유입니다.</li></ul><p class="bnote"><span class="mk mk-unk">확인 못 함</span> 비대위 측이 제시한 값입니다.</p></div>
   </div></div>
 </div>
   <div class="plain">
@@ -776,7 +793,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
       <li><b>돈이 계속 나가고 있다</b>는 데는 양쪽이 동의합니다</li>
       <li>조합 측 — <b>“그러니 빨리 착공해야 한다”</b></li>
       <li>비대위 측 — <b>“그러니 더 빌리는 안건을 막아야 한다”</b></li>
-      <li><b>어느 쪽이 옳은지 이 페이지는 말하지 않습니다.</b> 다만 두 주장이 같은 사실 위에 서 있습니다</li>
+      <li><span class="mk mk-judge">판단 안 함</span> 다만 <b>두 주장이 같은 사실 위에 서 있습니다</b></li>
     </ul>
   </div>
 
@@ -798,10 +815,10 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   <div class="mine">
     <p class="mh"><span class="tag t-mine">이 페이지가 찾은 것</span> 확률을 매기지 않는 이유부터 밝힙니다</p>
     <ul class="bul tight">
-      <li><b>이 페이지는 “가능성 ○○%” 같은 숫자를 쓰지 않습니다.</b>
-        어느 쪽도 그런 계산을 내놓은 적이 없고, <b>이 페이지가 만들어 내면 그 순간 한쪽 편을 드는 것</b>이 됩니다</li>
+      <li><span class="mk mk-judge">판단 안 함</span> <b>“가능성 ○○%” 같은 숫자를 쓰지 않습니다.</b>
+        어느 쪽도 그런 계산을 내놓은 적이 없습니다</li>
       <li>대신 <b>시공사를 바꾼 다른 구역에서 실제로 무슨 일이 있었는지</b>를 그대로 적습니다</li>
-      <li><b>여기 적힌 것은 예측이 아니라 남의 구역 기록입니다.</b> 상대원2구역이 그대로 된다는 뜻이 아닙니다</li>
+      <li><span class="mk mk-guess">예상</span> <b>남의 구역 기록</b>입니다</li>
     </ul>
   </div>
 
@@ -855,7 +872,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   <div class="scn bad">
     <div class="sh">
       <p class="sn">가장 나쁜 경우 — <span class="hot">조합이 파산하는 경우</span></p>
-      <p class="sd">상대원2구역에서 그런 일이 벌어지고 있다는 뜻이 아닙니다. 제도가 어떻게 되어 있는지만 적습니다.</p>
+      <p class="sd"><span class="mk mk-guess">예상</span> 제도가 어떻게 되어 있는지만 적습니다.</p>
     </div>
     <div class="sbody">
       <ul class="bul tight">
@@ -1063,7 +1080,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <div class="b"><span class="tag t-oral">구두 주장 · 단톡방 (7/27)</span><ul class="bul tight"><li>이 안건이 지금 올라온다는 것 자체가 애초에 올해 4월 착공이 불가능했다는 뜻이다.</li><li>이 안건에 찬성하면 <b>인가가 행정처분이 되어, 나중에 법원이 DL의 손을 들어주더라도 되돌리기 어려워진다.</b></li></ul></div>
   </div></div>
 </div>
-    <p class="bnote" style="margin-top:14px">이 페이지는 이 안건에 찬성하거나 반대하라고 권하지 않습니다. 양측 설명만 옮깁니다.</p>
+    <p class="bnote"><span class="mk mk-judge">판단 안 함</span> 양측 설명만 옮깁니다.</p>
   </div>
 
   <div class="gate now" id="agenda5">
@@ -1123,7 +1140,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
         <li>그런데 <b>시공사 확정이 지금 막혀 있는 바로 그 지점</b>입니다</li>
       </ul>
       <p class="bnote" style="margin-top:12px">
-        <b>※ 오른쪽은 조합원 검토 의견입니다.</b> 사실이 아니라 <b>제기된 의문</b>입니다.<br>②의 법 해석과 ③의 HUG 기준은 <b>확인하지 못했습니다.</b> 조합 측 답변이 오면 왼쪽에 싣겠습니다.</p>
+        <span class="mk mk-unk">확인 못 함</span> 오른쪽은 <b>조합원 검토 의견</b>입니다. ②의 법 해석과 ③의 HUG 기준은 확인하지 못했습니다.<br>조합 측 답변이 오면 왼쪽에 싣겠습니다.</p>
     </div>
 
     <div class="todo">
@@ -1164,7 +1181,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
           <li class="hot">그런데 안건 어디에도 그 대가가 얼마인지 공개되어 있지 않습니다</li>
         </ul>
         <p class="bnote" style="margin-top:14px">
-          <b>※ ②~⑦은 예상입니다.</b> 실제로 그렇게 된다는 뜻이 아닙니다.<br>본PF 전환에 성공하면 ③ 이후는 일어나지 않습니다.</p>
+          <span class="mk mk-guess">예상</span> ②~⑦ · <b>본PF 전환에 성공하면 ③ 이후는 일어나지 않습니다.</b></p>
       </div>
     </div>
 
@@ -1290,7 +1307,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
       <ul class="bul tight">
         <li><b>노랑</b> — 양측 주장이 갈리거나, 시간·돈이 더 듦</li>
         <li><b>회색</b> — 어느 쪽으로 가든 같음 (③④⑤)</li>
-        <li><b>어느 쪽이 낫다는 표시가 아닙니다.</b></li>
+        <li><span class="mk mk-judge">판단 안 함</span> 어느 쪽이 낫다는 표시가 아닙니다</li>
       </ul>
 
       <p class="lead" style="margin-top:16px">노랑 칸을 세어서 판단하지 마십시오</p>
@@ -1424,9 +1441,9 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
       <tr><td><b>DL 본안소송 1심</b></td><td><b>평균 14.6개월</b></td><td>같은 자료</td></tr>
       <tr><td><b>항소심</b></td><td><b>평균 10.5개월</b> (고법)</td><td>같은 자료. 지방법원 항소부는 10.9개월</td></tr>
       <tr><td>② 사업시행계획 변경인가<br>④ 관리처분계획 변경인가<br>③ 종후자산 감정평가</td>
-        <td colspan="2"><span class="pending">전국 평균 통계를 찾지 못했습니다. 구역마다 편차가 커서 이 페이지가 추정하지 않겠습니다.</span></td></tr>
+        <td colspan="2"><span class="mk mk-unk">확인 못 함</span> 전국 평균 통계가 없습니다. 구역마다 편차가 커서 추정하지 않겠습니다.</td></tr>
       <tr><td>⑥ HUG 보증 승계</td>
-        <td colspan="2"><span class="pending">공개된 표준 기간이 없습니다. “6개월”은 비대위 측 추정입니다.</span></td></tr>
+        <td colspan="2"><span class="mk mk-unk">확인 못 함</span> 공개된 표준 기간이 없습니다. “6개월”은 비대위 측 추정입니다.</td></tr>
     </table></div>
     <p class="lead" style="margin-top:18px">여기서 나오는 결론은 하나뿐입니다</p>
     <ul class="bul tight">
@@ -1591,7 +1608,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   </div>
   <div class="row"><div class="rc">
     <div class="a"><span class="tag t-party">당사자 문서 · 조합 공지 (7/24)</span><ul class="bul tight"><li><b>아직 확정 안내가 없습니다.</b> “관리처분계획 변경 절차를 진행 중이며, 확정된 공사비와 일반분양가, 감정평가 결과를 반영한 실제 비례율을 정리해 안내하겠다”는 입장입니다.</li></ul></div>
-    <div class="b"><span class="tag t-oral">구두 주장 · 추정치</span><ul class="bul tight"><li>소송이 길어지는 경우를 전제로 <b>추가 분담금 1억~5억</b>이라는 추정을 내놓고 있습니다. 이자·손해배상·공사비 인상을 각각 더한 계산입니다.</li></ul><p class="bnote">계산 근거가 공개되지 않아 이 페이지는 검증하지 못했습니다.</p></div>
+    <div class="b"><span class="tag t-oral">구두 주장 · 추정치</span><ul class="bul tight"><li>소송이 길어지는 경우를 전제로 <b>추가 분담금 1억~5억</b>이라는 추정을 내놓고 있습니다. 이자·손해배상·공사비 인상을 각각 더한 계산입니다.</li></ul><p class="bnote"><span class="mk mk-unk">확인 못 함</span> 계산 근거가 공개되지 않았습니다.</p></div>
   </div></div>
 </div>
 
@@ -1643,7 +1660,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   </p>
 
   <h3>조합이 내놓은 공식 일정표</h3>
-  <p class="h2sub">조합장 직인이 찍힌 문서에 적힌 계획입니다. <b>계획이지 확정이 아닙니다.</b></p>
+  <p class="h2sub"><span class="mk mk-guess">예상</span> 조합장 직인이 찍힌 문서의 <b>계획</b>입니다. 확정이 아닙니다.</p>
 
   <div class="sched">
     <div class="sr"><div class="sw">2026년 5~7월</div><div class="sb">
@@ -1949,22 +1966,6 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <p class="hint" id="howto">복사한 뒤 카카오톡이나 문자에 붙여넣어 보내셔도 됩니다.</p>
   </form>
 
-  <h3>무엇을 가장 알고 싶으십니까</h3>
-  <p>지지하는 쪽을 묻지 않습니다. 조합원들이 어떤 정보를 원하는지 모아서 공개하려는 것입니다.</p>
-
-  <form class="poll" id="poll">
-    <p class="sub">해당하는 것을 모두 골라 주십시오. 이름·연락처를 묻지 않습니다.</p>
-    <label><input type="checkbox" name="q" value="비례율"><span>지금 비례율이 정확히 얼마인지</span></label>
-    <label><input type="checkbox" name="q" value="분담금"><span>내가 내야 할 분담금이 얼마가 되는지</span></label>
-    <label><input type="checkbox" name="q" value="착공일"><span>실제 착공 예정일</span></label>
-    <label><input type="checkbox" name="q" value="손해배상"><span>DL 손해배상이 얼마나 나올지</span></label>
-    <label><input type="checkbox" name="q" value="총회안건"><span>8월 8일 총회 안건이 무슨 뜻인지</span></label>
-    <label><input type="checkbox" name="q" value="정족수"><span>총회 정족수와 서면결의서가 어떻게 계산되는지</span></label>
-    <label><input type="checkbox" name="q" value="재판"><span>재판이 어떻게 진행되고 있는지</span></label>
-    <label><input type="checkbox" name="q" value="이주비"><span>이주비 이자를 앞으로 누가 내는지</span></label>
-    <button class="btn" type="submit">보내기</button>
-    <div class="thanks" id="thanks"></div>
-  </form>
 
   <h3>고친 기록</h3>
   <div class="log">
@@ -2011,12 +2012,6 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 // ══════════════════════════════════════════
 // 설정
 // ══════════════════════════════════════════
-// 설문 결과를 모을 구글폼 (버너 계정으로 만드십시오)
-//   ※ 폼 설정에서 "이메일 주소 수집"과 "로그인 필요"를 반드시 끄십시오
-//   ※ 비워 두면 설문은 "아직 연결되지 않았습니다"라고 정직하게 표시됩니다
-var FORM_ID  = "";
-var ENTRY_ID = "";
-
 var OPENCHAT_URL = "https://open.kakao.com/o/sG5si8Fi";
 var CONTACT_MAIL = "";
 
@@ -2105,33 +2100,6 @@ var STALE_DAYS = 3;          // 사건이 빠르게 움직이므로 3일로 둡�
     s.style.display = 'block';
   }
 
-  // ── 설문 ──
-  var pollLive = !!(FORM_ID && ENTRY_ID);
-  var thanks = document.getElementById('thanks');
-  document.getElementById('poll').addEventListener('submit', function(e){
-    e.preventDefault();
-    var picked = [].slice.call(this.querySelectorAll('input[name=q]:checked')).map(function(i){return i.value;});
-    if (!picked.length) { alert("한 개 이상 골라 주십시오."); return; }
-    if (pollLive) {
-      var body = new URLSearchParams();
-      picked.forEach(function(v){ body.append(ENTRY_ID, v); });
-      fetch("https://docs.google.com/forms/d/e/" + FORM_ID + "/formResponse",
-            {method:"POST", mode:"no-cors", body:body}).catch(function(){});
-      thanks.textContent = "보내주셔서 감사합니다. 모인 결과는 이 페이지에 공개하겠습니다.";
-      this.querySelector('.btn').textContent = "보냈습니다";
-    } else {
-      // 보낼 곳이 없는데 "보냈다"고 말하지 않습니다.
-      thanks.textContent = "아직 설문 창구가 연결되지 않았습니다. 보내주신 내용은 저장되지 않았습니다. "
-                         + "연결되는 대로 이 자리에 안내하겠습니다.";
-      this.querySelector('.btn').textContent = "준비 중입니다";
-    }
-    thanks.style.display = 'block';
-    this.querySelector('.btn').disabled = true;
-  });
-  if (!pollLive) {
-    var ps = document.querySelector('#poll .sub');
-    ps.innerHTML = "<b>※ 준비 중입니다.</b> 아직 설문 창구가 연결되지 않아 지금 고르신 내용은 저장되지 않습니다.";
-  }
 
   // ── 수정 요청 ──
   var sec = document.getElementById('fx-sec');
