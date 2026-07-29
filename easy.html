@@ -12,8 +12,9 @@
    어르신이 읽으시는 화면입니다.
    - 글씨를 아주 크게, 줄 간격을 넓게 둡니다.
    - 색은 흰 바탕 · 검은 글씨만 씁니다(어두운 화면 모드도 끕니다).
-   - 어느 쪽 편도 들지 않습니다. 색으로 편을 나누지 않습니다.
-   - 한 화면에 한 가지 이야기만 담습니다.
+   - 줄글로 길게 쓰지 않고, 짧은 불렛으로 끊어 적습니다.
+   - 양쪽 말은 언제나 같은 순서(조합 → 비대위)로, 같은 분량으로,
+     똑같이 생긴 칸에 넣습니다. 색이나 모양으로 편을 나누지 않습니다.
    ═══════════════════════════════════════════════════ */
 :root{ --scale:1; }
 *{box-sizing:border-box}
@@ -43,12 +44,13 @@ header .sub{margin:0; font-size:.82em; line-height:1.75; color:#444}
 }
 .tools button:active{background:#111; color:#fff}
 
-/* ── 안내 상자 ── */
-.notice{
-  border:4px solid #111; border-radius:16px; padding:22px 20px; margin:26px 0 0;
-  font-size:.82em; line-height:1.85; background:#F6F4EF;
-}
-.notice b{font-size:1.05em}
+/* ── 이 종이가 무엇인지 (맨 위 안내) ── */
+.intent{border:5px solid #111; border-radius:18px; padding:24px 20px; margin:26px 0 0; background:#F6F4EF}
+.intent .one{margin:0 0 16px; font-size:1.02em; font-weight:800; line-height:1.7}
+.intent ul{margin:0; padding-left:1.1em}
+.intent li{font-size:.8em; line-height:1.8; margin:0 0 12px}
+.intent li:last-child{margin:0}
+
 .warn{display:none; border:5px solid #B03A2E; border-radius:16px; padding:22px 20px;
   margin:26px 0 0; background:#FBEDEA; font-size:.85em; line-height:1.85; font-weight:700}
 
@@ -60,37 +62,54 @@ header .sub{margin:0; font-size:.82em; line-height:1.75; color:#444}
 }
 .card h2{font-size:1.25em; line-height:1.45; margin:24px 22px 0; letter-spacing:-.02em}
 .card p{margin:18px 22px 0; line-height:1.95}
-.card p.small{font-size:.82em; color:#444; line-height:1.85}
-.card ul{margin:18px 22px 0; padding-left:1.1em}
-.card li{margin:0 0 14px; line-height:1.9}
-.card li:last-child{margin-bottom:0}
+.card p.small{font-size:.78em; color:#444; line-height:1.8}
 
-/* 한 줄 요약 — 카드마다 맨 먼저 보이는 굵은 문장 */
-.lead{font-size:1.05em; font-weight:800; line-height:1.75}
+/* 불렛 — 이 종이의 기본 서술 방식입니다 */
+.card ul{margin:20px 22px 0; padding-left:1.1em}
+.card li{margin:0 0 16px; line-height:1.85}
+.card li:last-child{margin-bottom:0}
+.card li b{font-weight:800}
+
+/* 소제목 */
+.sub2{margin:30px 22px 0; font-size:.88em; font-weight:800; line-height:1.6;
+  border-left:8px solid #111; padding-left:14px}
 
 /* 밑줄 강조: 색 대신 밑줄로 강조합니다 */
 .u{border-bottom:4px solid #111; padding-bottom:1px; font-weight:800}
 
-/* ── 표: 내가 하는 일 → 어떻게 되나 ── */
+/* ── 양쪽을 나란히 놓는 칸 ──
+   두 칸은 테두리·바탕·글씨가 완전히 같습니다.
+   보기 좋으라고 한쪽에 색을 넣지 않습니다. */
+.vs{display:grid; grid-template-columns:1fr; gap:16px; margin:20px 22px 0}
+@media(min-width:640px){.vs{grid-template-columns:1fr 1fr}}
+.vs .col{border:3px solid #111; border-radius:14px; overflow:hidden}
+.vs .cap{background:#111; color:#fff; text-align:center;
+  font-size:.78em; font-weight:800; line-height:1.6; padding:14px 12px; margin:0}
+.vs ul{margin:0; padding:16px 16px 16px 30px}
+.vs li{font-size:.78em; line-height:1.8; margin:0 0 14px}
+.vs li:last-child{margin:0}
+.vsnote{margin:14px 22px 0; font-size:.72em; color:#444; line-height:1.75}
+
+/* ── 안건 목록 ── */
 .what{margin:22px 22px 0; border:3px solid #111; border-radius:14px; overflow:hidden}
 .what .row{border-bottom:3px solid #111; padding:20px 18px}
 .what .row:last-child{border-bottom:0}
-.what .row.head{background:#111; color:#fff; font-weight:800; font-size:.82em; line-height:1.7}
-.what .do{margin:0 0 8px; font-weight:800; font-size:.95em; line-height:1.6}
-.what .then{margin:0; font-size:.85em; line-height:1.8; color:#222}
+.what .row.head{background:#111; color:#fff; font-weight:800; font-size:.8em; line-height:1.7}
+.what .do{margin:0 0 8px; font-weight:800; font-size:.92em; line-height:1.6}
+.what .then{margin:0; font-size:.82em; line-height:1.8; color:#222}
 
 /* ── 숫자 두 개 나란히 ── */
 .two{display:grid; grid-template-columns:1fr; gap:14px; margin:22px 22px 0}
 @media(min-width:600px){.two{grid-template-columns:1fr 1fr}}
 .two div{border:3px solid #111; border-radius:14px; padding:18px; text-align:center}
-.two .t{display:block; font-size:.75em; color:#444; margin-bottom:6px; line-height:1.6}
-.two .n{display:block; font-size:1.15em; font-weight:800; line-height:1.4}
+.two .t{display:block; font-size:.72em; color:#444; margin-bottom:6px; line-height:1.6}
+.two .n{display:block; font-size:1.12em; font-weight:800; line-height:1.4}
 
 /* ── 마지막: 전화 · 자세히 보기 ── */
 .end{border:5px solid #111; border-radius:20px; padding:26px 22px; margin:44px 0 0; background:#F6F4EF}
 .end h2{font-size:1.2em; margin:0 0 18px; line-height:1.45}
 .end ul{margin:0 0 24px; padding-left:1.1em}
-.end li{margin:0 0 14px; line-height:1.9}
+.end li{margin:0 0 16px; line-height:1.85}
 .call{
   display:block; text-align:center; text-decoration:none;
   background:#111; color:#fff; border:4px solid #111; border-radius:16px;
@@ -106,13 +125,14 @@ header .sub{margin:0; font-size:.82em; line-height:1.75; color:#444}
 
 footer{margin-top:40px; padding-top:24px; border-top:3px solid #111;
   font-size:.72em; line-height:1.85; color:#444}
-footer p{margin:0 0 12px}
-footer p:last-child{margin:0}
+footer ul{margin:0; padding-left:1.1em}
+footer li{margin:0 0 14px}
+footer li:last-child{margin:0}
 
 @media print{
   .tools,.call,.more{display:none!important}
   body{font-size:12pt; --scale:1}
-  .card,.end{page-break-inside:avoid}
+  .card,.end,.vs{page-break-inside:avoid}
 }
 </style>
 </head>
@@ -132,32 +152,61 @@ footer p:last-child{margin:0}
 
 <div class="warn" id="warn"></div>
 
-<div class="notice">
-  <b>이 종이는 이렇게 읽어 주십시오.</b><br>
-  어느 편을 들지 않습니다. 지금까지 확인된 것만 쉬운 말로 적었습니다.<br>
-  <b>어디에 찬성하시라, 반대하시라 하지 않습니다.</b>
+<!-- ══ 이 종이의 뜻 — 맨 위에 한 줄 ══ -->
+<div class="intent">
+  <p class="one">이 종이는 어느 편도 들지 않습니다.<br>
+    양쪽 말을 <span class="u">그대로, 같은 분량으로</span> 나란히 놓기만 합니다.</p>
+  <ul>
+    <li>조합 쪽 말과 비대위 쪽 말을 <b>보태거나 빼지 않고</b> 옮겼습니다.
+      <b>쉬운 말로 줄이기만 했습니다.</b></li>
+    <li>양쪽 단톡방에 <b>실제로 올라온 글</b>과 법원 결정·언론 보도·조합 문서를 보고 적었습니다.</li>
+    <li><b>찬성하시라, 반대하시라 하지 않습니다.</b> 어느 쪽이 옳은지도 말하지 않습니다.</li>
+  </ul>
 </div>
 
 <!-- ══ 1 ══ -->
 <div class="card">
   <p class="no">첫째</p>
   <h2>아파트를 지을 회사가<br>아직 정해지지 않았습니다</h2>
-  <p class="lead">“GS로 정해졌다”, “아니다 DL이다” 하는 말이 다 도는데,<br>
-    지금은 <span class="u">아무것도 확정되지 않았습니다.</span></p>
-  <p>5월 30일 총회에서 GS건설을 뽑았습니다.<br>
-    그런데 <b>그 총회가 제대로 된 총회였는지</b>를 지금 법원이 살펴보고 있습니다.</p>
-  <p>법원이 판단을 내려야 다음이 정해집니다.</p>
-  <p class="small">※ 법원 판단은 7월 안에 나올 예정이라고 했습니다.
-    그 판단이 나와도 정식 재판(본안소송)은 따로 몇 년 더 걸릴 수 있습니다.</p>
+  <ul>
+    <li>5월 30일 총회에서 <b>GS건설</b>을 뽑았습니다.</li>
+    <li>그런데 <b>그 총회가 제대로 된 총회였는지</b>를 법원이 지금 보고 있습니다.</li>
+    <li>법원 판단은 <b>7월 안에</b> 나올 예정이라고 했습니다.</li>
+    <li>판단이 나와도 <b>정식 재판(본안소송)은 따로</b> 진행됩니다. 몇 년이 걸릴 수 있습니다.</li>
+  </ul>
+
+  <p class="sub2">GS로 갈 때와 DL로 갈 때, 무엇이 다릅니까</p>
+  <div class="vs">
+    <div class="col">
+      <p class="cap">GS건설로 갈 경우</p>
+      <ul>
+        <li><b>DL에 물어줄 배상금</b>이 생길 수 있습니다. 금액은 아무도 모릅니다.</li>
+        <li>지금 <b>DL이 맡고 있는 현장</b>을 넘겨받아야 합니다.</li>
+        <li>돈 빌리는 <b>보증(HUG)을 GS 앞으로</b> 새로 옮겨야 합니다.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <p class="cap">DL이앤씨로 갈 경우</p>
+      <ul>
+        <li><b>5월 30일 총회 결과가 뒤집혀야</b> 합니다. 그 자체가 또 하나의 절차입니다.</li>
+        <li>현장은 <b>DL이 그대로</b> 맡고 있어 넘겨받을 일이 없습니다.</li>
+        <li><b>GS에 받은 입찰보증금</b>을 어떻게 정리할지가 남습니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="vsnote">※ 두 칸은 <b>똑같이 생겼습니다.</b> 어느 쪽이 낫다는 표시가 아닙니다.
+    양쪽 모두 아직 정해지지 않은 일이라, 각각 <b>“그쪽으로 가면 이런 일이 남는다”</b>는 것만 적었습니다.</p>
 </div>
 
 <!-- ══ 2 ══ -->
 <div class="card">
   <p class="no">둘째 — 가장 중요합니다</p>
   <h2>8월 8일 토요일에<br>총회가 있습니다</h2>
-  <p class="lead">이 날 <span class="u">무엇을 정하는지</span>가 중요합니다.</p>
-  <p>안건이 무슨 뜻인지 한 줄씩 적었습니다.<br>
-    <b>중요한 것부터 적었기 때문에 번호 순서가 아닙니다.</b></p>
+  <ul>
+    <li>이 날 <span class="u">무엇을 정하는지</span>가 중요합니다.</li>
+    <li>안건이 무슨 뜻인지 <b>한 줄씩</b> 적었습니다.</li>
+    <li><b>중요한 것부터</b> 적었기 때문에 번호 순서가 아닙니다.</li>
+  </ul>
 
   <div class="what">
     <div class="row head">8월 8일 총회에서 정하는 것</div>
@@ -187,63 +236,134 @@ footer p:last-child{margin:0}
     </div>
   </div>
 
-  <p>제10호를 두고 양쪽 말이 다릅니다.<br>
-    <b>조합 쪽</b> — 공사를 시작하려면 꼭 거쳐야 하는 절차다.<br>
-    <b>반대쪽</b> — 이 안건이 지금 올라온 것 자체가 계획대로 되지 않았다는 뜻이다.</p>
+  <p class="sub2">제10호를 두고 양쪽 말이 다릅니다</p>
+  <div class="vs">
+    <div class="col">
+      <p class="cap">조합 쪽</p>
+      <ul>
+        <li>공사를 시작하려면 <b>꼭 거쳐야 하는 절차</b>다.</li>
+        <li><b>시공사가 누구든</b> 해야 하는 일이다.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <p class="cap">비대위 쪽</p>
+      <ul>
+        <li>이 안건이 지금 올라온 것 자체가 <b>계획대로 되지 않았다는 뜻</b>이다.</li>
+        <li>통과되면 <b>나중에 되돌리기 어려워진다.</b></li>
+      </ul>
+    </div>
+  </div>
 
-  <p class="small">※ 제10호처럼 사업시행계획을 바꾸는 안건은,
-    <b>최소 454명이 총회장에 있어야</b> 결정할 수 있습니다.
-    이 숫자는 법 조문(도시정비법 제45조)을 보고 계산한 것입니다.</p>
-  <p class="small">※ 안건 번호와 제목은 <b>조합에서 보낸 책자와 반드시 맞춰 보십시오.</b>
-    책자에는 안건마다 필요한 인원도 적혀 있습니다. 위 내용은 단톡방과 공지를 보고 적은 것이라
-    빠지거나 틀린 것이 있을 수 있습니다.</p>
-  <p class="small">※ 총회 장소와 시간도 <b>책자</b>를 보셔야 합니다. 이 종이에는 적지 못했습니다.</p>
+  <ul>
+    <li>제10호처럼 사업시행계획을 바꾸는 안건은,
+      <b>최소 454명이 총회장에 있어야</b> 결정할 수 있습니다.</li>
+  </ul>
+
+  <p class="small">※ 454명은 법 조문(도시정비법 제45조)을 보고 계산한 것입니다.
+    <b>책자에는 안건마다 필요한 인원이 적혀 있으니 꼭 맞춰 보십시오.</b></p>
+  <p class="small">※ 안건 번호와 제목도 <b>책자와 맞춰 보셔야 합니다.</b>
+    위 내용은 단톡방과 공지를 보고 적은 것이라 빠지거나 틀린 것이 있을 수 있습니다.</p>
+  <p class="small">※ 총회 <b>장소와 시간</b>도 책자를 보셔야 합니다. 이 종이에는 적지 못했습니다.</p>
 </div>
 
 <!-- ══ 3 ══ -->
 <div class="card">
   <p class="no">셋째</p>
   <h2>내가 낼 돈이 얼마인지는<br>아직 아무도 모릅니다</h2>
-  <p class="lead">지금 도는 금액은 <span class="u">전부 누군가의 짐작</span>입니다.</p>
-  <p>아파트 짓는 값이 많이 올랐습니다.</p>
+  <ul>
+    <li>지금 도는 금액은 <span class="u">전부 누군가의 짐작</span>입니다.</li>
+    <li>아파트 짓는 값이 많이 올랐습니다.</li>
+  </ul>
 
   <div class="two">
     <div><span class="t">2021년 정할 때<br>(평당)</span><span class="n">459만원</span></div>
     <div><span class="t">지금 이야기되는 값<br>(평당)</span><span class="n">682~729만원</span></div>
   </div>
 
-  <p>그런데 <b>내가 얼마를 더 내야 하는지</b>는,
-    <b>‘관리처분 변경’</b>이라는 절차가 끝나야 나옵니다. 아직 끝나지 않았습니다.</p>
-  <p>조합도 7월 24일 문서에서
-    <b>“지금은 알려드릴 수 있는 단계가 아니다”</b>라고 답했습니다.</p>
-  <p class="small">※ 집을 사실 때 들으신 비례율은 <b>2021년 기준 숫자</b>입니다. 지금 숫자가 아닙니다.</p>
+  <ul>
+    <li>내가 <b>얼마를 더 내야 하는지</b>는 <b>‘관리처분 변경’</b>이라는 절차가 끝나야 나옵니다.</li>
+    <li>그 절차는 <b>아직 끝나지 않았습니다.</b></li>
+    <li>조합도 7월 24일 문서에서 <b>“지금은 알려드릴 수 있는 단계가 아니다”</b>라고 답했습니다.</li>
+    <li>집을 사실 때 들으신 <b>비례율은 2021년 기준 숫자</b>입니다. 지금 숫자가 아닙니다.</li>
+  </ul>
+
+  <p class="sub2">돈에 대해 양쪽이 하는 말</p>
+  <div class="vs">
+    <div class="col">
+      <p class="cap">조합 쪽</p>
+      <ul>
+        <li>확정된 <b>공사비·분양가·감정평가</b>를 반영해 <b>나중에 안내하겠다.</b></li>
+        <li>지금은 <b>확정해 말할 단계가 아니다.</b></li>
+      </ul>
+    </div>
+    <div class="col">
+      <p class="cap">비대위 쪽</p>
+      <ul>
+        <li>사업이 길어지면 <b>1억에서 5억</b>을 더 내게 될 수 있다.</li>
+        <li>다만 <b>계산 근거는 공개하지 않았습니다.</b></li>
+      </ul>
+    </div>
+  </div>
 </div>
 
 <!-- ══ 4 ══ -->
 <div class="card">
   <p class="no">넷째 — 돈이 나가는 일입니다</p>
   <h2>이주비 대출 이자를<br>직접 내지 마십시오</h2>
-  <p class="lead">지금은 <span class="u">조합이 대신 내고 있습니다.</span></p>
-  <p>따로 내시면 <b>두 번 내시게 될 수 있습니다.</b></p>
-  <p>이 이야기는 <b>조합 쪽과 반대쪽 설명이 서로 다르지 않습니다.</b>
-    양쪽 다 지금은 조합이 내고 있다고 합니다.</p>
-  <p>은행에서 이자를 내라는 연락이 오면,
-    <b>내시기 전에 조합 사무실에 먼저 전화해 확인하십시오.</b></p>
+  <ul>
+    <li>지금은 <span class="u">조합이 대신 내고 있습니다.</span></li>
+    <li>따로 내시면 <b>두 번 내시게 될 수 있습니다.</b></li>
+    <li>은행에서 이자 연락이 오면, <b>내시기 전에 조합 사무실에 먼저 전화하십시오.</b></li>
+  </ul>
+
+  <p class="sub2">이 이야기는 양쪽 말이 다르지 않습니다</p>
+  <div class="vs">
+    <div class="col">
+      <p class="cap">조합 쪽</p>
+      <ul>
+        <li><b>조합이 내고 있다.</b> 조합원이 직접 낼 필요가 없다.</li>
+        <li>GS에서 받은 <b>입찰보증금</b>으로 냈다.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <p class="cap">비대위 쪽</p>
+      <ul>
+        <li><b>지금 조합이 내고 있는 것은 맞다.</b></li>
+        <li>다만 <b>그 돈이 어디서 났는지</b>와 앞으로가 문제다.</li>
+      </ul>
+    </div>
+  </div>
 </div>
 
 <!-- ══ 5 ══ -->
 <div class="card">
   <p class="no">다섯째</p>
   <h2>공사를 언제 시작하는지도<br>아직 정해지지 않았습니다</h2>
-  <p class="lead">양쪽 말이 <span class="u">아주 다릅니다.</span></p>
+
+  <div class="vs">
+    <div class="col">
+      <p class="cap">조합 쪽</p>
+      <ul>
+        <li>올해 <b>8~9월</b>에 공사를 시작한다.</li>
+        <li>늦어져도 <b>한 달 정도</b>로 본다.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <p class="cap">비대위 쪽</p>
+      <ul>
+        <li><b>몇 년은 더</b> 걸린다.</li>
+        <li>다만 <b>몇 년인지는 밝히지 않았습니다.</b></li>
+      </ul>
+    </div>
+  </div>
+
   <ul>
-    <li><b>조합 쪽</b> — 올해 8~9월에 공사를 시작한다고 합니다.</li>
-    <li><b>반대쪽(비대위)</b> — 몇 년은 더 걸린다고 봅니다. 다만 몇 년인지는 밝히지 않았습니다.</li>
+    <li><b>어느 쪽도 아직 확인된 것이 아닙니다.</b></li>
+    <li>법원 판단과 총회 결과에 따라 달라집니다.</li>
   </ul>
-  <p><b>어느 쪽도 아직 확인된 것이 아닙니다.</b>
-    법원 판단과 총회 결과에 따라 달라집니다.</p>
+
   <p class="small">※ 시공사를 바꾸면 배상금을 물게 되는지 물으시는 분이 많습니다.
-    다른 동네에서는 실제로 물었고 60억에서 525억까지 있었습니다.
+    다른 동네에서는 실제로 물었고 <b>60억에서 525억까지</b> 있었습니다.
     <b>우리 구역은 얼마가 될지 아무도 모릅니다.</b></p>
 </div>
 
@@ -253,7 +373,7 @@ footer p:last-child{margin:0}
   <ul>
     <li><b>단톡방 글은 공식 안내가 아닙니다.</b> 조합도 그렇게 밝혔습니다.</li>
     <li>중요한 것은 <b>조합에서 보낸 책자와 문서</b>로 확인하십시오.</li>
-    <li>모르시는 것은 <b>조합 사무실에 그냥 전화해서 물어보시면 됩니다.</b></li>
+    <li>모르시는 것은 <b>조합 사무실에 전화해서 물어보시면 됩니다.</b></li>
     <li>자녀분이 계시면 이 종이를 <b>인쇄해서 같이 보십시오.</b></li>
   </ul>
 
@@ -264,11 +384,15 @@ footer p:last-child{margin:0}
 </div>
 
 <footer>
-  <p>이 종이는 상대원2구역 조합원 한 사람이, 양쪽 단톡방에 올라온 글과 법원 결정·언론 보도·조합 문서를 보고 정리한 것입니다.
-    <b>조합의 공식 안내가 아닙니다.</b></p>
-  <p>어느 편도 들지 않으려 했지만, 잘못 읽었거나 빠뜨린 것이 있을 수 있습니다.
-    <b>중요한 결정은 반드시 조합 문서와 총회 책자를 직접 확인하고 하십시오.</b></p>
-  <p>틀린 곳을 아시면 <a href="index.html#report">알려주십시오</a>. 확인되면 바로 고치겠습니다.</p>
+  <ul>
+    <li>상대원2구역 조합원 한 사람이, 양쪽 단톡방에 올라온 글과 법원 결정·언론 보도·조합 문서를 보고 정리한 것입니다.
+      <b>조합의 공식 안내가 아닙니다.</b></li>
+    <li>양쪽 말은 어디서나 <b>같은 순서(조합 쪽 → 비대위 쪽)</b>로, <b>같은 분량</b>으로 적었습니다.
+      두 칸의 생김새도 똑같이 두었습니다.</li>
+    <li>어느 편도 들지 않으려 했지만, <b>잘못 읽었거나 빠뜨린 것이 있을 수 있습니다.</b>
+      중요한 결정은 반드시 조합 문서와 총회 책자를 직접 확인하고 하십시오.</li>
+    <li>틀린 곳을 아시면 <a href="index.html#report">알려주십시오</a>. 확인되면 바로 고치겠습니다.</li>
+  </ul>
 </footer>
 
 </div>
