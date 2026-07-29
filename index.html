@@ -158,8 +158,37 @@ h2{font-size:1.5em; line-height:1.4; margin:0 0 6px; padding-top:28px; border-to
 .h2sub{color:var(--muted); font-size:.95em; margin:0 0 22px}
 h3{font-size:1.15em; margin:34px 0 12px; line-height:1.5}
 
-.vs{display:grid; grid-template-columns:1fr; gap:16px; margin:16px 0 8px}
-@media(min-width:720px){.vs{grid-template-columns:1fr 1fr}}
+/* 두 칸은 좁은 화면에서도 반드시 나란히 — 위아래로 쌓이면 비교가 되지 않습니다 */
+.vs{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:16px 0 8px}
+@media(min-width:720px){.vs{gap:16px}}
+@media(max-width:719px){
+  .vs{font-size:.82em}
+  .side .cap{padding:10px 11px; font-size:.95em}
+  .side .body{padding:11px}
+}
+
+/* ── 카테고리별 좌우 비교표 ── */
+.cmp{border:3px solid var(--fg); border-radius:14px; overflow:hidden;
+  background:var(--surface); margin:16px 0}
+.cmp .chd{display:grid; grid-template-columns:1fr 1fr; position:sticky;
+  top:calc(66px * var(--scale)); z-index:8}
+.cmp .chd div{padding:16px 10px; font-weight:800; text-align:center;
+  font-size:1.15em; line-height:1.3; border-bottom:3px solid var(--fg)}
+.cmp .chd .a{background:var(--sideAbar); border-right:3px solid var(--fg)}
+.cmp .chd .b{background:var(--sideBbar)}
+.cmp .chd small{display:block; font-size:.62em; font-weight:700; color:var(--muted); margin-top:3px}
+.cmp .row{border-top:3px solid var(--line)}
+.cmp .rt{padding:11px 15px; font-weight:800; background:var(--soft); font-size:.95em; line-height:1.45}
+.cmp .rc{display:grid; grid-template-columns:1fr 1fr}
+.cmp .rc div{padding:13px 14px; font-size:.88em; line-height:1.6}
+.cmp .rc .a{background:var(--sideA); border-right:2px solid var(--line)}
+.cmp .rc .b{background:var(--sideB)}
+.cmp .rc b{color:var(--fg)}
+/* 양측이 다투지 않는 항목은 칸을 합칩니다 */
+.cmp .rc.one{grid-template-columns:1fr}
+.cmp .rc.one div{background:var(--gobg); border-right:0; border-left:8px solid var(--go)}
+.cmp .same{display:inline-block; font-size:.85em; font-weight:800; color:var(--go);
+  border:1.5px solid var(--go); border-radius:999px; padding:1px 10px; margin-right:8px}
 .side{border:2px solid var(--line); border-radius:12px; overflow:hidden}
 .side.a{background:var(--sideA)} .side.b{background:var(--sideB)}
 .side .cap{font-weight:800; padding:13px 16px; border-bottom:2px solid var(--line)}
@@ -446,13 +475,14 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <button type="button" id="tocBtn" aria-expanded="false">목차 ▾</button>
   </div>
   <nav id="toc" class="toc">
-    <a href="#sum"   data-g="sum">한눈에</a>
-    <a href="#vote"  data-g="vote">내 한 표</a>
-    <a href="#paths" data-g="paths">두 갈래길</a>
-    <a href="#money" data-g="money">내 돈</a>
-    <a href="#later" data-g="later">앞으로</a>
-    <a href="#facts" data-g="facts">확인된 사실</a>
-    <a href="#ask"   data-g="ask">제보·질의</a>
+    <a href="#sum"     data-g="sum">한눈에</a>
+    <a href="#compare" data-g="compare">쟁점별 비교</a>
+    <a href="#later"   data-g="later">앞으로</a>
+    <a href="#vote"    data-g="vote">내 한 표</a>
+    <a href="#paths"   data-g="paths">두 갈래길</a>
+    <a href="#money"   data-g="money">내 돈</a>
+    <a href="#facts"   data-g="facts">확인된 사실</a>
+    <a href="#ask"     data-g="ask">제보·질의</a>
   </nav>
 </div>
 
@@ -552,6 +582,314 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
       <p class="a"><b>일정표의 5~7월 칸에서 확실히 끝난 것은 하나입니다.</b><br>
         <span class="s">조합 문서와 조합 공지만으로 맞춰 봤습니다. <a href="#facts">계획과 실제 비교 ▶</a></span></p></div>
   </div>
+</section>
+
+<!-- ══ 카테고리별 좌우 비교 ══ -->
+<section id="compare" data-g="compare">
+  <h2>쟁점별로 — 양측이 뭐라고 하는가</h2>
+  <p class="h2sub">왼쪽이 조합 측, 오른쪽이 비대위 측입니다. <b>초록색으로 합쳐진 칸은 양측이 다투지 않는 부분</b>입니다.</p>
+
+  <div class="cmp">
+    <div class="chd">
+      <div class="a">조합 측<small>GS건설을 미는 쪽</small></div>
+      <div class="b">비대위 측<small>DL이앤씨를 미는 쪽</small></div>
+    </div>
+
+    <div class="row"><p class="rt">지금 시공사는</p>
+      <div class="rc one"><div><span class="same">다투지 않음</span>
+        <b>아직 확정되지 않았습니다.</b> 5월 30일 총회의 효력을 다투는 법원 결정을 기다리는 중입니다.</div></div></div>
+
+    <div class="row"><p class="rt">어느 회사로 가야 하나</p>
+      <div class="rc">
+        <div class="a"><b>GS건설</b><br>5월 30일 총회로 선정됐고, DL은 해지됐다</div>
+        <div class="b"><b>DL이앤씨</b><br>시공사 지위가 유지 중이니 계약만 다시 이으면 된다</div>
+      </div></div>
+
+    <div class="row"><p class="rt">착공은 언제</p>
+      <div class="rc">
+        <div class="a"><b>2026년 8~9월</b><br>9월로 밀려도 8월 조건(729만원) 적용받도록 1개월 유예 확보</div>
+        <div class="b"><b>GS로 가면 수년 더</b><br>구체적 시점은 제시하지 않음<br><br><b>DL로 가면 계약 즉시</b></div>
+      </div></div>
+
+    <div class="row"><p class="rt">2021년 기준 공사비</p>
+      <div class="rc one"><div><span class="same">다투지 않음</span>
+        <b>평당 459만원</b>이었고, 지금 거론되는 금액은 <b>682~729만원</b>입니다.</div></div></div>
+
+    <div class="row"><p class="rt">평당 공사비</p>
+      <div class="rc">
+        <div class="a"><b>GS 729만원 — 확정 금액</b><br>DL 682만원은 2025년 8월 기준일 뿐, 물가만큼 올라 <b>최종 818만원</b>이 된다</div>
+        <div class="b"><b>DL 682만원 — 확정 공사비</b><br>책임준공까지 확약받았다<br>GS는 <b>변동 공사비</b>라 오른다 <span style="color:var(--muted)">(금액은 제시 안 함)</span></div>
+      </div></div>
+
+    <div class="row"><p class="rt">내 분담금</p>
+      <div class="rc one"><div><span class="same">다투지 않음</span>
+        <b>아직 확정된 수치가 없습니다.</b> 관리처분계획 변경인가가 끝나야 나옵니다.</div></div></div>
+
+    <div class="row"><p class="rt">분담금 전망</p>
+      <div class="rc">
+        <div class="a"><b>안내할 단계가 아니다</b><br>확정 공사비·일반분양가·감정평가를 반영해 정리해 안내하겠다 (7/24 내용증명)</div>
+        <div class="b"><b>추가 1억~5억</b> 추정<br>소송이 길어지는 경우를 전제한 계산 <span style="color:var(--muted)">(근거는 공개 안 됨)</span></div>
+      </div></div>
+
+    <div class="row"><p class="rt">이주비 대출 이자</p>
+      <div class="rc one"><div><span class="same">다투지 않음</span>
+        <b>조합원이 직접 내지 마십시오.</b> 지금은 조합이 대납하고 있습니다. 이중 납부가 될 수 있습니다.</div></div></div>
+
+    <div class="row"><p class="rt">이주비 이자, 앞으로는</p>
+      <div class="rc">
+        <div class="a"><b>DL 탓에 생긴 문제</b><br>DL이 1월부터 날인을 거부해 생겼고, GS 입찰보증금으로 납부 완료했다</div>
+        <div class="b"><b>재원과 앞날이 문제</b><br>대납에 쓴 돈이 GS 입찰보증금이다<br>길어지면 월 100만원 → 200만원 → 300만원</div>
+      </div></div>
+
+    <div class="row"><p class="rt">8월 8일 제10호<br>(사업시행계획 변경)</p>
+      <div class="rc">
+        <div class="a"><b>반드시 필요한 안건</b><br>비행안전평가 조건 이행이며 시공사가 누구든 필요<br>부결되면 착공 못 함</div>
+        <div class="b"><b>찬성하면 되돌리기 어려워진다</b><br>인가가 행정처분이 되어, 나중에 법원이 DL 손을 들어줘도 되돌리기 어렵다</div>
+      </div></div>
+
+    <div class="row"><p class="rt">총회 비용 12억</p>
+      <div class="rc">
+        <div class="a"><b>비대위 방해로 생긴 비용</b><br>비대위를 상대로 손해배상을 청구할 예정 (총회 책자)</div>
+        <div class="b"><b>조합원에게 떠넘기는 것</b><br>효력 정지된 4월 11일 총회 비용을 왜 조합원이 내나<br>홍보비·참석비는 참석 유도용</div>
+      </div></div>
+
+    <div class="row"><p class="rt">자금 조달 (HUG)</p>
+      <div class="rc">
+        <div class="a"><b>변경인가 후 증액 보증 가능</b><br>그때까지 공백은 GS 자금으로 메운다</div>
+        <div class="b"><b>분쟁 중이면 보증이 안 된다</b><br>이율 5%대 → 10%대<br>월 이자 30억 → 60억</div>
+      </div></div>
+
+    <div class="row"><p class="rt">돈이 계속 나가고 있다</p>
+      <div class="rc one"><div><span class="same">다투지 않음</span>
+        여기까지는 양쪽이 같습니다. 다만 결론이 반대입니다 —
+        조합 측은 <b>“그러니 빨리 착공해야 한다”</b>, 비대위 측은 <b>“그러니 더 빌리는 안건을 막아야 한다”</b>.</div></div></div>
+
+    <div class="row"><p class="rt">조합 일정표 순서</p>
+      <div class="rc">
+        <div class="a"><b>착공 먼저, 관리처분 변경은 뒤에</b><br>착공으로 시간을 벌고 이어서 처리하겠다</div>
+        <div class="b"><b>순서가 뒤바뀌었다</b><br>분담금도 모르는 상태에서 동·호수를 정하게 된다</div>
+      </div></div>
+
+    <div class="row"><p class="rt">조합장 수사</p>
+      <div class="rc">
+        <div class="a"><b>혐의를 부인</b><br>금품 받은 사실 없다<br>영장 신청 시점을 들어 수사 공정성에 의문 제기</div>
+        <div class="b"><b>기각은 무죄가 아니다</b><br>수사·기소·재판은 계속된다<br>사법 위험이 인허가·금융에 부담</div>
+      </div></div>
+  </div>
+
+  <ul class="bul tight" style="margin-top:16px">
+    <li>이 표는 <b>양측 주장을 줄여 놓은 것</b>입니다. 근거와 자세한 설명은 아래 각 항목에 있습니다</li>
+    <li><b>어느 쪽이 맞는지 이 페이지는 판단하지 않습니다</b></li>
+  </ul>
+
+  <p class="fixme"><a href="#report" data-fix="전체 / 그 밖의 내용">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
+</section>
+
+<!-- ══ 앞으로 일어날 일 (상단으로 이동) ══ -->
+<section id="later" data-g="later">
+  <h2>앞으로 일어날 일</h2>
+  <p class="h2sub">지금까지 나온 이야기는 대부분 <b>가처분</b>과 <b>이번 총회</b>에 관한 것입니다. 그 뒤에 따라오는 것들이 있습니다.</p>
+
+  <div class="plain">
+    <b>왜 이 부분을 따로 두었는가 —</b>
+    조합 측 설명은 공문·책자·일정표로 나오기 때문에 근거가 뚜렷해 보이고,
+    비대위 측 주장은 <b>“아직 일어나지 않은 일”</b>에 관한 것이라 문서가 있을 수 없습니다.
+    그렇다고 빼 버리면 <b>문서가 있는 쪽으로 페이지가 저절로 기울게 됩니다.</b>
+    그래서 아직 일어나지 않은 일도, 공개 자료로 확인되는 범위에서 적습니다.
+  </div>
+
+  <div class="qrow">1. 본안소송 — 아직 시작도 하지 않았습니다</div>
+  <div class="mine">
+    <p class="mh"><span class="tag t-mine">이 페이지가 찾은 것</span></p>
+    <p>지금까지 나온 법원 결정(4/29, 5/29, 7/10, 그리고 곧 나올 5/30 총회 건)은 모두 <b>가처분</b>입니다.
+       가처분은 본안 판결이 나올 때까지의 <b>임시 조치</b>이고, <b>본안소송에서 결론이 뒤집힐 수 있습니다.</b></p>
+    <p>DL은 <b>가처분 결과와 관계없이 본안소송은 이어가겠다</b>는 입장을 밝혔습니다.</p>
+    <div class="tblwrap"><table class="tbl">
+      <tr><th style="width:46%">단계</th><th style="width:26%">평균 기간</th><th>근거</th></tr>
+      <tr><td>민사 1심 (합의부)</td><td><b>14.6개월</b> (437.3일)</td><td rowspan="2">2025 사법연감</td></tr>
+      <tr><td>항소심</td><td><b>10.5개월</b> (고법)<br>10.9개월 (지법 항소부)</td></tr>
+      <tr><td><b>1심 + 항소심 합계</b></td><td><b>약 2년 1개월</b></td><td>위 두 값의 합. 대법원까지 가면 더 걸립니다</td></tr>
+    </table></div>
+    <p class="bnote"><b>이것은 평균값이며 이 사건의 예상 기간이 아닙니다.</b> 사건마다 크게 다릅니다.
+      다만 <b>“법원 결정이 나오면 끝난다”는 것은 사실이 아니라는 점</b>은 분명합니다.</p>
+  </div>
+
+  <div class="qrow">2. 시공사를 바꾸면 배상금을 물게 됩니까 — 다른 구역에서는 물었습니다</div>
+  <div class="mine">
+    <p class="mh"><span class="tag t-mine">이 페이지가 찾은 것</span> 언론에 보도된 사례입니다</p>
+    <p><b>이 구역에서 얼마가 나올지는 아무도 모릅니다.</b> 다만 시공사를 바꾼 다른 구역에서 실제로 어떤 일이 있었는지는 공개되어 있습니다.</p>
+    <div class="tblwrap"><table class="tbl">
+      <tr><th style="width:22%">구역</th><th style="width:32%">결과</th><th>경과</th></tr>
+      <tr><td><b>방배5구역</b></td>
+        <td>시공사 <b>2,000억 청구</b><br>1심 <b>410~426억</b><br>2심 <b>50억</b><br>대법원 파기환송<br>고법 화해권고 <b>525억</b></td>
+        <td>2014년 선정 → 2017년 해지, 현대건설로 교체.
+          <b>2017년 해지 뒤 8년이 지나도록 아직 마무리되지 않았습니다.</b>
+          다만 그 사이 <b>새 시공사로 사업은 진행됐습니다.</b></td></tr>
+      <tr><td><b>반포3주구</b></td><td><b>160억</b></td>
+        <td>2018년 7월 HDC현대산업개발 선정 → 특화설계·공사비 갈등으로 <b>3개월 만에</b> 삼성물산으로 교체</td></tr>
+      <tr><td><b>제주 이도주공<br>2·3단지</b></td><td><b>60억</b></td>
+        <td>2017년 선정 → 2020년 6월 현대건설로 교체</td></tr>
+      <tr><td><b>상계주공5단지</b></td>
+        <td>GS건설 <b>60억 청구</b><br>입찰보증금 50억+이자 상환</td>
+        <td>GS 선정 <b>10개월 만에</b> 해지. 그 뒤 <b>새 시공사를 구하지 못해 여러 해를 보냈고</b>,
+          2025년 9월에야 한화 건설부문을 선정했습니다.</td></tr>
+    </table></div>
+    <p class="lead" style="margin-top:20px">이 선례들이 말해주는 것 — 양쪽 모두에게 아픕니다</p>
+    <p class="lead" style="font-size:.95em;color:var(--muted);margin-bottom:6px">조합 · GS 쪽으로</p>
+    <ul class="bul tight">
+      <li>배상금은 <b>실제로 나왔습니다</b> — 60억 ~ 525억</li>
+      <li>상대원2구역은 규모가 훨씬 크고 <b>이주·철거까지 끝난 상태</b> → 기투입비가 큼</li>
+      <li>1심 410억 → 2심 50억 → 525억. <b>액수를 미리 알 수 없습니다</b></li>
+    </ul>
+    <p class="lead" style="font-size:.95em;color:var(--muted);margin:14px 0 6px">비대위 쪽으로</p>
+    <ul class="bul tight">
+      <li>방배5구역은 <b>소송 중에도 새 시공사로 사업을 진행했습니다</b></li>
+      <li>“소송이 걸리면 착공을 못 한다”가 <b>자동으로 성립하지는 않습니다</b></li>
+      <li>다만 상계주공5단지처럼 <b>새 시공사를 못 구해 멈춘 경우도</b> 있습니다</li>
+    </ul>
+    <p class="bnote" style="margin-top:16px">
+      ※ 단톡방에는 상계주공5단지 청구액이 <b>“146억”</b>이라는 글이 여러 차례 올라왔습니다.
+      <b>언론 보도로 확인되는 금액은 60억입니다.</b> 이 페이지는 확인된 금액을 적습니다.</p>
+    <p class="bnote">근거:
+      <a href="https://www.sisajournal-e.com/news/articleView.html?idxno=406675" target="_blank" rel="noopener noreferrer">시사저널e — 방배5구역 525억</a> ·
+      <a href="https://www.fnnews.com/news/202005311755342778" target="_blank" rel="noopener noreferrer">파이낸셜뉴스 — 2천억 청구, 법원 50억</a> ·
+      <a href="https://www.businesspost.co.kr/BP?command=article_view&num=329817" target="_blank" rel="noopener noreferrer">비즈니스포스트 — 시공사 교체 소송 사례</a> ·
+      <a href="https://www.startuptoday.co.kr/news/articleView.html?idxno=395856" target="_blank" rel="noopener noreferrer">오늘경제 — 상계주공5단지</a></p>
+  </div>
+
+  <div class="qrow">3. 기다리는 동안 나가는 돈</div>
+  <div class="cmp">
+  <div class="chd">
+    <div class="a">조합 측<small>GS건설을 미는 쪽</small></div>
+    <div class="b">비대위 측<small>DL이앤씨를 미는 쪽</small></div>
+  </div>
+  <div class="row"><div class="rc">
+    <div class="a"><span class="tag t-party">당사자 문서 · 조합 공지 (7/26)</span><ul class="bul tight"><li>착공하려면 국·공유지 매입 등 상당한 자금이 필요하다. HUG 사업비 한도는 이미 대부분 소진됐고,
+         관리처분계획 변경인가 이후에야 증액 보증을 받을 수 있어 그때까지 자금 공백을 메워야 한다.</li><li>그래서 <b>빨리 착공하는 것이 비용을 줄이는 길</b>이라는 입장입니다.</li></ul></div>
+    <div class="b"><span class="tag t-oral">구두 주장 · 단톡방</span><ul class="bul tight"><li>사업비 이자가 <b>월 30억 규모</b>로 나가고 있고, 지난해 11월부터 아무 진척 없이 이자만 나갔다고 봅니다.</li><li>사업비는 이미 <b>5,600억 수준</b>이 집행됐다고 보며, <b>이번 총회 안건이 전부 돈을 더 쓰고 더 빌리는 구조</b>라는 것이 안건을 막으려는 이유입니다.</li></ul><p class="bnote">금액은 비대위 측이 제시한 값이며 이 페이지가 검증하지 못했습니다.</p></div>
+  </div></div>
+</div>
+  <div class="plain">
+    <p class="lead">양측이 같은 사실에서 정반대 결론을 냅니다</p>
+    <ul class="bul tight">
+      <li><b>돈이 계속 나가고 있다</b>는 데는 양쪽이 동의합니다</li>
+      <li>조합 측 — <b>“그러니 빨리 착공해야 한다”</b></li>
+      <li>비대위 측 — <b>“그러니 더 빌리는 안건을 막아야 한다”</b></li>
+      <li><b>어느 쪽이 옳은지 이 페이지는 말하지 않습니다.</b> 다만 두 주장이 같은 사실 위에 서 있습니다</li>
+    </ul>
+  </div>
+
+  <div class="hotbox">
+    <p class="hh">지연 1개월이 내 지갑에서 나가는 돈 — 산수만 해 본 것입니다</p>
+    <ul class="bul tight">
+      <li>비대위 측이 말하는 사업비 이자 <b>월 30억</b>을 조합원 <b>2,269명</b>으로 나누면</li>
+      <li class="hot">세대당 월 약 132만원</li>
+      <li class="hot">6개월 지연 = 세대당 약 790만원 · 1년 지연 = 세대당 약 1,580만원</li>
+      <li>여기에 <b>이주비 대출 이자</b>가 따로 붙습니다
+        <span class="sub">비대위 측은 월 100만원에서 200만원, 금리가 오르면 300만원까지 갈 수 있다고 봅니다.</span></li>
+    </ul>
+    <p class="bnote" style="margin-top:14px">
+      <b>※ 이 숫자를 그대로 믿지 마십시오.</b> 월 30억은 <b>비대위 측이 제시한 값</b>이고,
+      <b>조합 측은 이 금액을 확인해 주지 않았습니다.</b>
+      나눗셈만 이 페이지가 했습니다. 실제 분담금은 <b>비례율·일반분양가·감정평가</b>가 함께 반영되어야 나옵니다.
+      <b>조합 측이 정확한 월 이자를 밝혀 주시면 그대로 고쳐 적겠습니다.</b></p>
+  </div>
+
+  <div class="qrow">4. 앞으로 일어날 수 있는 일 — 다른 구역에서는 이렇게 됐습니다</div>
+
+  <div class="mine">
+    <p class="mh"><span class="tag t-mine">이 페이지가 찾은 것</span> 확률을 매기지 않는 이유부터 밝힙니다</p>
+    <ul class="bul tight">
+      <li><b>이 페이지는 “가능성 ○○%” 같은 숫자를 쓰지 않습니다.</b>
+        어느 쪽도 그런 계산을 내놓은 적이 없고, <b>이 페이지가 만들어 내면 그 순간 한쪽 편을 드는 것</b>이 됩니다</li>
+      <li>대신 <b>시공사를 바꾼 다른 구역에서 실제로 무슨 일이 있었는지</b>를 그대로 적습니다</li>
+      <li><b>여기 적힌 것은 예측이 아니라 남의 구역 기록입니다.</b> 상대원2구역이 그대로 된다는 뜻이 아닙니다</li>
+    </ul>
+  </div>
+
+  <div class="scn">
+    <div class="sh">
+      <p class="sn">기록 1 — 방배5구역: 시공사 교체 뒤 착공까지 <span class="hot">약 5년 4개월</span></p>
+      <p class="sd">서울 서초구 · 단독주택 재건축</p>
+    </div>
+    <div class="sbody">
+      <ul class="bul tight">
+        <li>2016년 7월 관리처분계획 인가 → <b>2017년 3월 시공사 교체 착수</b></li>
+        <li class="hot">2022년 7월 착공 — 교체 착수로부터 약 5년 4개월</li>
+        <li>그 사이 손해배상 소송: 시공사 <b>2,000억 청구</b> → 1심 410억 → 2심 50억 → 대법원 파기환송 → <b>화해권고 525억</b></li>
+        <li><b>2017년 해지 뒤 8년이 지나도록 소송이 아직 끝나지 않았습니다</b></li>
+        <li>다만 <b>소송 중에도 새 시공사로 공사는 진행됐습니다.</b> “소송 걸리면 착공 못 한다”가 자동으로 성립하지는 않습니다</li>
+        <li class="bnote">※ 이 구역은 오염토 문제 등 다른 지연 요인도 함께 있었습니다. 지연 전부가 시공사 교체 때문은 아닙니다</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="scn">
+    <div class="sh">
+      <p class="sn">기록 2 — 반포3주구: 교체 자체는 <span style="color:var(--go)">약 5개월</span></p>
+      <p class="sd">서울 서초구 · 아파트 재건축</p>
+    </div>
+    <div class="sbody">
+      <ul class="bul tight">
+        <li>2018년 HDC현대산업개발 선정 → 공사비 갈등 → <b>2019년 12월 계약 해지</b></li>
+        <li><b>2020년 5월 삼성물산 선정</b> — 해지에서 새 시공사까지 약 5개월</li>
+        <li>손해배상은 <b>160억</b>으로 정리됐습니다</li>
+        <li><b>교체가 반드시 수년을 잡아먹는 것은 아니라는 사례</b>입니다</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="scn bad">
+    <div class="sh">
+      <p class="sn">기록 3 — 상계주공5단지: <span class="hot">새 시공사를 못 구해 여러 해</span></p>
+      <p class="sd">서울 노원구 · 아파트 재건축</p>
+    </div>
+    <div class="sbody">
+      <ul class="bul tight">
+        <li>GS건설 선정 <b>10개월 만에 해지</b></li>
+        <li>GS건설이 <b>60억 손해배상 청구</b>, 조합은 입찰보증금 50억과 이자를 상환하며 합의를 시도</li>
+        <li class="hot">해지 뒤 새 시공사를 구하지 못해 사업이 멈췄고, 2025년 9월에야 한화 건설부문을 선정했습니다</li>
+        <li><b>아직 착공하지 못했습니다</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="scn bad">
+    <div class="sh">
+      <p class="sn">가장 나쁜 경우 — <span class="hot">조합이 파산하는 경우</span></p>
+      <p class="sd">상대원2구역에서 그런 일이 벌어지고 있다는 뜻이 아닙니다. 제도가 어떻게 되어 있는지만 적습니다.</p>
+    </div>
+    <div class="sbody">
+      <ul class="bul tight">
+        <li>최근 <b>고금리와 PF 대출 거절</b>로 자금난에 빠져 파산하는 조합 사례가 나오고 있습니다</li>
+        <li class="hot">파산하면 조합 재산(토지 등)이 법원 절차로 청산되어 채권자에게 배분됩니다</li>
+        <li><b>다만 — 조합이 파산해도 조합원 개인이 조합 빚을 당연히 떠안는 것은 아닙니다.</b>
+          법인의 채무를 조합원에게 그대로 분담시킬 수는 없다는 것이 법원의 판단입니다
+          <span class="sub">단, <b>총회에서 채무를 분담하기로 결의한 경우</b>에는 달라집니다. 그래서 총회 안건을 보실 때 <b>“채무 분담”이 들어 있는지</b> 확인하셔야 합니다.</span></li>
+        <li><b>이 항목은 겁을 드리려는 것이 아닙니다.</b> 파산이라는 말이 단톡방에 자주 오르내리므로,
+          <b>실제 법이 어떻게 되어 있는지</b>를 적어 둔 것입니다</li>
+      </ul>
+      <p class="bnote" style="margin-top:12px">
+        <a href="https://blog.sugar.legal/45480" target="_blank" rel="noopener noreferrer">조합 파산 시 조합원의 책임 — 법무법인 해설</a></p>
+    </div>
+  </div>
+
+  <div class="hotbox">
+    <p class="hh">세 기록에서 공통으로 확인되는 것</p>
+    <ul class="bul tight">
+      <li class="hot">시공사를 바꾼 구역은 예외 없이 손해배상 소송을 겪었습니다 — 60억 · 160억 · 525억</li>
+      <li class="hot">소송이 끝나는 데 여러 해가 걸립니다. 방배5구역은 8년째 진행 중입니다</li>
+      <li>다만 <b>지연 기간은 구역마다 크게 달랐습니다</b> — 반포3주구는 5개월, 방배5구역은 5년 4개월</li>
+      <li><b>무엇이 그 차이를 만들었는지는 이 페이지가 알 수 없습니다.</b> 그래서 상대원2구역이 어느 쪽이 될지도 적지 않겠습니다</li>
+    </ul>
+  </div>
+
+  <p class="bnote">근거:
+    <a href="https://www.hankyung.com/article/2017030678241" target="_blank" rel="noopener noreferrer">한국경제 — 방배5구역 시공사 교체</a> ·
+    <a href="https://www.munhwa.com/article/11187173" target="_blank" rel="noopener noreferrer">문화일보 — 반포3주구 삼성물산 선정</a> ·
+    <a href="https://www.newspim.com/news/view/20250920000110" target="_blank" rel="noopener noreferrer">뉴스핌 — 상계주공5단지 한화 선정</a></p>
+
+  <p class="fixme"><a href="#report" data-fix="5. 앞으로 일어날 일">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
 </section>
 
 <!-- ══ 2. 내 한 표 ══ -->
@@ -688,17 +1026,16 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <p class="gh">제10호 — 사업시행계획 변경(안) 수립 및 신청 승인</p>
     <p class="gs">착공과 가장 직접 관련된 안건 · 직접출석 20% 필요</p>
     <p class="plain">쉽게 말하면: 2025년 10월 인가받을 때 성남시가 “이건 나중에 꼭 해오라”고 붙인 숙제(비행안전평가)를 이제 처리하는 안건입니다.</p>
-    <div class="vs">
-      <div class="side a"><div class="cap">조합 측 설명</div><div class="body">
-        <span class="tag t-party">당사자 문서 · 조합 공지 (7/26)</span>
-        <p>착공 전에 반드시 이행해야 하는 필수 안건이다. 부결되면 착공 일정을 진행할 수 없고, 나중에 다시 총회를 열어 의결받아야 착공이 가능해진다.</p>
-      </div></div>
-      <div class="side b"><div class="cap">비대위 측 설명</div><div class="body">
-        <span class="tag t-oral">구두 주장 · 단톡방 (7/27)</span>
-        <p>이 안건이 지금 올라온다는 것 자체가 애초에 올해 4월 착공이 불가능했다는 뜻이다.</p>
-        <p>이 안건에 찬성하면 <b>인가가 행정처분이 되어, 나중에 법원이 DL의 손을 들어주더라도 되돌리기 어려워진다.</b></p>
-      </div></div>
-    </div>
+    <div class="cmp">
+  <div class="chd">
+    <div class="a">조합 측 설명<small>GS건설을 미는 쪽</small></div>
+    <div class="b">비대위 측 설명<small>DL이앤씨를 미는 쪽</small></div>
+  </div>
+  <div class="row"><div class="rc">
+    <div class="a"><span class="tag t-party">당사자 문서 · 조합 공지 (7/26)</span><ul class="bul tight"><li>착공 전에 반드시 이행해야 하는 필수 안건이다. 부결되면 착공 일정을 진행할 수 없고, 나중에 다시 총회를 열어 의결받아야 착공이 가능해진다.</li></ul></div>
+    <div class="b"><span class="tag t-oral">구두 주장 · 단톡방 (7/27)</span><ul class="bul tight"><li>이 안건이 지금 올라온다는 것 자체가 애초에 올해 4월 착공이 불가능했다는 뜻이다.</li><li>이 안건에 찬성하면 <b>인가가 행정처분이 되어, 나중에 법원이 DL의 손을 들어주더라도 되돌리기 어려워진다.</b></li></ul></div>
+  </div></div>
+</div>
     <p class="bnote" style="margin-top:14px">이 페이지는 이 안건에 찬성하거나 반대하라고 권하지 않습니다. 양측 설명만 옮깁니다.</p>
   </div>
 
@@ -729,25 +1066,21 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
         <b>이 돈은 조합원이 부담합니다.</b></p>
     </div>
 
-    <div class="vs">
-      <div class="side a"><div class="cap">조합 측</div><div class="body">
-        <span class="tag t-party">당사자 문서 · 총회 책자 기재</span>
-        <p>책자에 이렇게 적혀 있습니다 — <b>“그동안 총회 비용 및 상기 총회 비용은 비상대책위원회(착해모)의 반복적인 임시총회 개최 방해로 인해 비용이 지속적으로 발생한 것으로,
-           조합은 이에 따른 손해에 대하여 비대위를 상대로 민사상 손해배상 청구를 추진할 예정입니다.”</b></p>
-        <p>실비 정산을 원칙으로 하며 항목 간 조정이 있을 수 있다고 밝히고 있습니다.</p>
-        <p>제6호에 대해서는, 착공하려면 국·공유지 매입 등 상당한 자금이 필요하고,
-           HUG 사업비 한도가 이미 대부분 소진돼 관리처분 변경인가 전까지 자금 공백을 메워야 한다는 입장입니다. (7/26)</p>
-      </div></div>
-      <div class="side b"><div class="cap">비대위 측</div><div class="body">
-        <span class="tag t-oral">구두 주장 · 단톡방 (7/27)</span>
-        <p>제5호는 <b>4월 11일 총회 비용을 조합원이 대신 내라는 것</b>이라고 봅니다.
-           그 총회는 법원에서 효력이 정지됐는데 그 비용을 왜 조합원이 부담하느냐는 것입니다.</p>
-        <p>홍보인원 인건비와 참석 회의비 지급이 <b>사실상 참석을 유도하기 위한 지출</b>이라고 지적합니다.</p>
-        <p>제6호에 대해서는, <b>이번 총회 안건이 전부 돈을 더 쓰고 더 빌리는 구조</b>라고 봅니다.
+    <div class="cmp">
+  <div class="chd">
+    <div class="a">조합 측<small>GS건설을 미는 쪽</small></div>
+    <div class="b">비대위 측<small>DL이앤씨를 미는 쪽</small></div>
+  </div>
+  <div class="row"><div class="rc">
+    <div class="a"><span class="tag t-party">당사자 문서 · 총회 책자 기재</span><ul class="bul tight"><li>책자에 이렇게 적혀 있습니다 — <b>“그동안 총회 비용 및 상기 총회 비용은 비상대책위원회(착해모)의 반복적인 임시총회 개최 방해로 인해 비용이 지속적으로 발생한 것으로,
+           조합은 이에 따른 손해에 대하여 비대위를 상대로 민사상 손해배상 청구를 추진할 예정입니다.”</b></li><li>실비 정산을 원칙으로 하며 항목 간 조정이 있을 수 있다고 밝히고 있습니다.</li><li>제6호에 대해서는, 착공하려면 국·공유지 매입 등 상당한 자금이 필요하고,
+           HUG 사업비 한도가 이미 대부분 소진돼 관리처분 변경인가 전까지 자금 공백을 메워야 한다는 입장입니다. (7/26)</li></ul></div>
+    <div class="b"><span class="tag t-oral">구두 주장 · 단톡방 (7/27)</span><ul class="bul tight"><li>제5호는 <b>4월 11일 총회 비용을 조합원이 대신 내라는 것</b>이라고 봅니다.
+           그 총회는 법원에서 효력이 정지됐는데 그 비용을 왜 조합원이 부담하느냐는 것입니다.</li><li>홍보인원 인건비와 참석 회의비 지급이 <b>사실상 참석을 유도하기 위한 지출</b>이라고 지적합니다.</li><li>제6호에 대해서는, <b>이번 총회 안건이 전부 돈을 더 쓰고 더 빌리는 구조</b>라고 봅니다.
            이대로면 이주비 대출 이자가 월 100만원에서 200만원, 금리가 오르면 300만원까지 가고,
-           사업비 이자도 연 360억에서 760억이 된다는 것입니다.</p>
-      </div></div>
-    </div>
+           사업비 이자도 연 360억에서 760억이 된다는 것입니다.</li></ul></div>
+  </div></div>
+</div>
   </div>
 
   <div class="gate now">
@@ -916,14 +1249,16 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
       <div class="gate stop">
         <p class="gh">⑥ 자금 조달 (HUG 보증)</p><p class="gs">양측 설명이 정면으로 다름</p>
-        <div class="vs">
-          <div class="side a"><div class="cap">조합 측</div><div class="body">
-            <span class="tag t-party">당사자 문서</span>
-            <p>한도는 대부분 소진됐지만, 관리처분 변경인가 후 HUG 증액 보증 절차를 진행할 수 있다. 그때까지 공백은 GS 자금으로 메운다.</p></div></div>
-          <div class="side b"><div class="cap">비대위 측</div><div class="body">
-            <span class="tag t-oral">구두 주장</span>
-            <p>HUG 내규상 분쟁 중인 구역은 보증이 안 된다. 그러면 이율이 5%대에서 10%대로 올라 월 이자가 30억에서 60억이 된다.</p></div></div>
-        </div>
+        <div class="cmp">
+  <div class="chd">
+    <div class="a">조합 측<small>GS건설을 미는 쪽</small></div>
+    <div class="b">비대위 측<small>DL이앤씨를 미는 쪽</small></div>
+  </div>
+  <div class="row"><div class="rc">
+    <div class="a"><span class="tag t-party">당사자 문서</span><ul class="bul tight"><li>한도는 대부분 소진됐지만, 관리처분 변경인가 후 HUG 증액 보증 절차를 진행할 수 있다. 그때까지 공백은 GS 자금으로 메운다.</li></ul></div>
+    <div class="b"><span class="tag t-oral">구두 주장</span><ul class="bul tight"><li>HUG 내규상 분쟁 중인 구역은 보증이 안 된다. 그러면 이율이 5%대에서 10%대로 올라 월 이자가 30억에서 60억이 된다.</li></ul></div>
+  </div></div>
+</div>
         <p class="bnote" style="margin-top:12px">
           <span class="tag t-mine">이 페이지가 찾은 것</span>
           HUG의 시공사 변경 시 보증 승계에 <b>공개된 표준 소요기간은 없습니다.</b>
@@ -942,17 +1277,16 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
   <h3>착공 시점 — 양측 주장과, 확인 가능한 것</h3>
 
-  <div class="vs">
-    <div class="side a"><div class="cap">조합 측</div><div class="body">
-      <span class="tag t-party">당사자 문서 · 조합 공지 5/15·6/26·7/6</span>
-      <p><b>2026년 8월 착공 목표.</b> 9월로 밀리더라도 8월 기준 공사비 조건(평당 729만원)을 그대로 적용받도록 1개월 유예를 확보했다.</p>
-    </div></div>
-    <div class="side b"><div class="cap">비대위 측</div><div class="body">
-      <span class="tag t-oral">구두 주장 · 단톡방</span>
-      <p><b>GS로 가면 수년이 더 걸린다</b>고 봅니다. 설계 변경에 따른 건축심의, 계약, 소송, 자금 조달에 걸리는 시간을 각각 더한 계산입니다.</p>
-      <p><b>DL로 가면 도급계약만 맺으면 즉시 착공이 가능</b>하다고 봅니다. DL이 4월에 시공 확약서를 냈고 “6월 내 착공 가능” 공문도 보냈다는 것입니다.</p>
-    </div></div>
+  <div class="cmp">
+  <div class="chd">
+    <div class="a">조합 측<small>GS건설을 미는 쪽</small></div>
+    <div class="b">비대위 측<small>DL이앤씨를 미는 쪽</small></div>
   </div>
+  <div class="row"><div class="rc">
+    <div class="a"><span class="tag t-party">당사자 문서 · 조합 공지 5/15·6/26·7/6</span><ul class="bul tight"><li><b>2026년 8월 착공 목표.</b> 9월로 밀리더라도 8월 기준 공사비 조건(평당 729만원)을 그대로 적용받도록 1개월 유예를 확보했다.</li></ul></div>
+    <div class="b"><span class="tag t-oral">구두 주장 · 단톡방</span><ul class="bul tight"><li><b>GS로 가면 수년이 더 걸린다</b>고 봅니다. 설계 변경에 따른 건축심의, 계약, 소송, 자금 조달에 걸리는 시간을 각각 더한 계산입니다.</li><li><b>DL로 가면 도급계약만 맺으면 즉시 착공이 가능</b>하다고 봅니다. DL이 4월에 시공 확약서를 냈고 “6월 내 착공 가능” 공문도 보냈다는 것입니다.</li></ul></div>
+  </div></div>
+</div>
 
   <div class="mine">
     <p class="mh"><span class="tag t-mine">이 페이지가 찾은 것</span> 공개 통계가 있는 것만 적었습니다</p>
@@ -1002,18 +1336,16 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   <p class="h2sub">이주비 이자 · 공사비 · 비례율 · 분담금 · 입찰보증금</p>
 
   <div class="qrow">이주비 대출 이자 — 지금 누가 내고 있나</div>
-  <div class="vs">
-    <div class="side a"><div class="cap">조합 측</div><div class="body">
-      <span class="tag t-party">당사자 문서 · 조합 공지 (6/15)</span>
-      <p><b>조합이 대신 내고 있습니다.</b> GS건설 입찰보증금을 활용해 납부 완료했으며, 조합원이 직접 낼 필요가 없다고 안내하고 있습니다.</p>
-      <p>애초에 DL이앤씨가 1월부터 날인을 거부해 생긴 문제라는 입장입니다.</p>
-    </div></div>
-    <div class="side b"><div class="cap">비대위 측</div><div class="body">
-      <span class="tag t-oral">구두 주장</span>
-      <p>지금 대납되고 있는 것은 인정하되 <b>재원과 앞으로가 문제</b>라는 입장입니다. 대납에 쓰인 돈이 GS 입찰보증금이라는 점을 지적합니다.</p>
-      <p>사업이 길어지면 월 100만원 내던 이자가 200만원, 금리가 오르면 300만원까지 갈 수 있다고 봅니다.</p>
-    </div></div>
+  <div class="cmp">
+  <div class="chd">
+    <div class="a">조합 측<small>GS건설을 미는 쪽</small></div>
+    <div class="b">비대위 측<small>DL이앤씨를 미는 쪽</small></div>
   </div>
+  <div class="row"><div class="rc">
+    <div class="a"><span class="tag t-party">당사자 문서 · 조합 공지 (6/15)</span><ul class="bul tight"><li><b>조합이 대신 내고 있습니다.</b> GS건설 입찰보증금을 활용해 납부 완료했으며, 조합원이 직접 낼 필요가 없다고 안내하고 있습니다.</li><li>애초에 DL이앤씨가 1월부터 날인을 거부해 생긴 문제라는 입장입니다.</li></ul></div>
+    <div class="b"><span class="tag t-oral">구두 주장</span><ul class="bul tight"><li>지금 대납되고 있는 것은 인정하되 <b>재원과 앞으로가 문제</b>라는 입장입니다. 대납에 쓰인 돈이 GS 입찰보증금이라는 점을 지적합니다.</li><li>사업이 길어지면 월 100만원 내던 이자가 200만원, 금리가 오르면 300만원까지 갈 수 있다고 봅니다.</li></ul></div>
+  </div></div>
+</div>
   <div class="plain"><b>지금 당장 하실 일:</b> 이주비 대출 이자를 <b>개인적으로 내지 마십시오.</b> 이중 납부가 될 수 있습니다. 이 점은 양측 설명이 다르지 않습니다. 확인이 필요하면 조합 사무실(031-747-2730)로 문의하십시오.</div>
 
   <div class="qrow" id="deposit">GS 입찰보증금 — 총회가 뒤집히면 이 돈은 어떻게 되나</div>
@@ -1038,41 +1370,66 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <div class="brow">
       <p class="bl"><span>2021년 최초 관리처분인가 기준</span><b>459만원</b></p>
       <div class="bt"><div class="bf base" style="width:51%">459</div></div>
-      <p class="bnote">양측 모두 인정하는 숫자입니다.</p>
     </div>
-
     <div class="brow">
       <p class="bl"><span>DL이앤씨 — 계약서상 금액</span><b>682만원</b></p>
       <div class="bt"><div class="bf dl" style="width:76%">682</div></div>
-      <p class="bnote"><b>비대위 측:</b> 확정 공사비이며 책임준공까지 확약받았다.<br>
-        <b>조합 측:</b> 2025년 8월 기준일 뿐이고 물가만큼 계속 오른다 → 아래 빗금 막대</p>
     </div>
-
     <div class="brow">
       <p class="bl"><span>GS건설 — 계약서상 금액</span><b>729만원</b></p>
       <div class="bt"><div class="bf gs" style="width:81%">729</div></div>
-      <p class="bnote"><b>조합 측:</b> 확정 금액이다.<br>
-        <b>비대위 측:</b> 변동 공사비라 물가·설계 변경 시 오른다.</p>
     </div>
-
     <div class="brow">
       <p class="bl"><span>DL 최종 예상액 <b style="font-weight:400">— 조합 측이 계산한 값</b></span><b>818만원</b></p>
       <div class="bt"><div class="bf est" style="width:91%"></div></div>
-      <p class="bnote">계약서에 적힌 금액이 아니라 <b>조합 측이 물가변동을 반영해 계산한 값</b>이며, 비대위 측은 이 계산에 동의하지 않습니다.</p>
     </div>
-
     <div class="brow">
       <p class="bl"><span>GS 최종 예상액 <b style="font-weight:400">— 아무도 계산해 내놓지 않았습니다</b></span><b>?</b></p>
       <div class="bt"><div class="bf unknown" style="width:91%">알 수 없음</div></div>
-      <ul class="bul tight" style="margin-top:8px;font-size:.85em">
-        <li><b>비대위 측</b> — GS도 오른다고 주장하지만 <b>금액을 제시하지 않음</b></li>
-        <li><b>조합 측</b> — 오르지 않는다고 봄</li>
-        <li><b>막대가 짧아서 비어 있는 것이 아니라, 값이 없어서 비어 있는 것입니다</b></li>
-        <li>DL만 예상액 막대가 있는 것은 <b>조합 측이 DL에 대해서만 추가 계산을 내놓았기 때문</b>이지,
-          GS가 오르지 않는다는 뜻이 아닙니다</li>
-      </ul>
     </div>
   </div>
+
+  <div class="cmp">
+    <div class="chd">
+      <div class="a">조합 측<small>GS건설을 미는 쪽</small></div>
+      <div class="b">비대위 측<small>DL이앤씨를 미는 쪽</small></div>
+    </div>
+
+    <div class="row"><p class="rt">2021년 관리처분 기준 <b>459만원</b></p>
+      <div class="rc one"><div><span class="same">다투지 않음</span>
+        양측 모두 인정하는 숫자입니다.</div></div></div>
+
+    <div class="row"><p class="rt">DL 682만원 — 어떤 금액인가</p>
+      <div class="rc">
+        <div class="a"><b>2025년 8월 기준일 뿐</b><br>물가만큼 계속 올라 <b>최종 818만원</b>이 된다</div>
+        <div class="b"><b>확정 공사비</b><br>책임준공까지 확약받았다</div>
+      </div></div>
+
+    <div class="row"><p class="rt">GS 729만원 — 어떤 금액인가</p>
+      <div class="rc">
+        <div class="a"><b>확정 금액이다</b></div>
+        <div class="b"><b>변동 공사비</b><br>물가·설계가 바뀌면 오른다고 계약서에 적혀 있다</div>
+      </div></div>
+
+    <div class="row"><p class="rt">DL 최종 예상액 <b>818만원</b></p>
+      <div class="rc">
+        <div class="a"><b>물가변동을 반영해 계산한 값</b><br>계약서에 적힌 금액은 아니다</div>
+        <div class="b"><b>이 계산에 동의하지 않는다</b></div>
+      </div></div>
+
+    <div class="row"><p class="rt">GS 최종 예상액 <b>?</b></p>
+      <div class="rc">
+        <div class="a"><b>오르지 않는다</b>고 본다</div>
+        <div class="b">오른다고 주장하지만 <b>금액을 제시하지 않았다</b></div>
+      </div></div>
+  </div>
+
+  <ul class="bul tight">
+    <li><b>빗금은 “확정되지 않은 값”</b>이라는 뜻입니다</li>
+    <li><b>GS 막대가 비어 있는 것은 짧아서가 아니라, 값이 없어서입니다</b></li>
+    <li>DL만 예상액 막대가 있는 것은 <b>조합 측이 DL에 대해서만 추가 계산을 내놓았기 때문</b>이지,
+      GS가 오르지 않는다는 뜻이 아닙니다</li>
+  </ul>
 
   <div class="qrow">비례율 — 지금 얼마인가</div>
 
@@ -1105,230 +1462,20 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   </div></div>
 
   <div class="qrow">추가 분담금 — 얼마나 더 내게 되나</div>
-  <div class="vs">
-    <div class="side a"><div class="cap">조합 측</div><div class="body">
-      <span class="tag t-party">당사자 문서 · 조합 공지 (7/24)</span>
-      <p><b>아직 확정 안내가 없습니다.</b> “관리처분계획 변경 절차를 진행 중이며, 확정된 공사비와 일반분양가, 감정평가 결과를 반영한 실제 비례율을 정리해 안내하겠다”는 입장입니다.</p>
-    </div></div>
-    <div class="side b"><div class="cap">비대위 측</div><div class="body">
-      <span class="tag t-oral">구두 주장 · 추정치</span>
-      <p>소송이 길어지는 경우를 전제로 <b>추가 분담금 1억~5억</b>이라는 추정을 내놓고 있습니다. 이자·손해배상·공사비 인상을 각각 더한 계산입니다.</p>
-      <p class="note">계산 근거가 공개되지 않아 이 페이지는 검증하지 못했습니다.</p>
-    </div></div>
+  <div class="cmp">
+  <div class="chd">
+    <div class="a">조합 측<small>GS건설을 미는 쪽</small></div>
+    <div class="b">비대위 측<small>DL이앤씨를 미는 쪽</small></div>
   </div>
+  <div class="row"><div class="rc">
+    <div class="a"><span class="tag t-party">당사자 문서 · 조합 공지 (7/24)</span><ul class="bul tight"><li><b>아직 확정 안내가 없습니다.</b> “관리처분계획 변경 절차를 진행 중이며, 확정된 공사비와 일반분양가, 감정평가 결과를 반영한 실제 비례율을 정리해 안내하겠다”는 입장입니다.</li></ul></div>
+    <div class="b"><span class="tag t-oral">구두 주장 · 추정치</span><ul class="bul tight"><li>소송이 길어지는 경우를 전제로 <b>추가 분담금 1억~5억</b>이라는 추정을 내놓고 있습니다. 이자·손해배상·공사비 인상을 각각 더한 계산입니다.</li></ul><p class="bnote">계산 근거가 공개되지 않아 이 페이지는 검증하지 못했습니다.</p></div>
+  </div></div>
+</div>
 
   <p class="fixme"><a href="#report" data-fix="4. 내 돈은 어떻게 되나">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
 </section>
 
-<!-- ══ 5. 나중에 올 것 ══ -->
-<section id="later" data-g="later">
-  <h2>앞으로 일어날 일</h2>
-  <p class="h2sub">지금까지 나온 이야기는 대부분 <b>가처분</b>과 <b>이번 총회</b>에 관한 것입니다. 그 뒤에 따라오는 것들이 있습니다.</p>
-
-  <div class="plain">
-    <b>왜 이 부분을 따로 두었는가 —</b>
-    조합 측 설명은 공문·책자·일정표로 나오기 때문에 근거가 뚜렷해 보이고,
-    비대위 측 주장은 <b>“아직 일어나지 않은 일”</b>에 관한 것이라 문서가 있을 수 없습니다.
-    그렇다고 빼 버리면 <b>문서가 있는 쪽으로 페이지가 저절로 기울게 됩니다.</b>
-    그래서 아직 일어나지 않은 일도, 공개 자료로 확인되는 범위에서 적습니다.
-  </div>
-
-  <div class="qrow">1. 본안소송 — 아직 시작도 하지 않았습니다</div>
-  <div class="mine">
-    <p class="mh"><span class="tag t-mine">이 페이지가 찾은 것</span></p>
-    <p>지금까지 나온 법원 결정(4/29, 5/29, 7/10, 그리고 곧 나올 5/30 총회 건)은 모두 <b>가처분</b>입니다.
-       가처분은 본안 판결이 나올 때까지의 <b>임시 조치</b>이고, <b>본안소송에서 결론이 뒤집힐 수 있습니다.</b></p>
-    <p>DL은 <b>가처분 결과와 관계없이 본안소송은 이어가겠다</b>는 입장을 밝혔습니다.</p>
-    <div class="tblwrap"><table class="tbl">
-      <tr><th style="width:46%">단계</th><th style="width:26%">평균 기간</th><th>근거</th></tr>
-      <tr><td>민사 1심 (합의부)</td><td><b>14.6개월</b> (437.3일)</td><td rowspan="2">2025 사법연감</td></tr>
-      <tr><td>항소심</td><td><b>10.5개월</b> (고법)<br>10.9개월 (지법 항소부)</td></tr>
-      <tr><td><b>1심 + 항소심 합계</b></td><td><b>약 2년 1개월</b></td><td>위 두 값의 합. 대법원까지 가면 더 걸립니다</td></tr>
-    </table></div>
-    <p class="bnote"><b>이것은 평균값이며 이 사건의 예상 기간이 아닙니다.</b> 사건마다 크게 다릅니다.
-      다만 <b>“법원 결정이 나오면 끝난다”는 것은 사실이 아니라는 점</b>은 분명합니다.</p>
-  </div>
-
-  <div class="qrow">2. 시공사를 바꾸면 배상금을 물게 됩니까 — 다른 구역에서는 물었습니다</div>
-  <div class="mine">
-    <p class="mh"><span class="tag t-mine">이 페이지가 찾은 것</span> 언론에 보도된 사례입니다</p>
-    <p><b>이 구역에서 얼마가 나올지는 아무도 모릅니다.</b> 다만 시공사를 바꾼 다른 구역에서 실제로 어떤 일이 있었는지는 공개되어 있습니다.</p>
-    <div class="tblwrap"><table class="tbl">
-      <tr><th style="width:22%">구역</th><th style="width:32%">결과</th><th>경과</th></tr>
-      <tr><td><b>방배5구역</b></td>
-        <td>시공사 <b>2,000억 청구</b><br>1심 <b>410~426억</b><br>2심 <b>50억</b><br>대법원 파기환송<br>고법 화해권고 <b>525억</b></td>
-        <td>2014년 선정 → 2017년 해지, 현대건설로 교체.
-          <b>2017년 해지 뒤 8년이 지나도록 아직 마무리되지 않았습니다.</b>
-          다만 그 사이 <b>새 시공사로 사업은 진행됐습니다.</b></td></tr>
-      <tr><td><b>반포3주구</b></td><td><b>160억</b></td>
-        <td>2018년 7월 HDC현대산업개발 선정 → 특화설계·공사비 갈등으로 <b>3개월 만에</b> 삼성물산으로 교체</td></tr>
-      <tr><td><b>제주 이도주공<br>2·3단지</b></td><td><b>60억</b></td>
-        <td>2017년 선정 → 2020년 6월 현대건설로 교체</td></tr>
-      <tr><td><b>상계주공5단지</b></td>
-        <td>GS건설 <b>60억 청구</b><br>입찰보증금 50억+이자 상환</td>
-        <td>GS 선정 <b>10개월 만에</b> 해지. 그 뒤 <b>새 시공사를 구하지 못해 여러 해를 보냈고</b>,
-          2025년 9월에야 한화 건설부문을 선정했습니다.</td></tr>
-    </table></div>
-    <p class="lead" style="margin-top:20px">이 선례들이 말해주는 것 — 양쪽 모두에게 아픕니다</p>
-    <p class="lead" style="font-size:.95em;color:var(--muted);margin-bottom:6px">조합 · GS 쪽으로</p>
-    <ul class="bul tight">
-      <li>배상금은 <b>실제로 나왔습니다</b> — 60억 ~ 525억</li>
-      <li>상대원2구역은 규모가 훨씬 크고 <b>이주·철거까지 끝난 상태</b> → 기투입비가 큼</li>
-      <li>1심 410억 → 2심 50억 → 525억. <b>액수를 미리 알 수 없습니다</b></li>
-    </ul>
-    <p class="lead" style="font-size:.95em;color:var(--muted);margin:14px 0 6px">비대위 쪽으로</p>
-    <ul class="bul tight">
-      <li>방배5구역은 <b>소송 중에도 새 시공사로 사업을 진행했습니다</b></li>
-      <li>“소송이 걸리면 착공을 못 한다”가 <b>자동으로 성립하지는 않습니다</b></li>
-      <li>다만 상계주공5단지처럼 <b>새 시공사를 못 구해 멈춘 경우도</b> 있습니다</li>
-    </ul>
-    <p class="bnote" style="margin-top:16px">
-      ※ 단톡방에는 상계주공5단지 청구액이 <b>“146억”</b>이라는 글이 여러 차례 올라왔습니다.
-      <b>언론 보도로 확인되는 금액은 60억입니다.</b> 이 페이지는 확인된 금액을 적습니다.</p>
-    <p class="bnote">근거:
-      <a href="https://www.sisajournal-e.com/news/articleView.html?idxno=406675" target="_blank" rel="noopener noreferrer">시사저널e — 방배5구역 525억</a> ·
-      <a href="https://www.fnnews.com/news/202005311755342778" target="_blank" rel="noopener noreferrer">파이낸셜뉴스 — 2천억 청구, 법원 50억</a> ·
-      <a href="https://www.businesspost.co.kr/BP?command=article_view&num=329817" target="_blank" rel="noopener noreferrer">비즈니스포스트 — 시공사 교체 소송 사례</a> ·
-      <a href="https://www.startuptoday.co.kr/news/articleView.html?idxno=395856" target="_blank" rel="noopener noreferrer">오늘경제 — 상계주공5단지</a></p>
-  </div>
-
-  <div class="qrow">3. 기다리는 동안 나가는 돈</div>
-  <div class="vs">
-    <div class="side a"><div class="cap">조합 측</div><div class="body">
-      <span class="tag t-party">당사자 문서 · 조합 공지 (7/26)</span>
-      <p>착공하려면 국·공유지 매입 등 상당한 자금이 필요하다. HUG 사업비 한도는 이미 대부분 소진됐고,
-         관리처분계획 변경인가 이후에야 증액 보증을 받을 수 있어 그때까지 자금 공백을 메워야 한다.</p>
-      <p>그래서 <b>빨리 착공하는 것이 비용을 줄이는 길</b>이라는 입장입니다.</p>
-    </div></div>
-    <div class="side b"><div class="cap">비대위 측</div><div class="body">
-      <span class="tag t-oral">구두 주장 · 단톡방</span>
-      <p>사업비 이자가 <b>월 30억 규모</b>로 나가고 있고, 지난해 11월부터 아무 진척 없이 이자만 나갔다고 봅니다.</p>
-      <p>사업비는 이미 <b>5,600억 수준</b>이 집행됐다고 보며, <b>이번 총회 안건이 전부 돈을 더 쓰고 더 빌리는 구조</b>라는 것이 안건을 막으려는 이유입니다.</p>
-      <p class="note">금액은 비대위 측이 제시한 값이며 이 페이지가 검증하지 못했습니다.</p>
-    </div></div>
-  </div>
-  <div class="plain">
-    <p class="lead">양측이 같은 사실에서 정반대 결론을 냅니다</p>
-    <ul class="bul tight">
-      <li><b>돈이 계속 나가고 있다</b>는 데는 양쪽이 동의합니다</li>
-      <li>조합 측 — <b>“그러니 빨리 착공해야 한다”</b></li>
-      <li>비대위 측 — <b>“그러니 더 빌리는 안건을 막아야 한다”</b></li>
-      <li><b>어느 쪽이 옳은지 이 페이지는 말하지 않습니다.</b> 다만 두 주장이 같은 사실 위에 서 있습니다</li>
-    </ul>
-  </div>
-
-  <div class="hotbox">
-    <p class="hh">지연 1개월이 내 지갑에서 나가는 돈 — 산수만 해 본 것입니다</p>
-    <ul class="bul tight">
-      <li>비대위 측이 말하는 사업비 이자 <b>월 30억</b>을 조합원 <b>2,269명</b>으로 나누면</li>
-      <li class="hot">세대당 월 약 132만원</li>
-      <li class="hot">6개월 지연 = 세대당 약 790만원 · 1년 지연 = 세대당 약 1,580만원</li>
-      <li>여기에 <b>이주비 대출 이자</b>가 따로 붙습니다
-        <span class="sub">비대위 측은 월 100만원에서 200만원, 금리가 오르면 300만원까지 갈 수 있다고 봅니다.</span></li>
-    </ul>
-    <p class="bnote" style="margin-top:14px">
-      <b>※ 이 숫자를 그대로 믿지 마십시오.</b> 월 30억은 <b>비대위 측이 제시한 값</b>이고,
-      <b>조합 측은 이 금액을 확인해 주지 않았습니다.</b>
-      나눗셈만 이 페이지가 했습니다. 실제 분담금은 <b>비례율·일반분양가·감정평가</b>가 함께 반영되어야 나옵니다.
-      <b>조합 측이 정확한 월 이자를 밝혀 주시면 그대로 고쳐 적겠습니다.</b></p>
-  </div>
-
-  <div class="qrow">4. 앞으로 일어날 수 있는 일 — 다른 구역에서는 이렇게 됐습니다</div>
-
-  <div class="mine">
-    <p class="mh"><span class="tag t-mine">이 페이지가 찾은 것</span> 확률을 매기지 않는 이유부터 밝힙니다</p>
-    <ul class="bul tight">
-      <li><b>이 페이지는 “가능성 ○○%” 같은 숫자를 쓰지 않습니다.</b>
-        어느 쪽도 그런 계산을 내놓은 적이 없고, <b>이 페이지가 만들어 내면 그 순간 한쪽 편을 드는 것</b>이 됩니다</li>
-      <li>대신 <b>시공사를 바꾼 다른 구역에서 실제로 무슨 일이 있었는지</b>를 그대로 적습니다</li>
-      <li><b>여기 적힌 것은 예측이 아니라 남의 구역 기록입니다.</b> 상대원2구역이 그대로 된다는 뜻이 아닙니다</li>
-    </ul>
-  </div>
-
-  <div class="scn">
-    <div class="sh">
-      <p class="sn">기록 1 — 방배5구역: 시공사 교체 뒤 착공까지 <span class="hot">약 5년 4개월</span></p>
-      <p class="sd">서울 서초구 · 단독주택 재건축</p>
-    </div>
-    <div class="sbody">
-      <ul class="bul tight">
-        <li>2016년 7월 관리처분계획 인가 → <b>2017년 3월 시공사 교체 착수</b></li>
-        <li class="hot">2022년 7월 착공 — 교체 착수로부터 약 5년 4개월</li>
-        <li>그 사이 손해배상 소송: 시공사 <b>2,000억 청구</b> → 1심 410억 → 2심 50억 → 대법원 파기환송 → <b>화해권고 525억</b></li>
-        <li><b>2017년 해지 뒤 8년이 지나도록 소송이 아직 끝나지 않았습니다</b></li>
-        <li>다만 <b>소송 중에도 새 시공사로 공사는 진행됐습니다.</b> “소송 걸리면 착공 못 한다”가 자동으로 성립하지는 않습니다</li>
-        <li class="bnote">※ 이 구역은 오염토 문제 등 다른 지연 요인도 함께 있었습니다. 지연 전부가 시공사 교체 때문은 아닙니다</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="scn">
-    <div class="sh">
-      <p class="sn">기록 2 — 반포3주구: 교체 자체는 <span style="color:var(--go)">약 5개월</span></p>
-      <p class="sd">서울 서초구 · 아파트 재건축</p>
-    </div>
-    <div class="sbody">
-      <ul class="bul tight">
-        <li>2018년 HDC현대산업개발 선정 → 공사비 갈등 → <b>2019년 12월 계약 해지</b></li>
-        <li><b>2020년 5월 삼성물산 선정</b> — 해지에서 새 시공사까지 약 5개월</li>
-        <li>손해배상은 <b>160억</b>으로 정리됐습니다</li>
-        <li><b>교체가 반드시 수년을 잡아먹는 것은 아니라는 사례</b>입니다</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="scn bad">
-    <div class="sh">
-      <p class="sn">기록 3 — 상계주공5단지: <span class="hot">새 시공사를 못 구해 여러 해</span></p>
-      <p class="sd">서울 노원구 · 아파트 재건축</p>
-    </div>
-    <div class="sbody">
-      <ul class="bul tight">
-        <li>GS건설 선정 <b>10개월 만에 해지</b></li>
-        <li>GS건설이 <b>60억 손해배상 청구</b>, 조합은 입찰보증금 50억과 이자를 상환하며 합의를 시도</li>
-        <li class="hot">해지 뒤 새 시공사를 구하지 못해 사업이 멈췄고, 2025년 9월에야 한화 건설부문을 선정했습니다</li>
-        <li><b>아직 착공하지 못했습니다</b></li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="scn bad">
-    <div class="sh">
-      <p class="sn">가장 나쁜 경우 — <span class="hot">조합이 파산하는 경우</span></p>
-      <p class="sd">상대원2구역에서 그런 일이 벌어지고 있다는 뜻이 아닙니다. 제도가 어떻게 되어 있는지만 적습니다.</p>
-    </div>
-    <div class="sbody">
-      <ul class="bul tight">
-        <li>최근 <b>고금리와 PF 대출 거절</b>로 자금난에 빠져 파산하는 조합 사례가 나오고 있습니다</li>
-        <li class="hot">파산하면 조합 재산(토지 등)이 법원 절차로 청산되어 채권자에게 배분됩니다</li>
-        <li><b>다만 — 조합이 파산해도 조합원 개인이 조합 빚을 당연히 떠안는 것은 아닙니다.</b>
-          법인의 채무를 조합원에게 그대로 분담시킬 수는 없다는 것이 법원의 판단입니다
-          <span class="sub">단, <b>총회에서 채무를 분담하기로 결의한 경우</b>에는 달라집니다. 그래서 총회 안건을 보실 때 <b>“채무 분담”이 들어 있는지</b> 확인하셔야 합니다.</span></li>
-        <li><b>이 항목은 겁을 드리려는 것이 아닙니다.</b> 파산이라는 말이 단톡방에 자주 오르내리므로,
-          <b>실제 법이 어떻게 되어 있는지</b>를 적어 둔 것입니다</li>
-      </ul>
-      <p class="bnote" style="margin-top:12px">
-        <a href="https://blog.sugar.legal/45480" target="_blank" rel="noopener noreferrer">조합 파산 시 조합원의 책임 — 법무법인 해설</a></p>
-    </div>
-  </div>
-
-  <div class="hotbox">
-    <p class="hh">세 기록에서 공통으로 확인되는 것</p>
-    <ul class="bul tight">
-      <li class="hot">시공사를 바꾼 구역은 예외 없이 손해배상 소송을 겪었습니다 — 60억 · 160억 · 525억</li>
-      <li class="hot">소송이 끝나는 데 여러 해가 걸립니다. 방배5구역은 8년째 진행 중입니다</li>
-      <li>다만 <b>지연 기간은 구역마다 크게 달랐습니다</b> — 반포3주구는 5개월, 방배5구역은 5년 4개월</li>
-      <li><b>무엇이 그 차이를 만들었는지는 이 페이지가 알 수 없습니다.</b> 그래서 상대원2구역이 어느 쪽이 될지도 적지 않겠습니다</li>
-    </ul>
-  </div>
-
-  <p class="bnote">근거:
-    <a href="https://www.hankyung.com/article/2017030678241" target="_blank" rel="noopener noreferrer">한국경제 — 방배5구역 시공사 교체</a> ·
-    <a href="https://www.munhwa.com/article/11187173" target="_blank" rel="noopener noreferrer">문화일보 — 반포3주구 삼성물산 선정</a> ·
-    <a href="https://www.newspim.com/news/view/20250920000110" target="_blank" rel="noopener noreferrer">뉴스핌 — 상계주공5단지 한화 선정</a></p>
-
-  <p class="fixme"><a href="#report" data-fix="5. 앞으로 일어날 일">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
-</section>
 
 <!-- ══ 6. 확인된 사실 ══ -->
 <section id="facts" data-g="facts">
@@ -1457,17 +1604,17 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <p style="margin-top:26px"><b>일정표에 없던 절차가 하나 늘었습니다</b></p>
     <p>조합 공식 일정표에는 <b>사업시행계획 변경이 들어 있지 않습니다.</b>
        그런데 <b>8월 8일 총회 제10호가 바로 「사업시행계획 변경(안) 수립 및 신청 승인의 건」</b>입니다.</p>
-    <div class="vs">
-      <div class="side a"><div class="cap">조합 측 설명</div><div class="body">
-        <span class="tag t-party">당사자 문서 · 조합 공지 (7/26)</span>
-        <p>시공사 교체 때문이 아니라 <b>2025년 10월 인가 때 붙은 비행안전평가 조건을 이행</b>하기 위한 것이며,
-           <b>시공사가 누구든 필요한 절차</b>라는 입장입니다.</p>
-      </div></div>
-      <div class="side b"><div class="cap">비대위 측 설명</div><div class="body">
-        <span class="tag t-oral">구두 주장 (7/27)</span>
-        <p>이 안건이 <b>지금 올라온다는 것 자체가</b> 애초 계획대로 되지 않았다는 뜻이라고 봅니다.</p>
-      </div></div>
-    </div>
+    <div class="cmp">
+  <div class="chd">
+    <div class="a">조합 측 설명<small>GS건설을 미는 쪽</small></div>
+    <div class="b">비대위 측 설명<small>DL이앤씨를 미는 쪽</small></div>
+  </div>
+  <div class="row"><div class="rc">
+    <div class="a"><span class="tag t-party">당사자 문서 · 조합 공지 (7/26)</span><ul class="bul tight"><li>시공사 교체 때문이 아니라 <b>2025년 10월 인가 때 붙은 비행안전평가 조건을 이행</b>하기 위한 것이며,
+           <b>시공사가 누구든 필요한 절차</b>라는 입장입니다.</li></ul></div>
+    <div class="b"><span class="tag t-oral">구두 주장 (7/27)</span><ul class="bul tight"><li>이 안건이 <b>지금 올라온다는 것 자체가</b> 애초 계획대로 되지 않았다는 뜻이라고 봅니다.</li></ul></div>
+  </div></div>
+</div>
 
     <p class="lead" style="margin-top:22px">정리하면</p>
     <ul class="bul tight">
@@ -1484,19 +1631,17 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   </div>
 
   <h3>이 일정표를 두고 양측이 다투는 것</h3>
-  <div class="vs">
-    <div class="side a"><div class="cap">조합 측</div><div class="body">
-      <span class="tag t-party">당사자 문서 · 조합 공식 일정표</span>
-      <p>8~9월에 착공하고, <b>관리처분계획 변경인가는 그 뒤인 10~12월</b>에 하는 것으로 계획되어 있습니다.</p>
-      <p>착공을 먼저 해서 시간을 벌고, 확정된 공사비와 일반분양가를 반영한 관리처분 변경은 이어서 처리하겠다는 것입니다.</p>
-    </div></div>
-    <div class="side b"><div class="cap">비대위 측</div><div class="body">
-      <span class="tag t-oral">구두 주장</span>
-      <p><b>순서가 뒤바뀌었다</b>고 봅니다. 도시정비법상 조합원에게 집을 배정하는 것은 <b>인가받은 관리처분계획에 따라야 하는데</b>,
-         계획이 확정되기도 전에 동호수 추첨부터 하는 것은 근거가 없다는 주장입니다.</p>
-      <p>관리처분 변경 전에는 <b>내 분담금이 얼마인지 모르는 상태에서 동·호수를 정하게 된다</b>는 점도 지적합니다.</p>
-    </div></div>
+  <div class="cmp">
+  <div class="chd">
+    <div class="a">조합 측<small>GS건설을 미는 쪽</small></div>
+    <div class="b">비대위 측<small>DL이앤씨를 미는 쪽</small></div>
   </div>
+  <div class="row"><div class="rc">
+    <div class="a"><span class="tag t-party">당사자 문서 · 조합 공식 일정표</span><ul class="bul tight"><li>8~9월에 착공하고, <b>관리처분계획 변경인가는 그 뒤인 10~12월</b>에 하는 것으로 계획되어 있습니다.</li><li>착공을 먼저 해서 시간을 벌고, 확정된 공사비와 일반분양가를 반영한 관리처분 변경은 이어서 처리하겠다는 것입니다.</li></ul></div>
+    <div class="b"><span class="tag t-oral">구두 주장</span><ul class="bul tight"><li><b>순서가 뒤바뀌었다</b>고 봅니다. 도시정비법상 조합원에게 집을 배정하는 것은 <b>인가받은 관리처분계획에 따라야 하는데</b>,
+         계획이 확정되기도 전에 동호수 추첨부터 하는 것은 근거가 없다는 주장입니다.</li><li>관리처분 변경 전에는 <b>내 분담금이 얼마인지 모르는 상태에서 동·호수를 정하게 된다</b>는 점도 지적합니다.</li></ul></div>
+  </div></div>
+</div>
 
   <h3>조합장 수사는 어떻게 진행되고 있습니까</h3>
   <p>가장 많이 오해가 생기는 부분이라 시간 순서대로 적습니다.</p>
@@ -1520,20 +1665,16 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     </div>
   </div>
 
-  <div class="vs">
-    <div class="side a"><div class="cap">조합 측 입장</div><div class="body">
-      <span class="tag t-oral">구두 주장</span>
-      <p>금품을 받은 사실이 <b>전혀 없다</b>며 혐의를 부인하고 있습니다.</p>
-      <p>영장 신청 시점을 들어 수사의 공정성에 의문을 제기하고, 강압·편파 수사였다며 민원을 제기할 예정이라고 밝혔습니다.</p>
-      <p>출국금지는 뇌물 건이 아니라 <b>약 2년 전 교회 강제집행과 관련해 배임으로 고소당한 별개의 사건</b> 때문이라는 입장입니다.</p>
-    </div></div>
-    <div class="side b"><div class="cap">비대위 측 입장</div><div class="body">
-      <span class="tag t-oral">구두 주장</span>
-      <p><b>기각이 무죄를 뜻하지 않는다</b>는 점을 강조합니다. 수사와 기소, 재판은 계속 진행됩니다.</p>
-      <p>압수수색과 출국금지까지 이루어진 상황에서 <b>조합 운영을 계속 맡기는 것이 적절한지</b> 묻고 있습니다.</p>
-      <p>이러한 사법 위험 자체가 인허가·금융 협의에 부담이 된다고 봅니다.</p>
-    </div></div>
+  <div class="cmp">
+  <div class="chd">
+    <div class="a">조합 측 입장<small>GS건설을 미는 쪽</small></div>
+    <div class="b">비대위 측 입장<small>DL이앤씨를 미는 쪽</small></div>
   </div>
+  <div class="row"><div class="rc">
+    <div class="a"><span class="tag t-oral">구두 주장</span><ul class="bul tight"><li>금품을 받은 사실이 <b>전혀 없다</b>며 혐의를 부인하고 있습니다.</li><li>영장 신청 시점을 들어 수사의 공정성에 의문을 제기하고, 강압·편파 수사였다며 민원을 제기할 예정이라고 밝혔습니다.</li><li>출국금지는 뇌물 건이 아니라 <b>약 2년 전 교회 강제집행과 관련해 배임으로 고소당한 별개의 사건</b> 때문이라는 입장입니다.</li></ul></div>
+    <div class="b"><span class="tag t-oral">구두 주장</span><ul class="bul tight"><li><b>기각이 무죄를 뜻하지 않는다</b>는 점을 강조합니다. 수사와 기소, 재판은 계속 진행됩니다.</li><li>압수수색과 출국금지까지 이루어진 상황에서 <b>조합 운영을 계속 맡기는 것이 적절한지</b> 묻고 있습니다.</li><li>이러한 사법 위험 자체가 인허가·금융 협의에 부담이 된다고 봅니다.</li></ul></div>
+  </div></div>
+</div>
 
   <div class="plain">
     <b>이 페이지의 원칙 —</b> 수사가 진행 중인 사건은 <b>법원이 판단한 것까지만</b> 적습니다.
