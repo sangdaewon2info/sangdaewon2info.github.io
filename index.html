@@ -106,6 +106,23 @@ ul.bul .sub{display:block; font-size:.9em; color:var(--muted); margin-top:4px; l
 .easy:active{background:var(--fg); color:var(--bg)}
 .easy:active span{color:var(--bg)}
 
+/* ── 지연으로 생기는 피해: 빨강 굵게 ── */
+.hot{color:var(--stop); font-weight:800}
+.hotbox{border:4px solid var(--stop); background:var(--stopbg); border-radius:14px;
+  padding:20px 22px; margin:18px 0}
+.hotbox .hh{font-weight:800; font-size:1.1em; color:var(--stop); margin:0 0 12px; line-height:1.5}
+.hotbox ul.bul li::before{color:var(--stop)}
+
+/* ── 시나리오 ── */
+.scn{border:3px solid var(--line); border-radius:14px; margin:0 0 20px; overflow:hidden; background:var(--surface)}
+.scn .sh{background:var(--soft); padding:16px 20px; border-bottom:2px solid var(--line)}
+.scn .sn{font-weight:800; font-size:1.12em; margin:0; line-height:1.5}
+.scn .sd{font-size:.9em; color:var(--muted); margin:5px 0 0; line-height:1.6}
+.scn .sbody{padding:18px 20px}
+.scn.bad{border-color:var(--stop)}
+.scn.bad .sh{background:var(--stopbg); border-bottom-color:var(--stop)}
+.scn.bad .sn{color:var(--stop)}
+
 /* ── 계획 대 실제 ── */
 .gap{border:2px solid var(--line); border-radius:14px; overflow:hidden; background:var(--surface); margin:16px 0}
 .gr{border-bottom:2px solid var(--line); padding:16px 18px}
@@ -433,7 +450,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <a href="#vote"  data-g="vote">내 한 표</a>
     <a href="#paths" data-g="paths">두 갈래길</a>
     <a href="#money" data-g="money">내 돈</a>
-    <a href="#later" data-g="later">나중에 올 것</a>
+    <a href="#later" data-g="later">앞으로</a>
     <a href="#facts" data-g="facts">확인된 사실</a>
     <a href="#ask"   data-g="ask">제보·질의</a>
   </nav>
@@ -1105,7 +1122,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
 <!-- ══ 5. 나중에 올 것 ══ -->
 <section id="later" data-g="later">
-  <h2>아직 오지 않았지만, 오게 되어 있는 것</h2>
+  <h2>앞으로 일어날 일</h2>
   <p class="h2sub">지금까지 나온 이야기는 대부분 <b>가처분</b>과 <b>이번 총회</b>에 관한 것입니다. 그 뒤에 따라오는 것들이 있습니다.</p>
 
   <div class="plain">
@@ -1191,14 +1208,126 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     </div></div>
   </div>
   <div class="plain">
-    <b>양측이 같은 사실에서 정반대 결론을 냅니다 —</b>
-    돈이 계속 나가고 있다는 데는 양쪽이 동의합니다.
-    조합 측은 <b>“그러니 빨리 착공해야 한다”</b>고 하고,
-    비대위 측은 <b>“그러니 더 빌리는 안건을 막아야 한다”</b>고 합니다.
-    <b>어느 쪽이 옳은지 이 페이지는 말하지 않습니다.</b> 다만 두 주장이 같은 사실 위에 서 있다는 점은 알아두실 필요가 있습니다.
+    <p class="lead">양측이 같은 사실에서 정반대 결론을 냅니다</p>
+    <ul class="bul tight">
+      <li><b>돈이 계속 나가고 있다</b>는 데는 양쪽이 동의합니다</li>
+      <li>조합 측 — <b>“그러니 빨리 착공해야 한다”</b></li>
+      <li>비대위 측 — <b>“그러니 더 빌리는 안건을 막아야 한다”</b></li>
+      <li><b>어느 쪽이 옳은지 이 페이지는 말하지 않습니다.</b> 다만 두 주장이 같은 사실 위에 서 있습니다</li>
+    </ul>
   </div>
 
-  <p class="fixme"><a href="#report" data-fix="5. 나중에 올 것">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
+  <div class="hotbox">
+    <p class="hh">지연 1개월이 내 지갑에서 나가는 돈 — 산수만 해 본 것입니다</p>
+    <ul class="bul tight">
+      <li>비대위 측이 말하는 사업비 이자 <b>월 30억</b>을 조합원 <b>2,269명</b>으로 나누면</li>
+      <li class="hot">세대당 월 약 132만원</li>
+      <li class="hot">6개월 지연 = 세대당 약 790만원 · 1년 지연 = 세대당 약 1,580만원</li>
+      <li>여기에 <b>이주비 대출 이자</b>가 따로 붙습니다
+        <span class="sub">비대위 측은 월 100만원에서 200만원, 금리가 오르면 300만원까지 갈 수 있다고 봅니다.</span></li>
+    </ul>
+    <p class="bnote" style="margin-top:14px">
+      <b>※ 이 숫자를 그대로 믿지 마십시오.</b> 월 30억은 <b>비대위 측이 제시한 값</b>이고,
+      <b>조합 측은 이 금액을 확인해 주지 않았습니다.</b>
+      나눗셈만 이 페이지가 했습니다. 실제 분담금은 <b>비례율·일반분양가·감정평가</b>가 함께 반영되어야 나옵니다.
+      <b>조합 측이 정확한 월 이자를 밝혀 주시면 그대로 고쳐 적겠습니다.</b></p>
+  </div>
+
+  <div class="qrow">4. 앞으로 일어날 수 있는 일 — 다른 구역에서는 이렇게 됐습니다</div>
+
+  <div class="mine">
+    <p class="mh"><span class="tag t-mine">이 페이지가 찾은 것</span> 확률을 매기지 않는 이유부터 밝힙니다</p>
+    <ul class="bul tight">
+      <li><b>이 페이지는 “가능성 ○○%” 같은 숫자를 쓰지 않습니다.</b>
+        어느 쪽도 그런 계산을 내놓은 적이 없고, <b>이 페이지가 만들어 내면 그 순간 한쪽 편을 드는 것</b>이 됩니다</li>
+      <li>대신 <b>시공사를 바꾼 다른 구역에서 실제로 무슨 일이 있었는지</b>를 그대로 적습니다</li>
+      <li><b>여기 적힌 것은 예측이 아니라 남의 구역 기록입니다.</b> 상대원2구역이 그대로 된다는 뜻이 아닙니다</li>
+    </ul>
+  </div>
+
+  <div class="scn">
+    <div class="sh">
+      <p class="sn">기록 1 — 방배5구역: 시공사 교체 뒤 착공까지 <span class="hot">약 5년 4개월</span></p>
+      <p class="sd">서울 서초구 · 단독주택 재건축</p>
+    </div>
+    <div class="sbody">
+      <ul class="bul tight">
+        <li>2016년 7월 관리처분계획 인가 → <b>2017년 3월 시공사 교체 착수</b></li>
+        <li class="hot">2022년 7월 착공 — 교체 착수로부터 약 5년 4개월</li>
+        <li>그 사이 손해배상 소송: 시공사 <b>2,000억 청구</b> → 1심 410억 → 2심 50억 → 대법원 파기환송 → <b>화해권고 525억</b></li>
+        <li><b>2017년 해지 뒤 8년이 지나도록 소송이 아직 끝나지 않았습니다</b></li>
+        <li>다만 <b>소송 중에도 새 시공사로 공사는 진행됐습니다.</b> “소송 걸리면 착공 못 한다”가 자동으로 성립하지는 않습니다</li>
+        <li class="bnote">※ 이 구역은 오염토 문제 등 다른 지연 요인도 함께 있었습니다. 지연 전부가 시공사 교체 때문은 아닙니다</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="scn">
+    <div class="sh">
+      <p class="sn">기록 2 — 반포3주구: 교체 자체는 <span style="color:var(--go)">약 5개월</span></p>
+      <p class="sd">서울 서초구 · 아파트 재건축</p>
+    </div>
+    <div class="sbody">
+      <ul class="bul tight">
+        <li>2018년 HDC현대산업개발 선정 → 공사비 갈등 → <b>2019년 12월 계약 해지</b></li>
+        <li><b>2020년 5월 삼성물산 선정</b> — 해지에서 새 시공사까지 약 5개월</li>
+        <li>손해배상은 <b>160억</b>으로 정리됐습니다</li>
+        <li><b>교체가 반드시 수년을 잡아먹는 것은 아니라는 사례</b>입니다</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="scn bad">
+    <div class="sh">
+      <p class="sn">기록 3 — 상계주공5단지: <span class="hot">새 시공사를 못 구해 여러 해</span></p>
+      <p class="sd">서울 노원구 · 아파트 재건축</p>
+    </div>
+    <div class="sbody">
+      <ul class="bul tight">
+        <li>GS건설 선정 <b>10개월 만에 해지</b></li>
+        <li>GS건설이 <b>60억 손해배상 청구</b>, 조합은 입찰보증금 50억과 이자를 상환하며 합의를 시도</li>
+        <li class="hot">해지 뒤 새 시공사를 구하지 못해 사업이 멈췄고, 2025년 9월에야 한화 건설부문을 선정했습니다</li>
+        <li><b>아직 착공하지 못했습니다</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="scn bad">
+    <div class="sh">
+      <p class="sn">가장 나쁜 경우 — <span class="hot">조합이 파산하는 경우</span></p>
+      <p class="sd">상대원2구역에서 그런 일이 벌어지고 있다는 뜻이 아닙니다. 제도가 어떻게 되어 있는지만 적습니다.</p>
+    </div>
+    <div class="sbody">
+      <ul class="bul tight">
+        <li>최근 <b>고금리와 PF 대출 거절</b>로 자금난에 빠져 파산하는 조합 사례가 나오고 있습니다</li>
+        <li class="hot">파산하면 조합 재산(토지 등)이 법원 절차로 청산되어 채권자에게 배분됩니다</li>
+        <li><b>다만 — 조합이 파산해도 조합원 개인이 조합 빚을 당연히 떠안는 것은 아닙니다.</b>
+          법인의 채무를 조합원에게 그대로 분담시킬 수는 없다는 것이 법원의 판단입니다
+          <span class="sub">단, <b>총회에서 채무를 분담하기로 결의한 경우</b>에는 달라집니다. 그래서 총회 안건을 보실 때 <b>“채무 분담”이 들어 있는지</b> 확인하셔야 합니다.</span></li>
+        <li><b>이 항목은 겁을 드리려는 것이 아닙니다.</b> 파산이라는 말이 단톡방에 자주 오르내리므로,
+          <b>실제 법이 어떻게 되어 있는지</b>를 적어 둔 것입니다</li>
+      </ul>
+      <p class="bnote" style="margin-top:12px">
+        <a href="https://blog.sugar.legal/45480" target="_blank" rel="noopener noreferrer">조합 파산 시 조합원의 책임 — 법무법인 해설</a></p>
+    </div>
+  </div>
+
+  <div class="hotbox">
+    <p class="hh">세 기록에서 공통으로 확인되는 것</p>
+    <ul class="bul tight">
+      <li class="hot">시공사를 바꾼 구역은 예외 없이 손해배상 소송을 겪었습니다 — 60억 · 160억 · 525억</li>
+      <li class="hot">소송이 끝나는 데 여러 해가 걸립니다. 방배5구역은 8년째 진행 중입니다</li>
+      <li>다만 <b>지연 기간은 구역마다 크게 달랐습니다</b> — 반포3주구는 5개월, 방배5구역은 5년 4개월</li>
+      <li><b>무엇이 그 차이를 만들었는지는 이 페이지가 알 수 없습니다.</b> 그래서 상대원2구역이 어느 쪽이 될지도 적지 않겠습니다</li>
+    </ul>
+  </div>
+
+  <p class="bnote">근거:
+    <a href="https://www.hankyung.com/article/2017030678241" target="_blank" rel="noopener noreferrer">한국경제 — 방배5구역 시공사 교체</a> ·
+    <a href="https://www.munhwa.com/article/11187173" target="_blank" rel="noopener noreferrer">문화일보 — 반포3주구 삼성물산 선정</a> ·
+    <a href="https://www.newspim.com/news/view/20250920000110" target="_blank" rel="noopener noreferrer">뉴스핌 — 상계주공5단지 한화 선정</a></p>
+
+  <p class="fixme"><a href="#report" data-fix="5. 앞으로 일어날 일">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
 </section>
 
 <!-- ══ 6. 확인된 사실 ══ -->
@@ -1519,7 +1648,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
       <option>2. 8월 8일 총회와 내 한 표</option>
       <option>3. 두 갈래길 · 착공 시점</option>
       <option>4. 내 돈은 어떻게 되나</option>
-      <option>5. 나중에 올 것</option>
+      <option>5. 앞으로 일어날 일</option>
       <option>6. 확인된 사실 · 법원 · 수사</option>
       <option>전체 / 그 밖의 내용</option>
     </select>
