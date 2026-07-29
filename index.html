@@ -71,7 +71,7 @@ ul.bul .sub{display:block; font-size:.9em; color:var(--muted); margin-top:4px; l
 
 /* ── 공통 표시: 같은 성격의 단서를 매번 길게 쓰지 않고 표시 하나로 대신합니다 ── */
 .mk{display:inline-block; font-size:.78em; font-weight:800; line-height:1.5;
-  padding:2px 10px; border-radius:999px; margin-right:7px; white-space:nowrap;
+  padding:2px 10px; border-radius:999px; margin-right:7px; white-space:normal;
   border:1.5px solid var(--muted); color:var(--muted); background:var(--surface)}
 .mk-judge{border-color:var(--accent); color:var(--accent); background:var(--accentbg)}
 .mk-unk{border-style:dashed}
@@ -182,7 +182,7 @@ h3{font-size:1.15em; margin:34px 0 12px; line-height:1.5}
 }
 
 /* ── 카테고리별 좌우 비교표 ── */
-.cmp{border:3px solid var(--fg); border-radius:14px; overflow:hidden;
+.cmp{border:3px solid var(--fg); border-radius:14px; overflow-x:auto;
   background:var(--surface); margin:16px 0}
 .cmp .chd{display:grid; grid-template-columns:1fr 1fr; overflow-wrap:break-word; position:sticky;
   top:calc(66px * var(--scale)); z-index:8}
@@ -218,7 +218,7 @@ h3{font-size:1.15em; margin:34px 0 12px; line-height:1.5}
 
 /* ── 근거 배지: '문서가 있는가'가 아니라 '누가 확인했는가' ── */
 .tag{display:inline-block; font-size:.8em; font-weight:800; line-height:1.5;
-  padding:3px 11px; border-radius:999px; margin:0 0 8px; white-space:nowrap}
+  padding:3px 11px; border-radius:999px; margin:0 0 8px; white-space:normal; word-break:keep-all}
 .t-court{background:var(--gobg); color:var(--go); border:1.5px solid var(--go)}
 .t-third{background:var(--accentbg); color:var(--accent); border:1.5px solid var(--accent)}
 /* t-party와 t-oral은 둘 다 "한쪽의 주장"입니다.
@@ -767,7 +767,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 
   <div class="qrow">1. 본안소송 — 아직 시작도 하지 않았습니다</div>
   <div class="mine">
-    <p class="mh"><span class="tag t-mine">이 페이지가 찾은 것</span></p>
+    <p class="mh"><span class="tag t-mine">이 페이지</span></p>
     <ul class="bul tight"><li>지금까지 나온 법원 결정은 <b>모두 가처분</b>입니다 (4/29 · 5/29 · 7/10, 곧 나올 5/30 건)</li><li>가처분은 <b>임시 조치</b>이고, <b>본안소송에서 뒤집힐 수 있습니다</b></li></ul>
     <p>DL은 <b>가처분 결과와 관계없이 본안소송은 이어가겠다</b>는 입장을 밝혔습니다.</p>
     <div class="tblwrap"><table class="tbl">
@@ -785,7 +785,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 <summary>시공사 교체 선례 4곳 — 표로 보기</summary>
 <div class="dbody">
 <div class="mine">
-    <p class="mh"><span class="tag t-mine">이 페이지가 찾은 것</span> 언론에 보도된 사례입니다</p>
+    <p class="mh"><span class="tag t-mine">이 페이지</span> 언론에 보도된 사례입니다</p>
     <p><b>이 구역에서 얼마가 나올지는 아무도 모릅니다.</b> 다만 시공사를 바꾼 다른 구역에서 실제로 어떤 일이 있었는지는 공개되어 있습니다.</p>
     <div class="tblwrap"><table class="tbl">
       <tr><th style="width:22%">구역</th><th style="width:32%">결과</th><th>경과</th></tr>
@@ -835,9 +835,9 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <div class="b">비대위 측<small>DL이앤씨를 미는 쪽</small></div>
   </div>
   <div class="row"><div class="rc">
-    <div class="a"><span class="tag t-party">당사자 문서 · 조합 공지 (7/26)</span><ul class="bul tight"><li>착공하려면 국·공유지 매입 등 상당한 자금이 필요하다. HUG 사업비 한도는 이미 대부분 소진됐고,
+    <div class="a"><span class="tag t-party">조합 공지 7/26</span><ul class="bul tight"><li>착공하려면 국·공유지 매입 등 상당한 자금이 필요하다. HUG 사업비 한도는 이미 대부분 소진됐고,
          관리처분계획 변경인가 이후에야 증액 보증을 받을 수 있어 그때까지 자금 공백을 메워야 한다.</li><li>그래서 <b>빨리 착공하는 것이 비용을 줄이는 길</b>이라는 입장입니다.</li></ul></div>
-    <div class="b"><span class="tag t-oral">구두 주장 · 단톡방</span><ul class="bul tight"><li>사업비 이자가 <b>월 30억 규모</b>로 나가고 있고, 지난해 11월부터 아무 진척 없이 이자만 나갔다고 봅니다.</li><li>사업비는 이미 <b>5,600억 수준</b>이 집행됐다고 보며, <b>이번 총회 안건이 전부 돈을 더 쓰고 더 빌리는 구조</b>라는 것이 안건을 막으려는 이유입니다.</li></ul><p class="bnote"><span class="mk mk-unk">확인 못 함</span> 비대위 측이 제시한 값입니다.</p></div>
+    <div class="b"><span class="tag t-oral">단톡방</span><ul class="bul tight"><li>사업비 이자가 <b>월 30억 규모</b>로 나가고 있고, 지난해 11월부터 아무 진척 없이 이자만 나갔다고 봅니다.</li><li>사업비는 이미 <b>5,600억 수준</b>이 집행됐다고 보며, <b>이번 총회 안건이 전부 돈을 더 쓰고 더 빌리는 구조</b>라는 것이 안건을 막으려는 이유입니다.</li></ul><p class="bnote"><span class="mk mk-unk">확인 못 함</span> 비대위 측이 제시한 값입니다.</p></div>
   </div></div>
 </div>
   <div class="plain">
@@ -866,7 +866,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   <div class="qrow">4. 앞으로 일어날 수 있는 일 — 다른 구역에서는 이렇게 됐습니다</div>
 
   <div class="mine">
-    <p class="mh"><span class="tag t-mine">이 페이지가 찾은 것</span> 확률을 매기지 않는 이유부터 밝힙니다</p>
+    <p class="mh"><span class="tag t-mine">이 페이지</span> 확률을 매기지 않는 이유부터 밝힙니다</p>
     <ul class="bul tight">
       <li><span class="mk mk-judge">판단 안 함</span> <b>“가능성 ○○%” 같은 숫자를 쓰지 않습니다.</b>
         어느 쪽도 그런 계산을 내놓은 적이 없습니다</li>
@@ -902,7 +902,10 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
       <b>이 페이지가 알 수 없습니다.</b> 빗금은 아직 끝나지 않았다는 뜻입니다.</p>
   </div>
 
-  <div class="scn">
+  <details>
+<summary>기록 1 — 방배5구역 (자세히)</summary>
+<div class="dbody">
+<div class="scn">
     <div class="sh">
       <p class="sn">기록 1 — 방배5구역: 시공사 교체 뒤 착공까지 <span class="hot">약 5년 4개월</span></p>
       <p class="sd">서울 서초구 · 단독주택 재건축</p>
@@ -918,8 +921,13 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
       </ul>
     </div>
   </div>
+</div>
+</details>
 
-  <div class="scn">
+  <details>
+<summary>기록 2 — 반포3주구 (자세히)</summary>
+<div class="dbody">
+<div class="scn">
     <div class="sh">
       <p class="sn">기록 2 — 반포3주구: 교체 자체는 <span style="color:var(--go)">약 5개월</span></p>
       <p class="sd">서울 서초구 · 아파트 재건축</p>
@@ -933,8 +941,13 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
       </ul>
     </div>
   </div>
+</div>
+</details>
 
-  <div class="scn bad">
+  <details>
+<summary>기록 3 — 상계주공5단지 (자세히)</summary>
+<div class="dbody">
+<div class="scn bad">
     <div class="sh">
       <p class="sn">기록 3 — 상계주공5단지: <span class="hot">새 시공사를 못 구해 여러 해</span></p>
       <p class="sd">서울 노원구 · 아파트 재건축</p>
@@ -948,8 +961,13 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
       </ul>
     </div>
   </div>
+</div>
+</details>
 
-  <div class="scn bad">
+  <details>
+<summary>가장 나쁜 경우 — 조합이 파산하면</summary>
+<div class="dbody">
+<div class="scn bad">
     <div class="sh">
       <p class="sn">가장 나쁜 경우 — <span class="hot">조합이 파산하는 경우</span></p>
       <p class="sd"><span class="mk mk-guess">예상</span> 제도가 어떻게 되어 있는지만 적습니다.</p>
@@ -967,6 +985,8 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
         <a href="https://blog.sugar.legal/45480" target="_blank" rel="noopener noreferrer">조합 파산 시 조합원의 책임 — 법무법인 해설</a></p>
     </div>
   </div>
+</div>
+</details>
 
   <div class="hotbox">
     <p class="hh">세 기록에서 공통으로 확인되는 것</p>
@@ -995,7 +1015,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 <summary>총회가 열리려면 몇 명이 필요한가 — 법 조문 보기</summary>
 <div class="dbody">
 <div class="mine">
-    <p class="mh"><span class="tag t-mine">이 페이지가 찾은 것</span> 법 조문에서 그대로 옮겼습니다</p>
+    <p class="mh"><span class="tag t-mine">이 페이지</span> 법 조문에서 그대로 옮겼습니다</p>
     <p><b>도시 및 주거환경정비법 제45조</b>가 총회의 성립과 가결을 이렇게 나눠 놓았습니다.</p>
 
     <p><b>① 총회가 성립하려면 — 두 가지가 동시에 필요합니다</b></p>
@@ -1109,7 +1129,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 <summary>총회 날짜 · 장소 · 참석 방법 자세히</summary>
 <div class="dbody">
 <div class="mine">
-    <p class="mh"><span class="tag t-court">조합 공고 제2026-26호</span> 2026년 7월 24일자 소집공고</p>
+    <p class="mh"><span class="tag t-court">조합 공고</span> 2026년 7월 24일자 소집공고</p>
     <div class="tblwrap"><table class="tbl">
       <tr><td style="width:30%"><b>날짜 · 시간</b></td><td><b>2026년 8월 8일(토) 오후 1시</b></td></tr>
       <tr><td><b>장소</b></td><td><b>더블트리 바이 힐튼 서울 판교</b><br>경기도 성남시 분당구 백현로 26
@@ -1141,7 +1161,10 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 </details>
 
   <h3>안건 11개 — 공고문에 적힌 그대로</h3>
-  <div class="tblwrap"><table class="tbl">
+  <details>
+<summary>안건 11개 전체 보기</summary>
+<div class="dbody">
+<div class="tblwrap"><table class="tbl">
     <tr><th style="width:16%">안건</th><th>내용</th><th style="width:26%">성격</th></tr>
     <tr><td><b>제1호</b></td><td>조합 기 수행업무 승인</td><td>사후 승인</td></tr>
     <tr><td><b>제2호</b></td><td>2026년도 <b>정비사업비 예산(안)</b></td><td class="hot">사업비 규모 결정</td></tr>
@@ -1155,13 +1178,18 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <tr><td><b>제10호</b></td><td><b>사업시행계획 변경(안)</b> 수립 및 신청 승인</td><td class="hot">착공과 직결</td></tr>
     <tr><td><b>제11호</b></td><td>최초 조합원 <b>분양신청 결과 반영(유지)</b></td><td>내 집 배정</td></tr>
   </table></div>
+</div>
+</details>
   <ul class="bul tight">
     <li><b>11개 중 6개가 돈에 관한 안건</b>입니다 — 제2·4·5·6·7호와 제3호</li>
     <li>공고문은 근거로 <b>도시정비법 제45조와 정관 제20조</b>를 들고 있습니다</li>
     <li class="hot">공고문에는 안건별 의결정족수가 적혀 있지 않습니다 — 책자에서 확인하십시오</li>
   </ul>
 
-  <div class="gate now" id="agenda10">
+  <details>
+<summary>제10호 — 사업시행계획 변경 (양측 설명)</summary>
+<div class="dbody">
+<div class="gate now" id="agenda10">
     <p class="gh">제10호 — 사업시행계획 변경(안) 수립 및 신청 승인</p>
     <p class="gs">착공과 가장 직접 관련된 안건 · 직접출석 20% 필요</p>
     <p class="plain">쉽게 말하면: 2025년 10월 인가받을 때 성남시가 “이건 나중에 꼭 해오라”고 붙인 숙제(비행안전평가)를 이제 처리하는 안건입니다.</p>
@@ -1171,12 +1199,14 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <div class="b">비대위 측 설명<small>DL이앤씨를 미는 쪽</small></div>
   </div>
   <div class="row"><div class="rc">
-    <div class="a"><span class="tag t-party">당사자 문서 · 조합 공지 (7/26)</span><ul class="bul tight"><li>착공 전에 반드시 이행해야 하는 필수 안건이다. 부결되면 착공 일정을 진행할 수 없고, 나중에 다시 총회를 열어 의결받아야 착공이 가능해진다.</li></ul></div>
-    <div class="b"><span class="tag t-oral">구두 주장 · 단톡방 (7/27)</span><ul class="bul tight"><li>이 안건이 지금 올라온다는 것 자체가 애초에 올해 4월 착공이 불가능했다는 뜻이다.</li><li>이 안건에 찬성하면 <b>인가가 행정처분이 되어, 나중에 법원이 DL의 손을 들어주더라도 되돌리기 어려워진다.</b></li></ul></div>
+    <div class="a"><span class="tag t-party">조합 공지 7/26</span><ul class="bul tight"><li>착공 전에 반드시 이행해야 하는 필수 안건이다. 부결되면 착공 일정을 진행할 수 없고, 나중에 다시 총회를 열어 의결받아야 착공이 가능해진다.</li></ul></div>
+    <div class="b"><span class="tag t-oral">단톡방 7/27</span><ul class="bul tight"><li>이 안건이 지금 올라온다는 것 자체가 애초에 올해 4월 착공이 불가능했다는 뜻이다.</li><li>이 안건에 찬성하면 <b>인가가 행정처분이 되어, 나중에 법원이 DL의 손을 들어주더라도 되돌리기 어려워진다.</b></li></ul></div>
   </div></div>
 </div>
     <p class="bnote"><span class="mk mk-judge">판단 안 함</span> 양측 설명만 옮깁니다.</p>
   </div>
+</div>
+</details>
 
   <div class="gate now" id="agenda5">
     <p class="gh">제5호 · 제6호 — 총회 비용과 사업비</p>
@@ -1189,7 +1219,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 <summary>제6호 — 얼마를 어떤 조건으로 빌리나 (계산 보기)</summary>
 <div class="dbody">
 <div class="mine">
-      <p class="mh"><span class="tag t-mine">이 페이지가 계산한 것</span> 나눗셈만 했습니다</p>
+      <p class="mh"><span class="tag t-mine">이 페이지 계산</span> 나눗셈만 했습니다</p>
       <div class="tblwrap"><table class="tbl">
         <tr><th style="width:46%">항목</th><th>금액</th><th>조합원 2,269명으로 나누면</th></tr>
         <tr><td>기존 차입금</td><td><b>5,600억</b></td><td>1인당 약 <b>2억 4,700만원</b></td></tr>
@@ -1290,7 +1320,10 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 </div>
 </details>
 
-    <div class="chart">
+    <details>
+<summary>제5호 총회 비용 12억 — 항목별 내역</summary>
+<div class="dbody">
+<div class="chart">
       <p class="ct">제5호 — 2026년도 2차 임시총회 비용 예산(안)</p>
       <p class="cs">총회 책자 108쪽 · 총계 <b>12억 4,947만원</b></p>
       <div class="brow"><p class="bl"><span>총회 홍보 인건비 (홍보인원 50인)</span><b>5억 8,500만원</b></p>
@@ -1311,6 +1344,8 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
         그 밖에 우편료·인쇄·속기·영상촬영·현수막·예비비 등이 포함되어 총계 <b>12억 4,947만원</b>입니다.
         <b>이 돈은 조합원이 부담합니다.</b></p>
     </div>
+</div>
+</details>
 
     <div class="cmp">
   <div class="chd">
@@ -1318,10 +1353,10 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <div class="b">비대위 측<small>DL이앤씨를 미는 쪽</small></div>
   </div>
   <div class="row"><div class="rc">
-    <div class="a"><span class="tag t-party">당사자 문서 · 총회 책자 기재</span><ul class="bul tight"><li>책자에 이렇게 적혀 있습니다 — <b>“그동안 총회 비용 및 상기 총회 비용은 비상대책위원회(착해모)의 반복적인 임시총회 개최 방해로 인해 비용이 지속적으로 발생한 것으로,
+    <div class="a"><span class="tag t-party">총회 책자</span><ul class="bul tight"><li>책자에 이렇게 적혀 있습니다 — <b>“그동안 총회 비용 및 상기 총회 비용은 비상대책위원회(착해모)의 반복적인 임시총회 개최 방해로 인해 비용이 지속적으로 발생한 것으로,
            조합은 이에 따른 손해에 대하여 비대위를 상대로 민사상 손해배상 청구를 추진할 예정입니다.”</b></li><li>실비 정산을 원칙으로 하며 항목 간 조정이 있을 수 있다고 밝히고 있습니다.</li><li>제6호에 대해서는, 착공하려면 국·공유지 매입 등 상당한 자금이 필요하고,
            HUG 사업비 한도가 이미 대부분 소진돼 관리처분 변경인가 전까지 자금 공백을 메워야 한다는 입장입니다. (7/26)</li></ul></div>
-    <div class="b"><span class="tag t-oral">구두 주장 · 단톡방 (7/27)</span><ul class="bul tight"><li>제5호는 <b>4월 11일 총회 비용을 조합원이 대신 내라는 것</b>이라고 봅니다.
+    <div class="b"><span class="tag t-oral">단톡방 7/27</span><ul class="bul tight"><li>제5호는 <b>4월 11일 총회 비용을 조합원이 대신 내라는 것</b>이라고 봅니다.
            그 총회는 법원에서 효력이 정지됐는데 그 비용을 왜 조합원이 부담하느냐는 것입니다.</li><li>홍보인원 인건비와 참석 회의비 지급이 <b>사실상 참석을 유도하기 위한 지출</b>이라고 지적합니다.</li><li>제6호에 대해서는, <b>이번 총회 안건이 전부 돈을 더 쓰고 더 빌리는 구조</b>라고 봅니다.
            이대로면 이주비 대출 이자가 월 100만원에서 200만원, 금리가 오르면 300만원까지 가고,
            사업비 이자도 연 360억에서 760억이 된다는 것입니다.</li></ul></div>
@@ -1329,7 +1364,10 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 </div>
   </div>
 
-  <div class="gate now">
+  <details>
+<summary>제9호 — 대의원 선출</summary>
+<div class="dbody">
+<div class="gate now">
     <p class="gh">제9호 — 대의원 선출</p>
     <p class="gs">조합 운영에 관한 안건</p>
     <p class="plain">쉽게 말하면: 대의원 9명이 한꺼번에 사퇴해서 대의원회가 열리지 못하는 상태입니다. 사람을 채우는 안건입니다.</p>
@@ -1340,6 +1378,8 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
         그래서 이 페이지는 <b>후보나 선출 절차에 대한 평가를 싣지 않고 사실만</b> 적습니다</li>
     </ul>
   </div>
+</div>
+</details>
 
   <p class="fixme"><a href="#report" data-fix="2. 8월 8일 총회와 내 한 표">이 부분이 틀렸다면 알려주십시오 ▶</a></p>
 </section>
@@ -1459,7 +1499,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
         </div>
         <div class="altpath">
           <p class="ah">조합 측 반박 — 「팩트체크 1. 착공일정 설계특허」</p>
-          <span class="tag t-party">당사자 문서 · 조합원 제보로 확인</span>
+          <span class="tag t-party">조합 자료</span>
           <ul class="bul tight">
             <li><b>“착공이 늦어진다는 것은 사실이 아니다”</b>
               <span class="sub">2026년 8월 착공으로 확정 · 제안서에 명시 · 착공 확약서 제출과 계약조건 수용 완료</span></li>
@@ -1501,12 +1541,12 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <div class="b">비대위 측<small>DL이앤씨를 미는 쪽</small></div>
   </div>
   <div class="row"><div class="rc">
-    <div class="a"><span class="tag t-party">당사자 문서</span><ul class="bul tight"><li>한도는 대부분 소진됐지만, 관리처분 변경인가 후 HUG 증액 보증 절차를 진행할 수 있다. 그때까지 공백은 GS 자금으로 메운다.</li></ul></div>
-    <div class="b"><span class="tag t-oral">구두 주장</span><ul class="bul tight"><li>HUG 내규상 분쟁 중인 구역은 보증이 안 된다. 그러면 이율이 5%대에서 10%대로 올라 월 이자가 30억에서 60억이 된다.</li></ul></div>
+    <div class="a"><span class="tag t-party">한쪽 문서</span><ul class="bul tight"><li>한도는 대부분 소진됐지만, 관리처분 변경인가 후 HUG 증액 보증 절차를 진행할 수 있다. 그때까지 공백은 GS 자금으로 메운다.</li></ul></div>
+    <div class="b"><span class="tag t-oral">단톡방</span><ul class="bul tight"><li>HUG 내규상 분쟁 중인 구역은 보증이 안 된다. 그러면 이율이 5%대에서 10%대로 올라 월 이자가 30억에서 60억이 된다.</li></ul></div>
   </div></div>
 </div>
         <p class="bnote" style="margin-top:12px">
-          <span class="tag t-mine">이 페이지가 찾은 것</span>
+          <span class="tag t-mine">이 페이지</span>
           HUG의 시공사 변경 시 보증 승계에 <b>공개된 표준 소요기간은 없습니다.</b>
           “6개월”은 비대위 측 추정이고, 조합 측은 기간을 제시하지 않았습니다. 어느 쪽도 확인된 값이 아닙니다.</p>
       </div>
@@ -1528,8 +1568,8 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <div class="b">비대위 측<small>DL이앤씨를 미는 쪽</small></div>
   </div>
   <div class="row"><div class="rc">
-    <div class="a"><span class="tag t-party">당사자 문서 · 조합 공지 5/15·6/26·7/6</span><ul class="bul tight"><li><b>2026년 8월 착공 목표.</b> 9월로 밀리더라도 8월 기준 공사비 조건(평당 729만원)을 그대로 적용받도록 1개월 유예를 확보했다.</li></ul></div>
-    <div class="b"><span class="tag t-oral">구두 주장 · 단톡방</span><ul class="bul tight"><li><b>GS로 가면 수년이 더 걸린다</b>고 봅니다. 설계 변경에 따른 건축심의, 계약, 소송, 자금 조달에 걸리는 시간을 각각 더한 계산입니다.</li><li><b>DL로 가면 도급계약만 맺으면 즉시 착공이 가능</b>하다고 봅니다. DL이 4월에 시공 확약서를 냈고 “6월 내 착공 가능” 공문도 보냈다는 것입니다.</li></ul></div>
+    <div class="a"><span class="tag t-party">조합 공지</span><ul class="bul tight"><li><b>2026년 8월 착공 목표.</b> 9월로 밀리더라도 8월 기준 공사비 조건(평당 729만원)을 그대로 적용받도록 1개월 유예를 확보했다.</li></ul></div>
+    <div class="b"><span class="tag t-oral">단톡방</span><ul class="bul tight"><li><b>GS로 가면 수년이 더 걸린다</b>고 봅니다. 설계 변경에 따른 건축심의, 계약, 소송, 자금 조달에 걸리는 시간을 각각 더한 계산입니다.</li><li><b>DL로 가면 도급계약만 맺으면 즉시 착공이 가능</b>하다고 봅니다. DL이 4월에 시공 확약서를 냈고 “6월 내 착공 가능” 공문도 보냈다는 것입니다.</li></ul></div>
   </div></div>
 </div>
 
@@ -1537,7 +1577,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 <summary>공개 통계로 확인되는 소요 기간</summary>
 <div class="dbody">
 <div class="mine">
-    <p class="mh"><span class="tag t-mine">이 페이지가 찾은 것</span> 공개 통계가 있는 것만 적었습니다</p>
+    <p class="mh"><span class="tag t-mine">이 페이지</span> 공개 통계가 있는 것만 적었습니다</p>
     <p>양측 주장이 15개월 이상 벌어지는데, 어느 쪽도 검증할 자료를 내놓지 않았습니다.
        그래서 <b>공개된 평균값이 있는 항목만</b> 모아 봤습니다.</p>
     <div class="tblwrap"><table class="tbl">
@@ -1592,15 +1632,15 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <div class="b">비대위 측<small>DL이앤씨를 미는 쪽</small></div>
   </div>
   <div class="row"><div class="rc">
-    <div class="a"><span class="tag t-party">당사자 문서 · 조합 공지 (6/15)</span><ul class="bul tight"><li><b>조합이 대신 내고 있습니다.</b> GS건설 입찰보증금을 활용해 납부 완료했으며, 조합원이 직접 낼 필요가 없다고 안내하고 있습니다.</li><li>애초에 DL이앤씨가 1월부터 날인을 거부해 생긴 문제라는 입장입니다.</li></ul></div>
-    <div class="b"><span class="tag t-oral">구두 주장</span><ul class="bul tight"><li>지금 대납되고 있는 것은 인정하되 <b>재원과 앞으로가 문제</b>라는 입장입니다. 대납에 쓰인 돈이 GS 입찰보증금이라는 점을 지적합니다.</li><li>사업이 길어지면 월 100만원 내던 이자가 200만원, 금리가 오르면 300만원까지 갈 수 있다고 봅니다.</li></ul></div>
+    <div class="a"><span class="tag t-party">조합 공지 6/15</span><ul class="bul tight"><li><b>조합이 대신 내고 있습니다.</b> GS건설 입찰보증금을 활용해 납부 완료했으며, 조합원이 직접 낼 필요가 없다고 안내하고 있습니다.</li><li>애초에 DL이앤씨가 1월부터 날인을 거부해 생긴 문제라는 입장입니다.</li></ul></div>
+    <div class="b"><span class="tag t-oral">단톡방</span><ul class="bul tight"><li>지금 대납되고 있는 것은 인정하되 <b>재원과 앞으로가 문제</b>라는 입장입니다. 대납에 쓰인 돈이 GS 입찰보증금이라는 점을 지적합니다.</li><li>사업이 길어지면 월 100만원 내던 이자가 200만원, 금리가 오르면 300만원까지 갈 수 있다고 봅니다.</li></ul></div>
   </div></div>
 </div>
   <div class="plain"><b>지금 당장 하실 일:</b> 이주비 대출 이자를 <b>개인적으로 내지 마십시오.</b> 이중 납부가 될 수 있습니다. 이 점은 양측 설명이 다르지 않습니다. 확인이 필요하면 조합 사무실(031-747-2730)로 문의하십시오.</div>
 
   <div class="qrow" id="deposit">GS 입찰보증금 — 총회가 뒤집히면 이 돈은 어떻게 되나</div>
   <div class="mine">
-    <p class="mh"><span class="tag t-mine">이 페이지가 찾은 것</span> 양측 누구도 설명하지 않은 부분입니다</p>
+    <p class="mh"><span class="tag t-mine">이 페이지</span> 양측 누구도 설명하지 않은 부분입니다</p>
     <ul class="bul tight"><li>조합 — <b>이주비 이자를 GS 입찰보증금으로 대납</b>했다 (6/15)</li><li>단톡방 — <b>보증금 반환이 의결됐다</b>, <b>10개월치밖에 감당 안 된다</b></li></ul>
     <p><b>그런데 5월 30일 총회의 효력이 정지되면 어떻게 되는지, 양측 어느 쪽도 설명하지 않았습니다.</b></p>
     <p>· 이미 이자 대납에 쓴 돈은 누가 메웁니까<br>
@@ -1690,8 +1730,11 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <b>공사비가 오르면 비례율은 내려가고, 내려간 만큼 내가 더 내야 합니다.</b>
   </div>
 
-  <div class="side"><div class="cap" style="background:var(--soft)">양측 모두 확정 수치 없음</div><div class="body" style="background:var(--surface)">
-    <span class="tag t-party">당사자 문서 · 조합 내용증명 (2026.7.24)</span>
+  <details>
+<summary>비례율 — 조합 내용증명 원문</summary>
+<div class="dbody">
+<div class="side"><div class="cap" style="background:var(--soft)">양측 모두 확정 수치 없음</div><div class="body" style="background:var(--surface)">
+    <span class="tag t-party">조합 내용증명</span>
     <p>조합원이 비례율 공개를 요구하자, 조합은 내용증명으로 다음과 같이 답했습니다.</p>
     <ul class="bul tight">
       <li>최초 관리처분계획인가 <b>2021년 12월 31일</b> · 당시 공사비 <b>평당 459만원</b></li>
@@ -1709,6 +1752,8 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
       </ul>
     </div>
   </div></div>
+</div>
+</details>
 
   <div class="qrow">추가 분담금 — 얼마나 더 내게 되나</div>
   <div class="cmp">
@@ -1717,8 +1762,8 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <div class="b">비대위 측<small>DL이앤씨를 미는 쪽</small></div>
   </div>
   <div class="row"><div class="rc">
-    <div class="a"><span class="tag t-party">당사자 문서 · 조합 공지 (7/24)</span><ul class="bul tight"><li><b>아직 확정 안내가 없습니다.</b> “관리처분계획 변경 절차를 진행 중이며, 확정된 공사비와 일반분양가, 감정평가 결과를 반영한 실제 비례율을 정리해 안내하겠다”는 입장입니다.</li></ul></div>
-    <div class="b"><span class="tag t-oral">구두 주장 · 추정치</span><ul class="bul tight"><li>소송이 길어지는 경우를 전제로 <b>추가 분담금 1억~5억</b>이라는 추정을 내놓고 있습니다. 이자·손해배상·공사비 인상을 각각 더한 계산입니다.</li></ul><p class="bnote"><span class="mk mk-unk">확인 못 함</span> 계산 근거가 공개되지 않았습니다.</p></div>
+    <div class="a"><span class="tag t-party">조합 공지 7/24</span><ul class="bul tight"><li><b>아직 확정 안내가 없습니다.</b> “관리처분계획 변경 절차를 진행 중이며, 확정된 공사비와 일반분양가, 감정평가 결과를 반영한 실제 비례율을 정리해 안내하겠다”는 입장입니다.</li></ul></div>
+    <div class="b"><span class="tag t-oral">단톡방 · 추정</span><ul class="bul tight"><li>소송이 길어지는 경우를 전제로 <b>추가 분담금 1억~5억</b>이라는 추정을 내놓고 있습니다. 이자·손해배상·공사비 인상을 각각 더한 계산입니다.</li></ul><p class="bnote"><span class="mk mk-unk">확인 못 함</span> 계산 근거가 공개되지 않았습니다.</p></div>
   </div></div>
 </div>
 
@@ -1758,7 +1803,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 <summary>조합 일정표와 실제 진행 대조 (자세히)</summary>
 <div class="dbody">
 <div class="mine">
-    <p class="mh"><span class="tag t-mine">이 페이지가 정리한 것</span> 조합 문서와 조합 공지만으로 맞춰 본 것입니다</p>
+    <p class="mh"><span class="tag t-mine">이 페이지 정리</span> 조합 문서와 조합 공지만으로 맞춰 본 것입니다</p>
     <p>아래는 <b>어느 편의 주장도 아닙니다.</b> 조합이 스스로 내놓은 일정표와,
        조합이 스스로 공지한 진행 상황을 나란히 놓은 것입니다.</p>
 
@@ -1825,9 +1870,9 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <div class="b">비대위 측 설명<small>DL이앤씨를 미는 쪽</small></div>
   </div>
   <div class="row"><div class="rc">
-    <div class="a"><span class="tag t-party">당사자 문서 · 조합 공지 (7/26)</span><ul class="bul tight"><li>시공사 교체 때문이 아니라 <b>2025년 10월 인가 때 붙은 비행안전평가 조건을 이행</b>하기 위한 것이며,
+    <div class="a"><span class="tag t-party">조합 공지 7/26</span><ul class="bul tight"><li>시공사 교체 때문이 아니라 <b>2025년 10월 인가 때 붙은 비행안전평가 조건을 이행</b>하기 위한 것이며,
            <b>시공사가 누구든 필요한 절차</b>라는 입장입니다.</li></ul></div>
-    <div class="b"><span class="tag t-oral">구두 주장 (7/27)</span><ul class="bul tight"><li>이 안건이 <b>지금 올라온다는 것 자체가</b> 애초 계획대로 되지 않았다는 뜻이라고 봅니다.</li></ul></div>
+    <div class="b"><span class="tag t-oral">단톡방 7/27</span><ul class="bul tight"><li>이 안건이 <b>지금 올라온다는 것 자체가</b> 애초 계획대로 되지 않았다는 뜻이라고 봅니다.</li></ul></div>
   </div></div>
 </div>
 
@@ -1854,8 +1899,8 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <div class="b">비대위 측<small>DL이앤씨를 미는 쪽</small></div>
   </div>
   <div class="row"><div class="rc">
-    <div class="a"><span class="tag t-party">당사자 문서 · 조합 공식 일정표</span><ul class="bul tight"><li>8~9월에 착공하고, <b>관리처분계획 변경인가는 그 뒤인 10~12월</b>에 하는 것으로 계획되어 있습니다.</li><li>착공을 먼저 해서 시간을 벌고, 확정된 공사비와 일반분양가를 반영한 관리처분 변경은 이어서 처리하겠다는 것입니다.</li></ul></div>
-    <div class="b"><span class="tag t-oral">구두 주장</span><ul class="bul tight"><li><b>순서가 뒤바뀌었다</b>고 봅니다. 도시정비법상 조합원에게 집을 배정하는 것은 <b>인가받은 관리처분계획에 따라야 하는데</b>,
+    <div class="a"><span class="tag t-party">조합 일정표</span><ul class="bul tight"><li>8~9월에 착공하고, <b>관리처분계획 변경인가는 그 뒤인 10~12월</b>에 하는 것으로 계획되어 있습니다.</li><li>착공을 먼저 해서 시간을 벌고, 확정된 공사비와 일반분양가를 반영한 관리처분 변경은 이어서 처리하겠다는 것입니다.</li></ul></div>
+    <div class="b"><span class="tag t-oral">단톡방</span><ul class="bul tight"><li><b>순서가 뒤바뀌었다</b>고 봅니다. 도시정비법상 조합원에게 집을 배정하는 것은 <b>인가받은 관리처분계획에 따라야 하는데</b>,
          계획이 확정되기도 전에 동호수 추첨부터 하는 것은 근거가 없다는 주장입니다.</li><li>관리처분 변경 전에는 <b>내 분담금이 얼마인지 모르는 상태에서 동·호수를 정하게 된다</b>는 점도 지적합니다.</li></ul></div>
   </div></div>
 </div>
@@ -1888,8 +1933,8 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
     <div class="b">비대위 측 입장<small>DL이앤씨를 미는 쪽</small></div>
   </div>
   <div class="row"><div class="rc">
-    <div class="a"><span class="tag t-oral">구두 주장</span><ul class="bul tight"><li>금품을 받은 사실이 <b>전혀 없다</b>며 혐의를 부인하고 있습니다.</li><li>영장 신청 시점을 들어 수사의 공정성에 의문을 제기하고, 강압·편파 수사였다며 민원을 제기할 예정이라고 밝혔습니다.</li><li>출국금지는 뇌물 건이 아니라 <b>약 2년 전 교회 강제집행과 관련해 배임으로 고소당한 별개의 사건</b> 때문이라는 입장입니다.</li></ul></div>
-    <div class="b"><span class="tag t-oral">구두 주장</span><ul class="bul tight"><li><b>기각이 무죄를 뜻하지 않는다</b>는 점을 강조합니다. 수사와 기소, 재판은 계속 진행됩니다.</li><li>압수수색과 출국금지까지 이루어진 상황에서 <b>조합 운영을 계속 맡기는 것이 적절한지</b> 묻고 있습니다.</li><li>이러한 사법 위험 자체가 인허가·금융 협의에 부담이 된다고 봅니다.</li></ul></div>
+    <div class="a"><span class="tag t-oral">단톡방</span><ul class="bul tight"><li>금품을 받은 사실이 <b>전혀 없다</b>며 혐의를 부인하고 있습니다.</li><li>영장 신청 시점을 들어 수사의 공정성에 의문을 제기하고, 강압·편파 수사였다며 민원을 제기할 예정이라고 밝혔습니다.</li><li>출국금지는 뇌물 건이 아니라 <b>약 2년 전 교회 강제집행과 관련해 배임으로 고소당한 별개의 사건</b> 때문이라는 입장입니다.</li></ul></div>
+    <div class="b"><span class="tag t-oral">단톡방</span><ul class="bul tight"><li><b>기각이 무죄를 뜻하지 않는다</b>는 점을 강조합니다. 수사와 기소, 재판은 계속 진행됩니다.</li><li>압수수색과 출국금지까지 이루어진 상황에서 <b>조합 운영을 계속 맡기는 것이 적절한지</b> 묻고 있습니다.</li><li>이러한 사법 위험 자체가 인허가·금융 협의에 부담이 된다고 봅니다.</li></ul></div>
   </div></div>
 </div>
 
@@ -1979,7 +2024,7 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
         <b>글자 그대로 옮긴 것은 아닙니다</b>
         <span class="sub">따옴표(“ ”)로 묶인 곳만 원문 그대로입니다.</span></li>
       <li>법 조문, 다른 구역 선례처럼 <b>양측 주장과 상관없이 공개된 자료</b>는 이 페이지가 직접 찾아 넣고
-        <span class="tag t-mine">이 페이지가 찾은 것</span> 표시를 붙였습니다</li>
+        <span class="tag t-mine">이 페이지</span> 표시를 붙였습니다</li>
       <li><b>어느 쪽에 투표하라고 권하지 않습니다.</b></li>
     </ul>
 
@@ -2072,10 +2117,10 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
   <ul class="bul tight">
     <li><span class="tag t-court">법원·행정</span> 결정문·인가서로 확인된 것</li>
     <li><span class="tag t-third">제3자 자료</span> 당사자가 아닌 곳(법령·언론·통계)에서 나온 것</li>
-    <li><span class="tag t-party">당사자 문서</span> 조합 공지·내용증명·시공사 공문 등 <b>한쪽이 문서로 낸 주장</b></li>
-    <li><span class="tag t-oral">구두 주장</span> 단톡방 등에서 나온 주장
+    <li><span class="tag t-party">한쪽 문서</span> 조합 공지·내용증명·시공사 공문 등 <b>한쪽이 문서로 낸 주장</b></li>
+    <li><span class="tag t-oral">단톡방</span> 단톡방 등에서 나온 주장
       <span class="sub">위 둘은 <b>같은 등급</b>입니다. 테두리 모양으로만 형식을 구분합니다.</span></li>
-    <li><span class="tag t-mine">이 페이지가 찾은 것</span> 공개 자료에서 직접 찾아 정리한 것</li>
+    <li><span class="tag t-mine">이 페이지</span> 공개 자료에서 직접 찾아 정리한 것</li>
   </ul>
   <p><b>문서로 냈다고 해서 사실인 것은 아닙니다.</b> 조합 공지도, 시공사 공문도 <b>당사자의 주장</b>입니다.</p>
   <p>“확인 중”이나 빈 칸은 그쪽이 틀렸다는 뜻이 아니라, 공개된 자료에서 찾지 못했다는 뜻입니다.</p>
