@@ -472,7 +472,8 @@ footer{margin-top:38px; padding-top:22px; border-top:2px solid var(--line);
 <header>
   <h1>상대원2구역<br>지금 어디까지 왔나</h1>
   <p class="intent">조합 측과 비대위 측이 각자 한 말을 <b>어느 쪽도 빼거나 고치지 않고, 같은 분량으로 나란히</b> 옮겨 놓은 것입니다.</p>
-  <p class="asof"><b id="asof">2026년 7월 29일</b> 정리 · 조합원이 만든 비공식 정리본<span id="ago"></span></p>
+  <p class="asof"><b id="todayline">…</b><br>
+    <span id="asofline">2026년 7월 29일 정리</span> · 조합원이 만든 비공식 정리본</p>
 </header>
 
 <div class="tools">
@@ -2016,9 +2017,16 @@ var OPENCHAT_URL = "https://open.kakao.com/o/sG5si8Fi";
 var CONTACT_MAIL = "";
 
 // ── 날짜 ──
-var UPDATED = "2026-07-29";  // 내용을 마지막으로 손본 날
+// 자동으로 매일 바뀌는 것 : 오늘 날짜, 총회까지 남은 날, "○일 전 정리"
+// 손으로만 바뀌는 것     : UPDATED (내용을 실제로 고친 날)
+//
+// UPDATED 를 자동으로 오늘 날짜로 만들면 안 됩니다.
+// 내용을 고치지 않았는데 "오늘 정리"라고 나오면 거짓이 되고,
+// "오래된 내용" 경고가 영원히 뜨지 않게 됩니다.
+// 아래 값은 파일이 실제로 올라간 시각(Last-Modified)으로 자동 보정됩니다.
+var UPDATED = "2026-07-29";  // 내용을 마지막으로 고친 날
 var MEETING = "2026-08-08";  // 다음 총회 날짜 (없으면 "" 로 비우십시오)
-var STALE_DAYS = 3;          // 사건이 빠르게 움직이므로 3일로 둡니다
+var STALE_DAYS = 3;          // 이만큼 지나면 "오래된 내용" 경고가 뜹니다
 
 (function(){
   // ── 글씨 크기 ──
@@ -2082,23 +2090,74 @@ var STALE_DAYS = 3;          // 사건이 빠르게 움직이므로 3일로 둡�
     }
   }
 
-  var since = Math.round((today - d(UPDATED)) / DAY);
-  var ago = document.getElementById('ago');
-  if (ago) ago.textContent = since <= 0 ? " · 오늘 확인" : " · " + since + "일 전 확인";
+  // ── 매일 자동으로 바뀌는 표시 ──
+  var WD = ['일','월','화','수','목','금','토'];
+  function ko(dt){ return dt.getFullYear()+"년 "+(dt.getMonth()+1)+"월 "+dt.getDate()+"일("+WD[dt.getDay()]+")"; }
 
-  // 총회가 지났거나 오래됐으면 경고
-  var s = document.getElementById('stale');
-  if (meetingPassed) {
-    s.innerHTML = "이 내용은 <u>8월 8일 총회 전</u>에 정리한 것입니다."
-      + "<span>총회 결과와 그 뒤의 법원 결정은 반영되어 있지 않습니다. "
-      + "반드시 조합 공식 안내(031-747-2730)로 다시 확인하십시오.</span>";
-    s.style.display = 'block';
-  } else if (since >= STALE_DAYS) {
-    s.innerHTML = "이 내용은 " + since + "일 전에 정리한 것입니다."
-      + "<span>그 사이에 법원 결정이나 총회 결과가 나왔을 수 있습니다. "
-      + "중요한 일은 반드시 조합 공식 안내(031-747-2730)로 다시 확인하십시오.</span>";
-    s.style.display = 'block';
+  function paintDates(){
+    var since = Math.round((today - d(UPDATED)) / DAY);
+
+    var tl = document.getElementById('todayline');
+    if (tl) {
+      var txt = "오늘은 " + ko(today) + "입니다";
+      if (MEETING) {
+        var n = Math.round((d(MEETING) - today) / DAY);
+        if (n > 0)       txt += " · 총회까지 " + n + "일";
+        else if (n === 0) txt += " · 오늘이 총회일입니다";
+        else              txt += " · 총회가 " + (-n) + "일 지났습니다";
+      }
+      tl.textContent = txt;
+    }
+
+    var al = document.getElementById('asofline');
+    if (al) {
+      var u = d(UPDATED);
+      al.textContent = (u.getMonth()+1) + "월 " + u.getDate() + "일 정리"
+        + (since <= 0 ? " (오늘)" : " (" + since + "일 전)");
+    }
+    return since;
   }
+
+  // 총회가 지났거나 오래됐으면 맨 위에 경고를 띄웁니다
+  function showStale(since){
+    var s = document.getElementById('stale');
+    if (!s) return;
+    if (meetingPassed) {
+      s.innerHTML = "이 내용은 <u>8월 8일 총회 전</u>에 정리한 것입니다."
+        + "<span>총회 결과와 그 뒤의 법원 결정은 반영되어 있지 않습니다. "
+        + "반드시 조합 공식 안내(031-747-2730)로 다시 확인하십시오.</span>";
+      s.style.display = 'block';
+    } else if (since >= STALE_DAYS) {
+      s.innerHTML = "이 내용은 " + since + "일 전에 정리한 것입니다."
+        + "<span>그 사이에 법원 결정이나 총회 결과가 나왔을 수 있습니다. "
+        + "중요한 일은 반드시 조합 공식 안내(031-747-2730)로 다시 확인하십시오.</span>";
+      s.style.display = 'block';
+    } else {
+      s.style.display = 'none';
+    }
+  }
+
+  var since = paintDates();
+
+  // 파일이 실제로 올라간 시각으로 UPDATED 를 자동 보정합니다.
+  // 손으로 날짜를 못 고쳤더라도 "며칠 전 정리"가 사실대로 나오게 하기 위한 것입니다.
+  // (실패하면 위에 적어 둔 값을 그대로 씁니다)
+  try {
+    fetch(location.href, {method:'HEAD', cache:'no-store'}).then(function(r){
+      var lm = r.headers.get('Last-Modified');
+      if (!lm) return;
+      var t = new Date(lm); if (isNaN(t)) return;
+      t.setHours(0,0,0,0);
+      var cur = d(UPDATED);
+      if (t > cur && t <= today) {
+        UPDATED = t.getFullYear()+"-"+(t.getMonth()+1)+"-"+t.getDate();
+        since = paintDates();
+        showStale(since);
+      }
+    }).catch(function(){});
+  } catch(e) {}
+
+  showStale(since);
 
 
   // ── 수정 요청 ──

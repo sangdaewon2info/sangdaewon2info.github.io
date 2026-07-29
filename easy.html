@@ -141,7 +141,8 @@ footer li:last-child{margin:0}
 
 <header>
   <h1>상대원2구역<br>꼭 아셔야 할 다섯 가지</h1>
-  <p class="sub">2026년 7월 29일 정리 · 조합원 한 사람이 만든 것입니다<br>
+  <p class="sub"><b id="todayline">…</b><br>
+    <span id="asofline">7월 29일 정리</span> · 조합원 한 사람이 만든 것입니다<br>
     조합에서 보낸 공식 안내가 아닙니다</p>
 </header>
 
@@ -470,6 +471,9 @@ footer li:last-child{margin:0}
 <script>
 // 총회 날짜 — 날이 지나면 맨 위에 안내가 나옵니다
 var MEETING = "2026-08-08";
+// 내용을 마지막으로 고친 날. 자동으로 오늘 날짜가 되지 않습니다.
+// (고치지 않았는데 "오늘 정리"라고 나오면 거짓이 되기 때문입니다)
+var UPDATED = "2026-07-29";
 
 (function(){
   var b = document.getElementById('biggerBtn');
@@ -479,21 +483,56 @@ var MEETING = "2026-08-08";
   });
 
   function d(s){ var p = s.split('-'); return new Date(+p[0], +p[1]-1, +p[2]); }
+  var WD = ['일','월','화','수','목','금','토'];
   var today = new Date(); today.setHours(0,0,0,0);
-  var left = Math.round((d(MEETING) - today) / 86400000);
+  var DAY = 86400000;
   var w = document.getElementById('warn');
 
-  if (left < 0) {
-    w.innerHTML = "이 종이는 <b>8월 8일 총회 전</b>에 만든 것입니다.<br>"
-      + "총회 결과와 그 뒤에 나온 법원 판단은 들어 있지 않습니다.<br>"
-      + "조합 사무실(031-747-2730)로 다시 확인하십시오.";
-    w.style.display = 'block';
-  } else if (left <= 14) {
-    w.innerHTML = left === 0
-      ? "<b>오늘이 8월 8일 총회 날입니다.</b>"
-      : "<b>8월 8일 총회가 " + left + "일 남았습니다.</b>";
-    w.style.display = 'block';
+  function paint(){
+    var left = Math.round((d(MEETING) - today) / DAY);
+    var since = Math.round((today - d(UPDATED)) / DAY);
+
+    var tl = document.getElementById('todayline');
+    if (tl) {
+      var t = "오늘은 " + today.getFullYear() + "년 " + (today.getMonth()+1) + "월 "
+            + today.getDate() + "일(" + WD[today.getDay()] + ")입니다";
+      if (left > 0)       t += " · 총회까지 " + left + "일";
+      else if (left === 0) t += " · 오늘이 총회날입니다";
+      tl.textContent = t;
+    }
+    var al = document.getElementById('asofline');
+    if (al) {
+      var u = d(UPDATED);
+      al.textContent = (u.getMonth()+1) + "월 " + u.getDate() + "일 정리"
+        + (since <= 0 ? " (오늘)" : " (" + since + "일 전)");
+    }
+
+    if (left < 0) {
+      w.innerHTML = "이 종이는 <b>8월 8일 총회 전</b>에 만든 것입니다.<br>"
+        + "총회 결과와 그 뒤에 나온 법원 판단은 들어 있지 않습니다.<br>"
+        + "조합 사무실(031-747-2730)로 다시 확인하십시오.";
+      w.style.display = 'block';
+    } else if (left <= 14) {
+      w.innerHTML = left === 0
+        ? "<b>오늘이 8월 8일 총회 날입니다.</b>"
+        : "<b>8월 8일 총회가 " + left + "일 남았습니다.</b>";
+      w.style.display = 'block';
+    }
   }
+  paint();
+
+  // 실제로 파일이 올라간 시각으로 보정 (실패하면 위 값을 그대로 씁니다)
+  try {
+    fetch(location.href, {method:'HEAD', cache:'no-store'}).then(function(r){
+      var lm = r.headers.get('Last-Modified'); if (!lm) return;
+      var t = new Date(lm); if (isNaN(t)) return;
+      t.setHours(0,0,0,0);
+      if (t > d(UPDATED) && t <= today) {
+        UPDATED = t.getFullYear()+"-"+(t.getMonth()+1)+"-"+t.getDate();
+        paint();
+      }
+    }).catch(function(){});
+  } catch(e) {}
 })();
 </script>
 </body>
