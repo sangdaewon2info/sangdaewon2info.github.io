@@ -12,7 +12,7 @@
 /daily-vlog
 날짜: 2026-11-13 (금)
 스타일: soft-minimal       ← 프리셋 이름 (vlog/presets/*.json)
-오프닝: A day in my life / 10am – 9pm / Yongin → Gangnam
+오프닝: Work Day in my life / 10am – 9pm / Yongin → Gangnam  (썸네일 제목과 같은 문구로)
 길이: 16초 내외 / 컷당 1.5~2초
 클립 순서: 업로드한 순서대로  ← 다르면 "3번 → 1번 → ..." 처럼 적기
 
