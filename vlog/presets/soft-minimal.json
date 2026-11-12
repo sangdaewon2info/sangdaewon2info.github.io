@@ -26,27 +26,27 @@
   "caption": {
     "style": "minimal",
     "font_tag": "GowunBatang-Regular.ttf",
-    "font_text": "GowunBatang-Regular.ttf",
-    "size_tag": 24,
-    "size_text": 23,
+    "font_text": "GowunBatang-Bold.ttf",
+    "size_tag": 30,
+    "size_text": 34,
     "color_text": "#F3F0EA",
     "color_tag": "#F3F0EA",
-    "shadow": 0.8,
-    "line_gap": -2,
-    "max_text_width": 520,
-    "y": 0.105,
+    "shadow": 0.85,
+    "line_gap": 2,
+    "max_text_width": 620,
+    "y": 0.1,
     "fade_in": 0
   },
   "title": {
     "font": "GowunBatang-Regular.ttf",
     "sizes": [
-      33,
-      33,
-      23
+      42,
+      42,
+      30
     ],
     "color": "#F3F0EA",
-    "shadow": 0.7,
-    "line_gap": 0,
+    "shadow": 0.8,
+    "line_gap": 2,
     "y": 0.085
   },
   "music": {
