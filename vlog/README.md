@@ -13,7 +13,7 @@ vlog/
 │   └── 2026-11-12/
 │       ├── storyboard.json 그날의 컷 · 시간 태그 · 자막 · 효과음 · 썸네일 · 캡션
 │       ├── raw/            원본 클립 (git 제외)
-│       └── out/            vlog.mp4 · thumb_N.jpg · post.txt (git 제외)
+│       └── out/            vlog.mp4 · thumb_N.jpg · thumb_compare.jpg(후보 비교표) · post.txt (git 제외)
 └── tools/
     ├── setup.sh            Pretendard 폰트 등 준비
     ├── build.py            렌더링
@@ -55,7 +55,7 @@ python3 vlog/tools/build.py vlog/days/2026-11-12
     { "style": "butter", "image": "raw/photo_1.jpg", "focus_x": 0.46, "title": "Work Day\nin my life", "sub": "용인 → 강남 출퇴근 직장인의 하루" },  // 기본 (사진 대신 "clip"/"at"도 가능)
     { "style": "serif",  "clip": 2, "at": 0.4, "lines": ["A day in my life", "10am – 9pm", "Yongin → Gangnam"] },
     { "style": "classic", "clip": 2, "at": 0.4, "tag": "SEOUL OFFICE VLOG", "copy": "..." }
-  ],                                                         // 공통: "y"(0~1) 글자 높이, "\n" 줄바꿈, "image"+"focus_x"(0~1)로 따로 찍은 사진 사용
+  ],                                                         // 공통: "y"(0~1) 글자 높이, "\n" 줄바꿈, "image"로 따로 찍은 사진 사용, "zoom"/"focus_x"/"focus_y"로 확대·위치, "grade_preset"으로 다른 색감, "name"은 비교표 라벨
   "post": { "caption": "...", "hashtags": ["#직장인브이로그"] }
 }
 ```

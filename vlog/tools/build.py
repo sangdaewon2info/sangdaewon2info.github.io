@@ -318,13 +318,14 @@ def grade_filter(P):
             f"curves=r='{c['r']}':g='{c['g']}':b='{c['b']}'")
 
 
-def grab_frame(day, P, clip, at, W, H, out, image=None, focus_x=0.5):
+def grab_frame(day, P, clip, at, W, H, out, image=None, focus_x=0.5, focus_y=0.5, zoom=1.0):
     """영상 클립의 한 프레임, 또는 따로 찍은 사진(image)을 9:16으로 잘라 같은 색감으로 보정한다.
-    focus_x: 가로로 잘릴 때 어디를 남길지 (0=왼쪽, 0.5=가운데, 1=오른쪽)."""
+    focus_x/focus_y: 잘릴 때 어디를 남길지 (0=왼쪽·위, 0.5=가운데, 1=오른쪽·아래). zoom: 1.3이면 30% 확대."""
+    zw, zh = int(W * zoom) // 2 * 2, int(H * zoom) // 2 * 2
     src = ["-i", os.path.join(day, image)] if image else ["-ss", str(clip["in"] + at), "-i", os.path.join(day, clip["src"])]
     run(["ffmpeg", "-y", "-v", "error", *src, "-frames:v", "1",
-         "-vf", f"scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,"
-                f"crop={W}:{H}:(iw-{W})*{focus_x}:(ih-{H})/2,{grade_filter(P)},noise=alls=4:allf=u", out])
+         "-vf", f"scale={zw}:{zh}:force_original_aspect_ratio=increase:flags=lanczos,"
+                f"crop={W}:{H}:(iw-{W})*{focus_x}:(ih-{H})*{focus_y},{grade_filter(P)},noise=alls=4:allf=u", out])
     im = Image.open(out).convert("RGBA")
     os.remove(out)
     return im
@@ -357,8 +358,10 @@ def pill(im, cx, y, text, f, fg, bg, padx, pady, radius=0):
 def thumbnail(day, out, P, th, clips, W, H):
     """style: classic(필 박스 카피) | serif(A day in my life) | butter(Work Day 버터옐로) | chunky(출근로그 민트)"""
     k = W / 1080
+    if th.get("grade_preset"):  # 이 썸네일만 다른 프리셋 색감으로 (비교용)
+        P = dict(P, grade=json.load(open(os.path.join(ROOT, "presets", th["grade_preset"] + ".json"), encoding="utf-8"))["grade"])
     im = grab_frame(day, P, clips[th.get("clip", 0)], th.get("at", 0), W, H, out + ".frame.png",
-                    image=th.get("image"), focus_x=th.get("focus_x", 0.5))
+                    image=th.get("image"), focus_x=th.get("focus_x", 0.5), focus_y=th.get("focus_y", 0.5), zoom=th.get("zoom", 1.0))
     style = th.get("style", "classic")
     cream = hex_rgba("#F3F0EA")
 
@@ -407,6 +410,25 @@ def thumbnail(day, out, P, th, clips, W, H):
         for l in wrap(th.get("copy", ""), fm, T["max_text_width"] * k):
             y += centered(im, y, l, fm, hex_rgba(P["caption"]["color_text"]), shadow=(0, 0, 0, 150)) + 10 * k
     im.convert("RGB").save(out, quality=95)
+
+
+def compare_sheet(out_dir, thumbs, W, H):
+    """썸네일 후보를 나란히: 위는 릴스 화면(9:16), 아래는 프로필 피드(가운데 3:4)."""
+    w = 300
+    h9, h34, pad, lab = int(w * H / W), int(w * 4 / 3), 24, 60
+    n = len(thumbs)
+    sheet = Image.new("RGB", (pad + (w + pad) * n, lab + h9 + pad + 36 + h34 + pad), (246, 243, 238))
+    d = ImageDraw.Draw(sheet)
+    f, fs = font("Pretendard-SemiBold.otf", 19), font("Pretendard-Medium.otf", 17)
+    gy = (H - W * 4 // 3) // 2
+    for i, th in enumerate(thumbs):
+        x = pad + i * (w + pad)
+        im = Image.open(os.path.join(out_dir, f"thumb_{i + 1}.jpg"))
+        d.text((x, 18), th.get("name", f"thumb_{i + 1}"), font=f, fill=(40, 34, 30))
+        sheet.paste(im.resize((w, h9), Image.LANCZOS), (x, lab))
+        sheet.paste(im.crop((0, gy, W, H - gy)).resize((w, h34), Image.LANCZOS), (x, lab + h9 + pad + 36))
+    d.text((pad, lab + h9 + pad + 6), "↓ 프로필 피드에서 보이는 모습 (가운데 3:4)", font=fs, fill=(110, 100, 90))
+    sheet.save(os.path.join(out_dir, "thumb_compare.jpg"), quality=92)
 
 
 def title_png(path, lines, P, W, H):
@@ -492,6 +514,10 @@ def main():
     for i, th in enumerate(sb.get("thumbnails", []), 1):
         thumbnail(day, os.path.join(out_dir, f"thumb_{i}.jpg"), P, th, clips, W, H)
         print(f"  ✓ out/thumb_{i}.jpg")
+
+    if len(sb.get("thumbnails", [])) > 1:
+        compare_sheet(out_dir, sb["thumbnails"], W, H)
+        print("  ✓ out/thumb_compare.jpg")
 
     post = sb.get("post")
     if post:
