@@ -12,7 +12,7 @@ description: 업로드한 촬영 클립으로 그날의 오피스 브이로그(�
 1. **준비**: `bash vlog/tools/setup.sh`
 2. **날짜 폴더**: `vlog/days/<YYYY-MM-DD>/raw/`를 만들고 업로드된 클립을 복사한다 (파일명은 순서가 보이게 `01_mirror.mp4`처럼).
 3. **클립 파악**: 각 클립의 길이(ffprobe), 컷 위치(`select='gt(scene,0.12)',showinfo`), contact sheet(`fps=4,scale=180:-1,tile=8x8`)를 만들어 직접 본다. 하나로 이어진 영상이면 컷 위치로 구간을 나눈다.
-4. **storyboard.json 작성**: 사용자의 장면 메모를 따르고, 빈 자막은 PROMPT.md C 규칙으로 채운다. 클립은 1.5~2.0초, 장면에 맞는 sfx를 단다. 썸네일은 얼굴과 옷이 또렷한 프레임 2~3개. 영상이 메모와 다르면(예: 낙엽이 없는 보도) 화면에 맞춰 쓰고 사용자에게 알린다.
+4. **storyboard.json 작성**: 사용자의 장면 메모를 따르고, 빈 자막은 PROMPT.md C 규칙으로 채운다. 클립은 1.5~2.0초, 장면에 맞는 sfx를 단다. 썸네일은 butter 스타일(버터 레몬 "Work Day in my life" + 한글 부제)로, 사용자가 거울 셀카 사진을 따로 주면 `image`로 그 사진을 쓰고 얼굴이 가운데 오게 `focus_x`를 맞춘다. 기본 프리셋은 soft-minimal, 노래 없음. 영상이 메모와 다르면(예: 낙엽이 없는 보도) 화면에 맞춰 쓰고 사용자에게 알린다.
 5. **렌더링**: `python3 vlog/tools/build.py vlog/days/<날짜>`
 6. **확인**: 결과 영상에서 장면마다 한 프레임씩 뽑아 자막 줄바꿈·이모지·가림을 확인하고, 문제가 있으면 고쳐서 다시 빌드한다.
 7. **전달**: `out/vlog.mp4`, `out/thumb_*.jpg`, `out/post.txt` 내용을 SendUserFile로 보내고, 적용한 것과 메모와 달라진 점을 짧게 알린다.

@@ -6,7 +6,8 @@
 vlog/
 ├── PROMPT.md               매일 쓰는 요청 프롬프트 · 스타일 바이블 · 자막 규칙
 ├── presets/
-│   ├── reels-natural.json  레퍼런스 릴스 감성: 선명한 자연색, 박스 없는 작은 명조 자막, 빠른 오프닝 훅 (현재 사용)
+│   ├── soft-minimal.json   최종(현재 사용): 부드러운 베이지 색감 + 박스 없는 작은 명조 자막 + 빠른 오프닝 훅, 노래 없음
+│   ├── reels-natural.json  같은 구성에 선명한 자연색 (레퍼런스 실측값)
 │   └── default.json        처음 버전: 베이지 웜톤, 필 박스 자막, 로파이 음악
 ├── days/
 │   └── 2026-11-12/
@@ -37,7 +38,7 @@ python3 vlog/tools/build.py vlog/days/2026-11-12
 ```jsonc
 {
   "date": "2026-11-12",
-  "preset": "reels-natural",
+  "preset": "soft-minimal",
   "preset_overrides": { "grade": { "saturation": 0.9 } },   // 선택: 그날만 바꾸기
   "intro": {                                                 // 선택: 오프닝 훅 (0.4초 컷 몽타주 + 타이틀)
     "title": ["A day in my life", "10am – 9pm", "Yongin → Gangnam"],
@@ -51,10 +52,10 @@ python3 vlog/tools/build.py vlog/days/2026-11-12
   ],
   "thumbnails": [                                            // style 4종
     { "style": "chunky", "clip": 2, "at": 0.4, "label": "문과 BD", "lines": ["강남", "IT 회사원", "출근로그"], "accent": [1], "feat": "feat 용인에서 출근 🥲" },
-    { "style": "butter", "clip": 0, "at": 0.85, "title": "Work Day\nin my life", "sub": "용인 → 강남 출퇴근 직장인의 하루" },
+    { "style": "butter", "image": "raw/photo_1.jpg", "focus_x": 0.46, "title": "Work Day\nin my life", "sub": "용인 → 강남 출퇴근 직장인의 하루" },  // 기본 (사진 대신 "clip"/"at"도 가능)
     { "style": "serif",  "clip": 2, "at": 0.4, "lines": ["A day in my life", "10am – 9pm", "Yongin → Gangnam"] },
     { "style": "classic", "clip": 2, "at": 0.4, "tag": "SEOUL OFFICE VLOG", "copy": "..." }
-  ],                                                         // 공통: "y"(0~1)로 글자 높이 조절, 카피 안 "\n"으로 줄바꿈
+  ],                                                         // 공통: "y"(0~1) 글자 높이, "\n" 줄바꿈, "image"+"focus_x"(0~1)로 따로 찍은 사진 사용
   "post": { "caption": "...", "hashtags": ["#직장인브이로그"] }
 }
 ```

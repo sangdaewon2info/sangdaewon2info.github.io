@@ -318,9 +318,13 @@ def grade_filter(P):
             f"curves=r='{c['r']}':g='{c['g']}':b='{c['b']}'")
 
 
-def grab_frame(day, P, clip, at, W, H, out):
-    run(["ffmpeg", "-y", "-v", "error", "-ss", str(clip["in"] + at), "-i", os.path.join(day, clip["src"]), "-frames:v", "1",
-         "-vf", f"scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H},{grade_filter(P)},noise=alls=4:allf=u", out])
+def grab_frame(day, P, clip, at, W, H, out, image=None, focus_x=0.5):
+    """영상 클립의 한 프레임, 또는 따로 찍은 사진(image)을 9:16으로 잘라 같은 색감으로 보정한다.
+    focus_x: 가로로 잘릴 때 어디를 남길지 (0=왼쪽, 0.5=가운데, 1=오른쪽)."""
+    src = ["-i", os.path.join(day, image)] if image else ["-ss", str(clip["in"] + at), "-i", os.path.join(day, clip["src"])]
+    run(["ffmpeg", "-y", "-v", "error", *src, "-frames:v", "1",
+         "-vf", f"scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,"
+                f"crop={W}:{H}:(iw-{W})*{focus_x}:(ih-{H})/2,{grade_filter(P)},noise=alls=4:allf=u", out])
     im = Image.open(out).convert("RGBA")
     os.remove(out)
     return im
@@ -353,7 +357,8 @@ def pill(im, cx, y, text, f, fg, bg, padx, pady, radius=0):
 def thumbnail(day, out, P, th, clips, W, H):
     """style: classic(필 박스 카피) | serif(A day in my life) | butter(Work Day 버터옐로) | chunky(출근로그 민트)"""
     k = W / 1080
-    im = grab_frame(day, P, clips[th["clip"]], th.get("at", 0), W, H, out + ".frame.png")
+    im = grab_frame(day, P, clips[th.get("clip", 0)], th.get("at", 0), W, H, out + ".frame.png",
+                    image=th.get("image"), focus_x=th.get("focus_x", 0.5))
     style = th.get("style", "classic")
     cream = hex_rgba("#F3F0EA")
 

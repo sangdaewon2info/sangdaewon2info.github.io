@@ -1,0 +1,70 @@
+{
+  "_comment": "최종 스타일: 부드러운 베이지 웜톤(default 색감) + 박스 없는 작은 명조 자막 + 빠른 오프닝 훅 + 노래 없음. 썸네일은 butter(버터 레몬 Work Day).",
+  "name": "soft-minimal",
+  "output": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "crf": 18,
+    "audio_bitrate": "192k"
+  },
+  "grade": {
+    "contrast": 0.9,
+    "saturation": 0.95,
+    "brightness": 0.012,
+    "curves": {
+      "r": "0/0.07 0.5/0.535 1/0.985",
+      "g": "0/0.065 0.5/0.515 1/0.965",
+      "b": "0/0.06 0.5/0.47 1/0.92"
+    },
+    "grain": 7
+  },
+  "pacing": {
+    "speed": 1.0,
+    "transition": "cut"
+  },
+  "caption": {
+    "style": "minimal",
+    "font_tag": "GowunBatang-Regular.ttf",
+    "font_text": "GowunBatang-Regular.ttf",
+    "size_tag": 24,
+    "size_text": 23,
+    "color_text": "#F3F0EA",
+    "color_tag": "#F3F0EA",
+    "shadow": 0.8,
+    "line_gap": -2,
+    "max_text_width": 520,
+    "y": 0.105,
+    "fade_in": 0
+  },
+  "title": {
+    "font": "GowunBatang-Regular.ttf",
+    "sizes": [
+      33,
+      33,
+      23
+    ],
+    "color": "#F3F0EA",
+    "shadow": 0.7,
+    "line_gap": 0,
+    "y": 0.085
+  },
+  "music": {
+    "mode": "none",
+    "file": null,
+    "bpm": 120,
+    "seed": null,
+    "gain": 1.0,
+    "fade_in": 0.1,
+    "fade_out": 0.6
+  },
+  "thumbnail": {
+    "font_tag": "Pretendard-Medium.otf",
+    "font_text": "Pretendard-Bold.otf",
+    "size_tag": 34,
+    "size_text": 66,
+    "y": 0.66,
+    "max_text_width": 900,
+    "bottom_shade": 150
+  }
+}
