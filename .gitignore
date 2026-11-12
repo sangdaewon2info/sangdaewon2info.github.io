@@ -1,0 +1,6 @@
+# 브이로그 파이프라인: 얼굴이 나오는 원본/결과물과 캐시는 공개 저장소에 올리지 않는다
+vlog/.cache/
+vlog/days/*/raw/
+vlog/days/*/out/
+vlog/refs/
+__pycache__/

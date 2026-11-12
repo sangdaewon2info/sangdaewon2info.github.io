@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-12",
+  "title": "가을 출근 브이로그",
+  "preset": "reels-natural",
+  "intro": {
+    "title": ["A day in my life", "10am – 9pm", "Yongin → Gangnam"],
+    "shots": [
+      { "clip": 0, "at": 0.85, "dur": 0.4 },
+      { "clip": 2, "at": 0.6,  "dur": 0.4 },
+      { "clip": 4, "at": 0.4,  "dur": 0.4 },
+      { "clip": 5, "at": 0.6,  "dur": 0.4 },
+      { "clip": 8, "at": 0.4,  "dur": 0.4 }
+    ]
+  },
+  "clips": [
+    { "src": "raw/source.mp4", "in": 0.15,  "out": 1.7,    "tag": "9:50",  "text": "출근 전 착장 점검", "sfx": [{ "type": "shutter", "at": 0.3 }] },
+    { "src": "raw/source.mp4", "in": 1.8,   "out": 3.3,    "tag": "9:55",  "text": "지각 위기, 뛰는 중", "sfx": [{ "type": "leaves" }] },
+    { "src": "raw/source.mp4", "in": 3.45,  "out": 5.0,    "tag": "10:50", "text": "아슬아슬 세이프" },
+    { "src": "raw/source.mp4", "in": 5.1,   "out": 6.6,    "tag": "10:55", "text": "라운지 직행", "sfx": [{ "type": "footsteps" }] },
+    { "src": "raw/source.mp4", "in": 6.75,  "out": 8.3,    "tag": "10:55", "text": "모닝 단백질", "sfx": [{ "type": "cup", "at": 0.1 }] },
+    { "src": "raw/source.mp4", "in": 8.55,  "out": 10.1,   "tag": "11:20", "text": "회의 전 앞머리 사수" },
+    { "src": "raw/source.mp4", "in": 10.3,  "out": 11.85,  "tag": "12:50", "text": "점심 가는 길" },
+    { "src": "raw/source.mp4", "in": 12.2,  "out": 13.825, "tag": "16:50", "text": "집중 모드", "sfx": [{ "type": "keyboard", "at": 0.05, "dur": 1.5 }] },
+    { "src": "raw/source.mp4", "in": 14.2,  "out": 15.825, "tag": "21:00", "text": "야근 끝, 퇴근", "sfx": [{ "type": "ding", "at": 0.1 }] }
+  ],
+  "thumbnails": [
+    { "style": "chunky", "clip": 2, "at": 0.4, "y": 0.47, "label": "문과 BD", "lines": ["강남", "IT 회사원", "출근로그"], "accent": [1], "feat": "feat 용인에서 출근 🥲" },
+    { "style": "butter", "clip": 0, "at": 0.85, "y": 0.52, "title": "Work Day\nin my life", "sub": "용인 → 강남 출퇴근 직장인의 하루" },
+    { "style": "serif",  "clip": 2, "at": 0.4, "lines": ["A day in my life", "10am – 9pm", "Yongin → Gangnam"] }
+  ],
+  "post": {
+    "caption": "용인에서 강남까지, 아슬아슬 세이프였던 목요일 출근 🍂\n비즈 니트 정보는 댓글로 남겨둘게요 🤎",
+    "hashtags": ["#직장인브이로그", "#출근룩", "#출근로그", "#용인강남출퇴근", "#장거리출퇴근", "#강남직장인", "#adayinmylife", "#vlog"]
+  }
+}
