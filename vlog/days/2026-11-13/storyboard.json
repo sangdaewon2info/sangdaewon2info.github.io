@@ -101,6 +101,27 @@
       ]
     },
     {
+      "src": "raw/extra_2400.mov",
+      "in": 8.5,
+      "out": 10.7,
+      "tag": "2026.11.13 FRI · ROMI",
+      "text": "남는 귤로 볼링 한 판… 스트라이크는 실패 🎳",
+      "sfx": [
+        {
+          "type": "whoosh",
+          "at": 0.45
+        },
+        {
+          "type": "pop",
+          "at": 0.9
+        },
+        {
+          "type": "boing",
+          "at": 1.15
+        }
+      ]
+    },
+    {
       "src": "raw/source.mp4",
       "in": 13.95,
       "out": 15.95,
@@ -245,29 +266,33 @@
   ],
   "thumbnails": [
     {
-      "name": "1안: 귤 두 눈 (기본)",
+      "name": "1안: 거울 셀카",
+      "style": "butter",
+      "image": "raw/photo_mirror.jpg",
+      "zoom": 1.25,
+      "focus_x": 0.475,
+      "focus_y": 0.35,
+      "y": 0.14,
+      "title": "What I Eat\nin a Day",
+      "sub": "귤로 시작해 간식으로 끝나는 직장인 하루"
+    },
+    {
+      "name": "2안: 거울 셀카 (덜 확대)",
+      "style": "butter",
+      "image": "raw/photo_mirror.jpg",
+      "zoom": 1.12,
+      "focus_x": 0.47,
+      "focus_y": 0.3,
+      "y": 0.14,
+      "title": "What I Eat\nin a Day",
+      "sub": "귤로 시작해 간식으로 끝나는 직장인 하루"
+    },
+    {
+      "name": "3안: 귤 두 눈",
       "style": "butter",
       "clip": 0,
       "at": 0.4,
       "y": 0.52,
-      "title": "What I Eat\nin a Day",
-      "sub": "귤로 시작해 간식으로 끝나는 직장인 하루"
-    },
-    {
-      "name": "2안: 차슈 라멘",
-      "style": "butter",
-      "clip": 9,
-      "at": 1.0,
-      "y": 0.52,
-      "title": "What I Eat\nin a Day",
-      "sub": "귤로 시작해 간식으로 끝나는 직장인 하루"
-    },
-    {
-      "name": "3안: 거울 셀카",
-      "style": "butter",
-      "clip": 2,
-      "at": 0.85,
-      "y": 0.6,
       "title": "What I Eat\nin a Day",
       "sub": "귤로 시작해 간식으로 끝나는 직장인 하루"
     }

@@ -367,6 +367,16 @@ def build_audio(path, dur, P, timeline, seed, day_dir):
 
 
 # ───────────────────────── video ─────────────────────────
+TONEMAP = "zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=hable:desat=0,zscale=t=bt709:m=bt709:r=tv,format=yuv420p,"
+
+
+def hdr_prefix(path):
+    """아이폰 HDR(HLG/PQ) 영상이면 SDR로 톤매핑하는 필터를 앞에 붙인다 (안 하면 색이 바래 보임)."""
+    r = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=color_transfer",
+                        "-of", "csv=p=0", path], capture_output=True, text=True)
+    return TONEMAP if r.stdout.strip().strip(",").split(",")[0] in ("arib-std-b67", "smpte2084") else ""
+
+
 def grade_filter(P):
     g = P["grade"]
     c = g["curves"]
@@ -380,7 +390,7 @@ def grab_frame(day, P, clip, at, W, H, out, image=None, focus_x=0.5, focus_y=0.5
     zw, zh = int(W * zoom) // 2 * 2, int(H * zoom) // 2 * 2
     src = ["-i", os.path.join(day, image)] if image else ["-ss", str(clip["in"] + at), "-i", os.path.join(day, clip["src"])]
     run(["ffmpeg", "-y", "-v", "error", *src, "-frames:v", "1",
-         "-vf", f"scale={zw}:{zh}:force_original_aspect_ratio=increase:flags=lanczos,"
+         "-vf", f"{'' if image else hdr_prefix(os.path.join(day, clip['src']))}scale={zw}:{zh}:force_original_aspect_ratio=increase:flags=lanczos,"
                 f"crop={W}:{H}:(iw-{W})*{focus_x}:(ih-{H})*{focus_y},{grade_filter(P)},noise=alls=4:allf=u", out])
     im = Image.open(out).convert("RGBA")
     os.remove(out)
@@ -558,7 +568,7 @@ def main():
         f = []
         for n, c in enumerate(vsegs):
             si = srcs.index(c["src"])
-            f.append(f"[{si}:v]trim=start={c['in']:.3f}:end={c['out']:.3f},setpts=(PTS-STARTPTS)/{c['_speed']},"
+            f.append(f"[{si}:v]{hdr_prefix(os.path.join(day, c['src']))}trim=start={c['in']:.3f}:end={c['out']:.3f},setpts=(PTS-STARTPTS)/{c['_speed']},"
                      f"scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H},fps={FPS},setsar=1[s{n}]")
         f.append("".join(f"[s{n}]" for n in range(len(vsegs))) + f"concat=n={len(vsegs)}:v=1:a=0,"
                  f"{grade_filter(P)},noise=alls={P['grade']['grain']}:allf=t+u,format=yuv420p" + ("[vm]" if thumb else "[v0]"))
