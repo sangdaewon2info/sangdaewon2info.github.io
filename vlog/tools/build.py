@@ -149,8 +149,10 @@ def badge_line(im, cy, text, f, fg, bg, c, k):
     layer = Image.new("RGBA", im.size, (0, 0, 0, 0))
     ImageDraw.Draw(layer).rectangle((bx, cy, bx + bw, cy + bh), fill=bg)
     soft_shadow(im, layer, c, k)
-    t_draw(layer, bx + px, cy + py - y0, text, f, fg, track,
-           stroke=max(1, round(c.get("stroke", 10) / 10 * k * 0.7)), stroke_fill=hex_rgba(c.get("stroke_color", "#000000"), 0.12))
+    txt = Image.new("RGBA", im.size, (0, 0, 0, 0))  # 글자는 따로 그려서 합성 (외곽선이 배지를 덮어쓰지 않게)
+    t_draw(txt, bx + px, cy + py - y0, text, f, fg, track,
+           stroke=max(1, round(c.get("stroke", 10) / 10 * k * 0.5)), stroke_fill=hex_rgba(c.get("stroke_color", "#000000"), 0.12))
+    layer.alpha_composite(txt)
     im.alpha_composite(layer)
     return bh
 
