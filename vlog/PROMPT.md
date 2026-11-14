@@ -54,10 +54,17 @@ No wipes or fades: clean cuts only (micro-whip allowed).
 Arc: leaving home → commute → office arrival → small rituals (breakfast, hair, lunch)
 → focused work → clock-out mirror wave.
 
-[Typography]
-Centered, rounded pill box (black 45%, radius 14px) in the lower third.
-Small time tag in oatmeal beige (#DCD5CB) above the line; main text in cream white
-(#FAF8F5), Pretendard SemiBold, one emoji at the end.
+[Typography & Subtitle Styling Guide]
+- Main Subtitles (Dialogue/Info): Modern clean Sans-Serif (Pretendard, Bareun Dotum, Paperlogy,
+  S-Core Dream). High legibility, neutral aesthetic tone.
+- Sub/Point Subtitles (Emotion/Whisper): Delicate Serif or handwritten font (Nanum Myeongjo,
+  Jeju Myeongjo, Memoment). Used for short side notes in brackets like (소신발언..) or <감성 포인트>.
+- Letter Spacing (Tracking): -2 (tight and refined, eliminating loose spacing).
+- Stroke: Ultra-thin subtle outline (Width 10). Avoid heavy, bulky borders.
+- Shadow: Soft atmospheric drop shadow (Opacity 25%, Blur 15). Keep it subtle for pure legibility.
+- Background Box Style: Minimalist rectangular badge with sharp 90-degree corners (Corner Radius 0).
+  Height and width snug and tailored to text length. Soft aesthetic tones (pale mint, muted beige,
+  warm taupe) rather than heavy rounded black boxes.
 
 [Sound]
 Warm lo-fi indie acoustic bed (guitar arpeggio, soft e-piano, dusty drums, vinyl crackle)
@@ -68,6 +75,19 @@ elevator ding.
 ---
 
 ## C. 자막 작성 규칙
+
+### 자막 디자인 (B의 Typography 가이드 요약, 프리셋 `badge-minimal`)
+
+| 항목 | 기준 |
+|---|---|
+| 본문 자막 (정보·대사) | 깔끔한 산세리프: Pretendard, 바른돋움, Paperlogy, 에스코어 드림 |
+| 포인트 자막 (감정·속삭임) | 섬세한 명조 또는 손글씨: 나눔명조, 제주명조, Memoment. 괄호 속 짧은 한마디에만 `(소신발언..)` `<감성 포인트>` |
+| 자간 | -2 (빈틈 없이 촘촘하게) |
+| 외곽선 | 아주 얇게 (두께 10). 두껍고 무거운 테두리 금지 |
+| 그림자 | 은은하게 (불투명도 25%, 블러 15) |
+| 배경 박스 | 모서리 0인 각진 배지, 글자 길이에 딱 맞는 크기. 페일 민트 · 뮤트 베이지 · 웜 토프 같은 부드러운 톤. 둥근 검정 박스 금지 |
+
+### 문장 쓰는 법
 
 - soft-minimal 형식: 위쪽 가운데 명조 두 줄 (시간은 작게, 라벨은 굵고 크게). `시간`(9:50, 16:50처럼 24시간) + `짧은 라벨`(10자 안팎, 이모지 없이). 예) 7:40 / breakfast, 11:20 / 회의 전 앞머리 사수
 - default 형식: `시간 태그` + `한 줄 문장 + 이모지 1개`, 1.5초 컷은 12자 안팎
