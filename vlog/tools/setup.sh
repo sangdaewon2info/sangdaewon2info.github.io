@@ -23,6 +23,8 @@ get_gf() {  # $1 패키지  $2 폴더/파일  $3 저장 이름
 get_gf gowun-batang 400Regular/GowunBatang_400Regular.ttf GowunBatang-Regular.ttf
 get_gf gowun-batang 700Bold/GowunBatang_700Bold.ttf GowunBatang-Bold.ttf
 get_gf jua 400Regular/Jua_400Regular.ttf Jua-Regular.ttf
+get_gf nanum-myeongjo 400Regular/NanumMyeongjo_400Regular.ttf NanumMyeongjo-Regular.ttf
+get_gf nanum-myeongjo 700Bold/NanumMyeongjo_700Bold.ttf NanumMyeongjo-Bold.ttf
 get_gf nanum-pen-script 400Regular/NanumPenScript_400Regular.ttf NanumPenScript-Regular.ttf
 
 python3 -c "import numpy, PIL" 2>/dev/null || pip install -q numpy pillow

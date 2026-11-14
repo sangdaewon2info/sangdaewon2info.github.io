@@ -101,9 +101,95 @@ def wrap(text, f, maxw):
     return best[1] if best else [text]
 
 
+# ───────────────────────── badge 자막 (각진 배지 + 산세리프, 괄호 포인트는 명조) ─────────────────────────
+NOTE_RE = re.compile(r"^(.*?)\s*([(<〈][^()<>〈〉]*[)>〉])\s*$")
+
+
+def t_width(text, f, track):
+    asc, _ = f.getmetrics()
+    w = 0.0
+    for p, is_e in _runs(text):
+        w += _emoji(p, int(asc * 0.95)).width + 2 if is_e else sum(f.getlength(ch) + track for ch in p)
+    return w - track
+
+
+def t_draw(layer, x, y, text, f, fill, track, stroke=0, stroke_fill=None):
+    """자간(track px)을 적용해 한 글자씩 그린다. 이모지는 컬러로."""
+    asc, _ = f.getmetrics()
+    d = ImageDraw.Draw(layer)
+    for p, is_e in _runs(text):
+        if is_e:
+            em = _emoji(p, int(asc * 0.95))
+            layer.alpha_composite(em, (int(x) + 1, int(y + asc * 0.08)))
+            x += em.width + 2 + track
+            continue
+        for ch in p:
+            d.text((x, y), ch, font=f, fill=fill, stroke_width=stroke, stroke_fill=stroke_fill)
+            x += f.getlength(ch) + track
+
+
+def soft_shadow(im, layer, c, k):
+    """레이어의 모양대로 은은한 그림자 (불투명도 25%, 블러 15)."""
+    a = layer.split()[3].point(lambda v: int(v * c.get("shadow_opacity", 0.25)))
+    sh = Image.new("RGBA", layer.size, (0, 0, 0, 0))
+    sh.putalpha(a)
+    sh = sh.filter(ImageFilter.GaussianBlur(c.get("shadow_blur", 15) * k / 1.5))
+    im.alpha_composite(sh, (0, round(3 * k)))
+
+
+def badge_line(im, cy, text, f, fg, bg, c, k):
+    """가운데 정렬 각진 배지 한 줄. cy=배지 위쪽 y. 배지 높이를 돌려준다."""
+    track = c.get("tracking", -2) * f.size / 100
+    w = t_width(text, f, track)
+    x0, y0, x1, y1 = f.getbbox("가Ag")
+    th = y1 - y0
+    px, py = c.get("pad_x", 0.42) * f.size, c.get("pad_y", 0.26) * f.size
+    bw, bh = w + 2 * px, th + 2 * py
+    bx = (im.width - bw) / 2
+    layer = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    ImageDraw.Draw(layer).rectangle((bx, cy, bx + bw, cy + bh), fill=bg)
+    soft_shadow(im, layer, c, k)
+    t_draw(layer, bx + px, cy + py - y0, text, f, fg, track,
+           stroke=max(1, round(c.get("stroke", 10) / 10 * k * 0.7)), stroke_fill=hex_rgba(c.get("stroke_color", "#000000"), 0.12))
+    im.alpha_composite(layer)
+    return bh
+
+
+def caption_badge(im, tag, text, c, W, H, tone=None):
+    k = W / 720
+    tones = c["tones"]
+    fm = font(c["font_text"], round(c["size_text"] * k))
+    ft = font(c["font_tag"], round(c["size_tag"] * k))
+    fn = font(c["font_note"], round(c["size_note"] * k))
+    main, note = text, ""
+    m = NOTE_RE.match(text.replace("\n", "\x00"))
+    if m:
+        main, note = m.group(1).replace("\x00", "\n"), m.group(2)
+    y = H * c["y"]
+    if tag:
+        t = tones[c.get("tag_tone", "taupe")]
+        y += badge_line(im, y, tag, ft, hex_rgba(t["fg"]), hex_rgba(t["bg"], t.get("alpha", 1)), c, k) + c.get("gap", 6) * k
+    t = tones[tone or c.get("text_tone", "beige")]
+    for line in [l for l in main.split("\n") if l.strip()]:
+        y += badge_line(im, y, line.strip(), fm, hex_rgba(t["fg"]), hex_rgba(t["bg"], t.get("alpha", 1)), c, k) + c.get("gap", 6) * k
+    if note:  # 괄호 속 감성 포인트: 박스 없이 명조로 작게
+        y += 4 * k
+        track = c.get("tracking", -2) * fn.size / 100
+        layer = Image.new("RGBA", im.size, (0, 0, 0, 0))
+        t_draw(layer, (W - t_width(note, fn, track)) / 2, y, note, fn, hex_rgba(c.get("note_color", "#FBF8F3")), track,
+               stroke=max(1, round(k * 0.8)), stroke_fill=hex_rgba("#3B342F", 0.6))
+        soft_shadow(im, layer, dict(c, shadow_opacity=0.7, shadow_blur=10), k)
+        im.alpha_composite(layer)
+
+
 # ───────────────────────── captions ─────────────────────────
-def caption_png(path, tag, text, P, W, H):
+def caption_png(path, tag, text, P, W, H, tone=None):
     c, k = P["caption"], W / 720
+    if c.get("style") == "badge":
+        im = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        caption_badge(im, tag, text, c, W, H, tone)
+        im.save(path)
+        return
     ft, fm = font(c["font_tag"], round(c["size_tag"] * k)), font(c["font_text"], round(c["size_text"] * k))
     im = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     if c.get("style") == "minimal":  # 박스 없이 작은 명조: 위쪽 가운데 "7:40 / breakfast"
@@ -586,7 +672,7 @@ def main():
         for n, (start, c) in enumerate(main_tl):
             if c.get("tag") or c.get("text"):
                 png = os.path.join(tmp, f"cap{n}.png")
-                caption_png(png, c.get("tag", ""), c.get("text", ""), P, W, H)
+                caption_png(png, c.get("tag", ""), c.get("text", ""), P, W, H, c.get("tone"))
                 overlays.append((png, start, start + c["_dur"]))
         for n, (png, start, end) in enumerate(overlays):
             args += ["-loop", "1", "-framerate", str(FPS), "-t", f"{total:.3f}", "-i", png]

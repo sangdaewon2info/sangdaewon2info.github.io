@@ -1,0 +1,95 @@
+{
+  "_comment": "soft-minimal 색감 + 타이포 가이드 자막: Pretendard 각진 배지(모서리 0, 자간 -2, 얇은 외곽선, 그림자 25%·블러 15), 괄호 (포인트)는 나눔명조. 톤: 페일 민트 / 뮤트 베이지 / 웜 토프.",
+  "name": "badge-minimal",
+  "output": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "crf": 18,
+    "audio_bitrate": "192k"
+  },
+  "grade": {
+    "contrast": 0.9,
+    "saturation": 0.95,
+    "brightness": 0.012,
+    "curves": {
+      "r": "0/0.07 0.5/0.535 1/0.985",
+      "g": "0/0.065 0.5/0.515 1/0.965",
+      "b": "0/0.06 0.5/0.47 1/0.92"
+    },
+    "grain": 7
+  },
+  "pacing": {
+    "speed": 1.0,
+    "transition": "cut"
+  },
+  "caption": {
+    "style": "badge",
+    "font_text": "Pretendard-SemiBold.otf",
+    "font_tag": "Pretendard-Medium.otf",
+    "font_note": "NanumMyeongjo-Bold.ttf",
+    "size_text": 30,
+    "size_tag": 17,
+    "size_note": 24,
+    "tracking": -2,
+    "stroke": 10,
+    "stroke_color": "#3B342F",
+    "shadow_opacity": 0.25,
+    "shadow_blur": 15,
+    "pad_x": 0.42,
+    "pad_y": 0.26,
+    "gap": 5,
+    "y": 0.655,
+    "fade_in": 0,
+    "tag_tone": "taupe",
+    "text_tone": "beige",
+    "note_color": "#FBF8F3",
+    "tones": {
+      "beige": {
+        "bg": "#EFE7DB",
+        "fg": "#3B342F",
+        "alpha": 0.94
+      },
+      "mint": {
+        "bg": "#D9EDE3",
+        "fg": "#2F3B36",
+        "alpha": 0.94
+      },
+      "taupe": {
+        "bg": "#A69584",
+        "fg": "#FBF8F3",
+        "alpha": 0.92
+      }
+    }
+  },
+  "title": {
+    "font": "GowunBatang-Regular.ttf",
+    "sizes": [
+      42,
+      42,
+      30
+    ],
+    "color": "#F3F0EA",
+    "shadow": 0.8,
+    "line_gap": 2,
+    "y": 0.085
+  },
+  "music": {
+    "mode": "none",
+    "file": null,
+    "bpm": 120,
+    "seed": null,
+    "gain": 1.0,
+    "fade_in": 0.1,
+    "fade_out": 0.6
+  },
+  "thumbnail": {
+    "font_tag": "Pretendard-Medium.otf",
+    "font_text": "Pretendard-Bold.otf",
+    "size_tag": 34,
+    "size_text": 66,
+    "y": 0.66,
+    "max_text_width": 900,
+    "bottom_shade": 150
+  }
+}
