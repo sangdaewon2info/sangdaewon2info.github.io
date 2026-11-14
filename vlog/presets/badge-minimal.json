@@ -1,5 +1,5 @@
 {
-  "_comment": "soft-minimal 색감 + 타이포 가이드 자막: Pretendard 각진 배지(모서리 0, 자간 -2, 얇은 외곽선, 그림자 25%·블러 15), 괄호 (포인트)는 나눔명조. 톤: 페일 민트 / 뮤트 베이지 / 웜 토프.",
+  "_comment": "soft-minimal 색감 + 타이포 가이드 자막: Pretendard Regular(볼드 금지) 각진 배지(모서리 0, 자간 -2, 얇은 외곽선, 그림자 25%·블러 15), 괄호 (포인트)는 나눔명조. 톤: 페일 민트 / 뮤트 베이지 / 웜 토프.",
   "name": "badge-minimal",
   "output": {
     "width": 1080,
@@ -25,8 +25,8 @@
   },
   "caption": {
     "style": "badge",
-    "font_text": "Pretendard-SemiBold.otf",
-    "font_tag": "Pretendard-Medium.otf",
+    "font_text": "Pretendard-Regular.otf",
+    "font_tag": "Pretendard-Regular.otf",
     "font_note": "NanumMyeongjo-Bold.ttf",
     "size_text": 30,
     "size_tag": 17,

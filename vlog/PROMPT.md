@@ -57,6 +57,8 @@ Arc: leaving home → commute → office arrival → small rituals (breakfast, h
 [Typography & Subtitle Styling Guide]
 - Main Subtitles (Dialogue/Info): Modern clean Sans-Serif (Pretendard, Bareun Dotum, Paperlogy,
   S-Core Dream). High legibility, neutral aesthetic tone.
+  Weight: Regular (no bold) whenever the text sits on a background badge; the badge already
+  carries enough contrast, and bold text on a box looks heavy.
 - Sub/Point Subtitles (Emotion/Whisper): Delicate Serif or handwritten font (Nanum Myeongjo,
   Jeju Myeongjo, Memoment). Used for short side notes in brackets like (소신발언..) or <감성 포인트>.
 - Letter Spacing (Tracking): -2 (tight and refined, eliminating loose spacing).
@@ -81,6 +83,7 @@ elevator ding.
 | 항목 | 기준 |
 |---|---|
 | 본문 자막 (정보·대사) | 깔끔한 산세리프: Pretendard, 바른돋움, Paperlogy, 에스코어 드림 |
+| 굵기 | 배지 위 글씨는 **Regular (볼드 금지)**. 배지만으로 충분히 읽히고, 박스에 볼드까지 쓰면 무거워 보임 |
 | 포인트 자막 (감정·속삭임) | 섬세한 명조 또는 손글씨: 나눔명조, 제주명조, Memoment. 괄호 속 짧은 한마디에만 `(소신발언..)` `<감성 포인트>` |
 | 자간 | -2 (빈틈 없이 촘촘하게) |
 | 외곽선 | 아주 얇게 (두께 10). 두껍고 무거운 테두리 금지 |

@@ -5,10 +5,10 @@ VLOG="$(cd "$(dirname "$0")/.." && pwd)"
 FONTS="$VLOG/.cache/fonts"
 mkdir -p "$FONTS"
 
-if [ ! -f "$FONTS/Pretendard-SemiBold.otf" ]; then
+if [ ! -f "$FONTS/Pretendard-Regular.otf" ]; then
   tmp="$(mktemp -d)"
   (cd "$tmp" && npm pack --silent pretendard@1.3.9 >/dev/null && tar xzf pretendard-1.3.9.tgz)
-  cp "$tmp"/package/dist/public/static/Pretendard-{Medium,SemiBold,Bold,ExtraBold}.otf "$FONTS/"
+  cp "$tmp"/package/dist/public/static/Pretendard-{Regular,Medium,SemiBold,Bold,ExtraBold}.otf "$FONTS/"
   rm -rf "$tmp"
 fi
 
