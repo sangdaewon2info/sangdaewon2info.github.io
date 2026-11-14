@@ -6,7 +6,8 @@
 vlog/
 ├── PROMPT.md               매일 쓰는 요청 프롬프트 · 스타일 바이블 · 자막 규칙
 ├── presets/
-│   ├── badge-minimal.json  soft-minimal 색감 + 타이포 가이드 자막(Pretendard 각진 배지, 괄호 포인트는 나눔명조)
+│   ├── clean-minimal.json  soft-minimal 색감 + 타이포 가이드 자막(박스 없음, Pretendard Regular, 괄호 포인트는 나눔명조)
+│   ├── badge-minimal.json  같은 자막을 각진 배지에 넣은 버전 (안 씀)
 │   ├── soft-minimal.json   최종(11/12 사용): 부드러운 베이지 색감 + 박스 없는 작은 명조 자막 + 빠른 오프닝 훅, 노래 없음
 │   ├── reels-natural.json  같은 구성에 선명한 자연색 (레퍼런스 실측값)
 │   └── default.json        처음 버전: 베이지 웜톤, 필 박스 자막, 로파이 음악

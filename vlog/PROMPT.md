@@ -57,16 +57,16 @@ Arc: leaving home → commute → office arrival → small rituals (breakfast, h
 [Typography & Subtitle Styling Guide]
 - Main Subtitles (Dialogue/Info): Modern clean Sans-Serif (Pretendard, Bareun Dotum, Paperlogy,
   S-Core Dream). High legibility, neutral aesthetic tone.
-  Weight: Regular (no bold) whenever the text sits on a background badge; the badge already
-  carries enough contrast, and bold text on a box looks heavy.
+  Weight: Regular (no bold). Thin, light letterforms read as more refined.
 - Sub/Point Subtitles (Emotion/Whisper): Delicate Serif or handwritten font (Nanum Myeongjo,
   Jeju Myeongjo, Memoment). Used for short side notes in brackets like (소신발언..) or <감성 포인트>.
 - Letter Spacing (Tracking): -2 (tight and refined, eliminating loose spacing).
 - Stroke: Ultra-thin subtle outline (Width 10). Avoid heavy, bulky borders.
 - Shadow: Soft atmospheric drop shadow (Opacity 25%, Blur 15). Keep it subtle for pure legibility.
-- Background Box Style: Minimalist rectangular badge with sharp 90-degree corners (Corner Radius 0).
-  Height and width snug and tailored to text length. Soft aesthetic tones (pale mint, muted beige,
-  warm taupe) rather than heavy rounded black boxes.
+- Background Box: None. No badge, pill or box behind the text (boxes look dated); text sits
+  directly on the footage in cream white. Legibility comes only from the ultra-thin stroke and the
+  soft shadow. On very bright footage (white desk, sky), raise the shadow to 40-50% or move the
+  line over a darker part of the frame.
 
 [Sound]
 Warm lo-fi indie acoustic bed (guitar arpeggio, soft e-piano, dusty drums, vinyl crackle)
@@ -78,17 +78,17 @@ elevator ding.
 
 ## C. 자막 작성 규칙
 
-### 자막 디자인 (B의 Typography 가이드 요약, 프리셋 `badge-minimal`)
+### 자막 디자인 (B의 Typography 가이드 요약, 프리셋 `clean-minimal`)
 
 | 항목 | 기준 |
 |---|---|
 | 본문 자막 (정보·대사) | 깔끔한 산세리프: Pretendard, 바른돋움, Paperlogy, 에스코어 드림 |
-| 굵기 | 배지 위 글씨는 **Regular (볼드 금지)**. 배지만으로 충분히 읽히고, 박스에 볼드까지 쓰면 무거워 보임 |
+| 굵기 | **Regular (볼드 금지)**. 얇고 가벼운 글씨가 더 세련돼 보임 |
 | 포인트 자막 (감정·속삭임) | 섬세한 명조 또는 손글씨: 나눔명조, 제주명조, Memoment. 괄호 속 짧은 한마디에만 `(소신발언..)` `<감성 포인트>` |
 | 자간 | -2 (빈틈 없이 촘촘하게) |
 | 외곽선 | 아주 얇게 (두께 10). 두껍고 무거운 테두리 금지 |
 | 그림자 | 은은하게 (불투명도 25%, 블러 15) |
-| 배경 박스 | 모서리 0인 각진 배지, 글자 길이에 딱 맞는 크기. 페일 민트 · 뮤트 베이지 · 웜 토프 같은 부드러운 톤. 둥근 검정 박스 금지 |
+| 배경 박스 | **없음**. 배지 · 필 · 박스 모두 쓰지 않음 (촌스러워 보임). 크림 화이트 글씨를 영상 위에 바로 올리고, 얇은 외곽선과 그림자로만 가독성 확보. 흰 책상처럼 아주 밝은 화면에서는 그림자를 40~50%로 올리거나 자막을 어두운 쪽으로 옮김 |
 
 ### 문장 쓰는 법
 

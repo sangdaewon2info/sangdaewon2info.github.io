@@ -147,13 +147,19 @@ def badge_line(im, cy, text, f, fg, bg, c, k):
     bw, bh = w + 2 * px, th + 2 * py
     bx = (im.width - bw) / 2
     layer = Image.new("RGBA", im.size, (0, 0, 0, 0))
-    ImageDraw.Draw(layer).rectangle((bx, cy, bx + bw, cy + bh), fill=bg)
-    soft_shadow(im, layer, c, k)
+    boxed = c.get("box", True)
+    if boxed:
+        ImageDraw.Draw(layer).rectangle((bx, cy, bx + bw, cy + bh), fill=bg)
+        soft_shadow(im, layer, c, k)
     txt = Image.new("RGBA", im.size, (0, 0, 0, 0))  # 글자는 따로 그려서 합성 (외곽선이 배지를 덮어쓰지 않게)
     t_draw(txt, bx + px, cy + py - y0, text, f, fg, track,
-           stroke=max(1, round(c.get("stroke", 10) / 10 * k * 0.5)), stroke_fill=hex_rgba(c.get("stroke_color", "#000000"), 0.12))
+           stroke=max(1, round(c.get("stroke", 10) / 10 * k * (0.5 if boxed else 0.8))),
+           stroke_fill=hex_rgba(c.get("stroke_color", "#000000"), c.get("stroke_opacity", 0.12 if boxed else 0.35)))
+    if not boxed:  # 박스가 없으면 글자 모양대로 그림자
+        soft_shadow(im, txt, c, k)
     layer.alpha_composite(txt)
     im.alpha_composite(layer)
+    return bh if boxed else th + c.get("line_gap", 0.18) * f.size
     return bh
 
 
